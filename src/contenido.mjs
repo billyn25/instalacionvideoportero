@@ -54,3 +54,28 @@ export const antenas = {
  '20017':'Si hay pérdidas de señal después de lluvia o viento, revisamos sujeción, conectores y cableado exterior.',
  '20032':'Comprobamos la antena y la señal en el interior cuando faltan canales o aparece pixelación en varias tomas.',
 };
+
+Object.assign(fichas, {
+ '31201':['Pamplona / Iruña','Comprobar la avería antes de cambiar el telefonillo','Si solo falla tu piso, revisamos si el terminal recibe la llamada y responde al abrepuertas. Si falla todo el portal, la comprobación empieza por la alimentación y la placa común.'],
+ '31232':['Tudela','Videoportero para una puerta exterior','Comprobamos el encuadre de la cámara y el recorrido del cable hasta la vivienda. Si quieres recibir avisos en el móvil, revisamos dónde tendrá conexión el equipo.'],
+ '31086':['Valle de Egüés / Eguesibar','Control de acceso en portales con varias entradas','Identificamos cada puerta y su cerradero antes de programar la apertura. Así se puede comprobar desde qué monitor o lector debe abrirse cada acceso.'],
+ '31060':['Burlada / Burlata','El telefonillo llama pero falla el audio','Probamos el sonido en ambos sentidos desde varias viviendas. Si el fallo es general, medimos en la placa antes de cambiar terminales interiores.'],
+ '31901':['Barañáin / Barañain','Sustituir un monitor sin cambiar todo el sistema','Identificamos el modelo, el tipo de línea y la configuración del terminal antes de comprobar qué monitor puede funcionar con la placa existente.'],
+ '31907':['Zizur Mayor / Zizur Nagusia','Un lector para vecinos y usuarios autorizados','Revisamos si se puede conservar la cerradura y cómo se gestionará la retirada de credenciales perdidas. También comprobamos la apertura desde las viviendas.'],
+ '31097':['Estella-Lizarra','Renovar una placa con pulsadores averiados','Comprobamos si el fallo se limita a la botonera y si hay recambio. Para renovar la placa completa medimos el hueco y verificamos cuántas llamadas se necesitan.'],
+ '31227':['Tafalla','Portero automático que no libera la puerta','Si se oye el impulso pero la puerta no abre, comprobamos si el cerradero está desalineado o si la tensión cae al accionar la apertura.'],
+ '31050':['Baztan','Cámara para una entrada separada de la vivienda','Para valorar el montaje, indica el núcleo y la distancia desde la puerta hasta la casa. Comprobamos la canalización y la red si se quiere recibir la llamada en el móvil.'],
+ '31010':['Altsasu / Alsasua','El timbre se oye en unas viviendas y en otras no','Identificamos qué terminales están afectados y si comparten línea. Si el problema apareció tras sustituir un telefonillo, comprobamos sus conexiones y configuración.'],
+ '31216':['Sangüesa / Zangoza','Pasar de portero de voz a videoportero','Revisamos el cableado y el punto de montaje antes de presupuestar el cambio. Si hay más de una entrada, definimos cuál se puede abrir desde cada terminal.'],
+ '40194':['Segovia','Avería general en un portal de vecinos','Conviene indicar si falla la llamada, la imagen o el abrepuertas y cuántos pisos lo notan. Esa comparación ayuda a decidir si revisar placa, fuente o ramales.'],
+ '40076':['El Espinar','Avisos en El Espinar y sus núcleos','Al pedir la visita, indica el núcleo y si se trata de un portal o una vivienda con cancela. La distancia entre la placa y el monitor condiciona el montaje.'],
+ '40063':['Cuéllar','Apertura desde un teclado o un llavero','Comprobamos cómo se alimenta la cerradura y si el lector debe integrarse en la placa. Definimos quién se encargará de dar de alta o retirar accesos.'],
+ '40155':['Palazuelos de Eresma','Videoportero para una puerta con poca iluminación','Revisamos la posición de la placa, los reflejos y la luz disponible. Después comprobamos cómo se ve la entrada desde el monitor.'],
+ '40181':['Real Sitio de San Ildefonso','Conservar el cable al renovar un telefonillo','Identificamos el sistema y medimos el estado de la línea. La compatibilidad del equipo determina qué cableado y terminales pueden aprovecharse.'],
+ '40112':['La Lastrilla','La cámara funciona pero el portal no abre','Probamos la salida de apertura y la alimentación del cerradero. Si hay dos puertas, comprobamos por separado qué ocurre al accionar cada una.'],
+ '40040':['Cantalejo','Revisar una placa que falla tras la lluvia','Inspeccionamos el paso de cable y las conexiones exteriores. Si la incidencia afecta a todos los pulsadores, comprobamos primero la placa y su alimentación.'],
+ '40170':['Riaza','Controlar una entrada cuando estás fuera','Para recibir llamadas en el móvil, revisamos si el sistema requiere red en la placa o en el monitor. También confirmamos qué cerradura se quiere abrir.'],
+ '40057':['Coca','Telefonillo con ruido o conversación entrecortada','Probamos el audio con la puerta cerrada y desde distintos terminales si es una comunidad. Eso ayuda a localizar interferencias, conexiones flojas o un fallo del equipo.'],
+ '40195':['Sepúlveda','Preparar una visita para una casa de pueblo','Indica si ya tienes telefonillo, cuántas puertas quieres controlar y si hay cable hasta la entrada. Podemos valorar el montaje con esas referencias.'],
+ '40032':['Boceguillas','Reparar la apertura o instalar un acceso con cámara','Si ya hay un equipo, dinos si falla la llamada, la imagen o la apertura. Para un montaje nuevo comprobamos el paso de cable y el tipo de cerradura de la puerta.'],
+});

@@ -16,7 +16,11 @@ const slug = name => name.toLowerCase().normalize('NFD').replace(/\p{Mark}/gu,''
 const areas = {
  '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
  '20': {name:'Gipuzkoa', slug:'gipuzkoa', intro:'Atendemos instalaciones y reparaciones en Donostia, el Bidasoa y los municipios del interior. Podemos revisar un sistema existente o preparar una renovación con cámara, móvil y llaveros.'},
+ '31': {name:'Navarra', slug:'navarra', intro:'Servicio de porteros y videoporteros en Pamplona y su comarca, Tudela, Tierra Estella, la Zona Media y otros municipios. Revisamos desde telefonillos individuales hasta accesos comunitarios con cámara o llavero.'},
+ '40': {name:'Segovia', slug:'segovia', intro:'Atendemos Segovia capital, El Espinar, Cuéllar, Riaza, Boceguillas y otros municipios. Reparamos instalaciones existentes y valoramos el cableado y la apertura antes de instalar un equipo nuevo.'},
 };
+const areaNames = Object.values(areas).map(area => area.name);
+const coverage = new Intl.ListFormat('es').format(areaNames);
 const towns = read('data/municipios.json').map(([code, official, population, lat, lon]) => {
  const entry = fichas[code];
  const name = entry?.[0] || official.replaceAll('/', ' / ');
@@ -65,7 +69,7 @@ const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + l
 
 function page(path, title, description, body, {place='',trail=[],index=true}={}) {
  const canonical = origin ? origin + path : '';
- const schema = {'@context':'https://schema.org','@type':'Organization',name:brand,telephone:phone,areaServed:['Bizkaia','Gipuzkoa']};
+ const schema = {'@context':'https://schema.org','@type':'Organization',name:brand,telephone:phone,areaServed:areaNames};
  if (origin) schema.url = origin;
  const crumb = trail.length ? '<nav class="wrap crumb" aria-label="Ruta">' + link('/','Inicio') + trail.map(([url,label]) => ' <span aria-hidden="true">›</span> ' + (url ? link(url,label) : esc(label))).join('') + '</nav>' : '';
  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -98,18 +102,18 @@ const destinationSection = band('Otros destinos y desplazamientos',
 const featuredJobs = serviceTypes.flatMap(tipo => jobs.filter(job => job.tipo === tipo).slice(0,1));
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p>' + contact(place) + '</section></div>';
 
-page('/','Instalación y reparación de videoporteros en Bizkaia y Gipuzkoa','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero. Reparación e instalación en Bilbao, Gipuzkoa y Bizkaia. Tel. '+phone+'.',
+page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
  hero('Porteros automáticos y control de acceso','Que vuelva a sonar tu portero','Instalamos, renovamos y reparamos telefonillos y videoporteros para viviendas y comunidades. Si quieres abrir desde el móvil o con llavero, revisamos qué encaja en tu portal.','',true)
  + band('Instalación, reparación y control de acceso',serviceCards+'<p>'+link('/servicios/#antenas-locales','Ver municipios con servicio de antenas →')+'</p>')
- + band('Servicio en Bizkaia y Gipuzkoa',areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
+ + band('Servicio en '+coverage,areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
  + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
  + callout());
 page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+antennaLinks,'antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
  page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
-page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en Bizkaia o Gipuzkoa y consulta la cobertura de reparación e instalación.',
- hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en Bizkaia y Gipuzkoa.')
+page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en '+coverage+' y consulta la cobertura de reparación e instalación.',
+ hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en '+coverage+'.')
  + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
  + Object.values(areas).map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
 for (const area of Object.values(areas)) {

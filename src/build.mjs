@@ -100,17 +100,31 @@ const destinationSection = band('Otros destinos y desplazamientos',
   return localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs) : '';
  }).join(''),'desplazamientos');
 const featuredJobs = serviceTypes.flatMap(tipo => jobs.filter(job => job.tipo === tipo).slice(0,1));
+const serviceImages = read('data/fotos-servicio.json');
+const servicePhotos = names => '<div class="cards service-photos">' + names.map(name => {
+ const {alt,ancho,alto} = serviceImages[name];
+ return '<figure><img loading="lazy" decoding="async" src="/assets/fotos-servicio/'+name+'.webp" width="'+ancho+
+  '" height="'+alto+'" alt="'+esc(alt)+'"><figcaption>'+esc(alt)+'</figcaption></figure>';
+}).join('') + '</div>';
+const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
+ Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
+const serviceExamples = {
+ reparacion: ['cableado-de-placa','telefonillo-interior'],
+ instalacion: ['placa-comunitaria','monitor-y-auricular'],
+ llaveros: ['teclado-de-acceso'],
+};
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p>' + contact(place) + '</section></div>';
 
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
  hero('Porteros automáticos y control de acceso','Que vuelva a sonar tu portero','Instalamos, renovamos y reparamos telefonillos y videoporteros para viviendas y comunidades. Si quieres abrir desde el móvil o con llavero, revisamos qué encaja en tu portal.','',true)
  + band('Instalación, reparación y control de acceso',serviceCards+'<p>'+link('/servicios/#antenas-locales','Ver municipios con servicio de antenas →')+'</p>')
+ + band('Equipos e instalaciones',servicePhotos(['placa-comunitaria','monitor-y-auricular','tdt-y-parabolicas'])+'<p>'+link('/trabajos/','Ver la galería de instalaciones →')+'</p>')
  + band('Servicio en '+coverage,areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
  + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
  + callout());
-page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+antennaLinks,'antenas-locales')+callout());
+page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+antennaLinks,'antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
- page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
 page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en '+coverage+' y consulta la cobertura de reparación e instalación.',
  hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en '+coverage+'.')
@@ -138,14 +152,15 @@ for (const area of Object.values(areas)) {
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
  }
 }
-page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de trabajos documentados de Videoporteros Fuentes.',
- hero('Galería','Trabajos de porteros y videoporteros',jobs.length ? 'Instalaciones y reparaciones documentadas con fotos y detalles de la intervención.' : 'Si necesitas renovar un portal o reparar un telefonillo, envíanos una foto del equipo para orientarte.')
- +(jobs.length ? serviceTypes.map(tipo => {
+page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
+ hero('Galería','Fotos de porteros, videoporteros y antenas','Placas exteriores, equipos interiores y detalles del cableado y de las instalaciones de televisión.')
+ + serviceTypes.map(tipo => {
    const selection = jobs.filter(job => job.tipo === tipo);
    const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()];
-   return selection.length ? band(tipo === 'antenas' ? 'Trabajos de antenas' : 'Trabajos de porteros y videoporteros',
-     places.map(place => '<div id="'+jobAnchor({tipo,municipio:place})+'"><h3>'+esc(place)+'</h3>'+jobCards(selection.filter(job => slug(job.municipio) === slug(place)))+'</div>').join('')) : '';
- }).join('') : band('Qué fotos ayudan a identificar el sistema','<p class="readable">Para valorar el trabajo suele bastar una foto de la placa exterior y otra del telefonillo o monitor. Si la puerta falla al abrir, cuéntanos si les ocurre también a otros vecinos.</p>')),{index:jobs.length>0});
+   const heading = tipo === 'antenas' ? 'Fotos de antenas' : 'Fotos de porteros y videoporteros';
+   return band(heading,servicePhotos(imageSets[tipo])
+     +places.map(place => '<div id="'+jobAnchor({tipo,municipio:place})+'"><h3>'+esc(place)+'</h3>'+jobCards(selection.filter(job => slug(job.municipio) === slug(place)))+'</div>').join(''));
+ }).join(''));
 page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><p>Videoporteros Fuentes. Titular: Roberto Fuentes González.</p><p>Contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable: Roberto Fuentes González. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';

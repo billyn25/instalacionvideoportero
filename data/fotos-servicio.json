@@ -1,0 +1,74 @@
+{
+  "placa-comunitaria": {
+    "servicio": "porteros",
+    "alt": "Placa de portero comunitario con pulsadores por vivienda",
+    "ancho": 690,
+    "alto": 920
+  },
+  "placa-vivienda": {
+    "servicio": "porteros",
+    "alt": "Placa de portero automático de una llamada",
+    "ancho": 517,
+    "alto": 920
+  },
+  "placa-dos-llamadas": {
+    "servicio": "porteros",
+    "alt": "Placa exterior con dos pulsadores",
+    "ancho": 517,
+    "alto": 920
+  },
+  "placa-cuatro-llamadas": {
+    "servicio": "porteros",
+    "alt": "Placa de portero con cuatro pulsadores",
+    "ancho": 693,
+    "alto": 920
+  },
+  "placa-en-revision": {
+    "servicio": "porteros",
+    "alt": "Módulo de portero exterior con la cubierta retirada",
+    "ancho": 690,
+    "alto": 920
+  },
+  "monitor-y-auricular": {
+    "servicio": "porteros",
+    "alt": "Monitor interior de videoportero con auricular",
+    "ancho": 690,
+    "alto": 920
+  },
+  "cableado-de-placa": {
+    "servicio": "porteros",
+    "alt": "Cableado y conexiones en el interior de una placa",
+    "ancho": 690,
+    "alto": 920
+  },
+  "telefonillo-interior": {
+    "servicio": "porteros",
+    "alt": "Telefonillo interior con auricular y cable en espiral",
+    "ancho": 414,
+    "alto": 920
+  },
+  "teclado-de-acceso": {
+    "servicio": "porteros",
+    "alt": "Teclado numérico junto a la placa del portero",
+    "ancho": 693,
+    "alto": 920
+  },
+  "antena-tdt-en-mastil": {
+    "servicio": "antenas",
+    "alt": "Antena de televisión terrestre instalada sobre un mástil",
+    "ancho": 690,
+    "alto": 920
+  },
+  "cabecera-television": {
+    "servicio": "antenas",
+    "alt": "Cabecera de televisión con módulos y conexiones coaxiales",
+    "ancho": 720,
+    "alto": 540
+  },
+  "tdt-y-parabolicas": {
+    "servicio": "antenas",
+    "alt": "Antena terrestre y dos parabólicas junto a la cubierta",
+    "ancho": 690,
+    "alto": 920
+  }
+}

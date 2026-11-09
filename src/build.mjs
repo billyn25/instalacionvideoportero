@@ -72,7 +72,7 @@ const list = (items, className = 'places') => '<ul class="' + className + '">' +
 const hero = (label,title,description,place='') => '<section class="hero"><div class="wrap hero-inner"><p class="eyebrow">'
  + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place) + '</div></section>';
 const band = (title,body,id='') => '<section class="wrap section"' + (id ? ' id="'+esc(id)+'"' : '') + '><h2>' + esc(title) + '</h2>' + body + '</section>';
-const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + link(t.path+'#antenas','Antenas en '+t.name) + '</li>'));
+const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + link(t.path+'#antenas','Antenista en '+t.name) + '</li>'));
 
 function page(path, title, description, body, {place='',trail=[],index=true}={}) {
  const indexable = index && !preview;
@@ -95,7 +95,7 @@ ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">
 <header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/contacto/','Contacto')}</nav></div></header>
 <main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">
 <div>${logo}<p>Instalación y reparación de porteros automáticos, videoporteros y antenas.</p>${link('/contacto/','Pedir presupuesto →')}</div>
-<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/antenas/','Reparar o instalar una antena')}${link('/trabajos/','Ver trabajos y fotos')}</nav>
+<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}</nav>
 <nav aria-label="Zonas del pie"><h2>Zonas de servicio</h2>${areaList.map(area=>link('/'+area.slug+'/',area.name)).join('')}${link('/zonas/','Buscar municipio →')}</nav>
 </div><div class="wrap footer-bottom"><span>Videoporteros Fuentes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
 <div class="mobile" aria-label="Contacto rápido"><a href="${tel}">Llamar</a><a href="${esc(wa(place))}">WhatsApp</a></div></body></html>`;
@@ -162,19 +162,19 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
  homeHero
  + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards)+'</div>'
- + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>También instalamos y reparamos antenas</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/antenas/','Ver servicio de antenas ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
+ + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>Servicio de antenista</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/antenas/','Ver servicio de antenista ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
  + band('Servicio en '+coverage,areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
  + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
  + callout());
-page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+'<p>'+link('/servicios/antenas/','Ver instalación y reparación de antenas →')+'</p>','antenas-locales')+callout());
+page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenista en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+'<p>'+link('/servicios/antenas/','Ver servicio de antenista →')+'</p>','antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
  page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
-page('/servicios/antenas/','Instalación y reparación de antenas TDT y parabólicas','Reparación de antenas, ajustes de TDT y satélite y revisión de señal para viviendas y comunidades. Tel. '+phone+'.',
- hero('Televisión y señal','Instalación y reparación de antenas','Atendemos pérdida de canales, imagen pixelada e instalaciones nuevas de TDT o parabólica.')
+page('/servicios/antenas/','Antenista | Instalación y reparación de antenas','Antenista para instalación y reparación de antenas TDT y parabólicas. Revisamos fallos de señal en viviendas y comunidades. Tel. '+phone+'.',
+ hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos pérdida de canales, imagen pixelada e instalaciones nuevas de TDT o parabólica.')
  +band('Qué comprobamos cuando falla la señal','<p class="readable">Si falla una sola toma, comprobamos el conector y el cable de esa habitación. Cuando afecta a varias viviendas, comparamos niveles en la cabecera y en las tomas para acotar el fallo.</p>'+servicePhotos(imageSets.antenas))
- +band('Municipios con servicio de antenas',antennaLinks)
- +callout(),{trail:[['/servicios/','Servicios'],['','Antenas']]});
+ +band('Municipios con servicio de antenista',antennaLinks)
+ +callout(),{trail:[['/servicios/','Servicios'],['','Antenista']]});
 page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o reparación de porteros, videoporteros y antenas. Tel. '+phone+'.',
  '<section class="wrap section"><p class="eyebrow">Contacto</p><h1>Cuéntanos qué necesitas</h1><p>Indica dónde está la instalación y qué quieres reparar o montar. Revisarás el mensaje antes de enviarlo en WhatsApp.</p>'
  +'<form class="contact-form" data-contact-form action="'+esc(wa())+'"><div><label for="consulta-municipio">Municipio</label><input id="consulta-municipio" required maxlength="90" autocomplete="address-level2"></div>'
@@ -200,8 +200,8 @@ for (const area of areaList) {
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,'<p class="readable">'+esc(advice)+'</p>')
    +band('Reparación e instalación',list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
-   +(antenas[town.code] ? band('Instalación y reparación de antenas en '+town.name,
-     '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar servicio de antenas')+'</p>','antenas') : '')
+   +(antenas[town.code] ? band('Antenista en '+town.name,
+     '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>','antenas') : '')
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Trabajos en '+town.name,referencePhotos()) : '')
    +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>'))) : '')

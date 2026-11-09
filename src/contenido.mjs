@@ -79,3 +79,46 @@ Object.assign(fichas, {
  '40195':['Sepúlveda','Preparar una visita para una casa de pueblo','Indica si ya tienes telefonillo, cuántas puertas quieres controlar y si hay cable hasta la entrada. Podemos valorar el montaje con esas referencias.'],
  '40032':['Boceguillas','Reparar la apertura o instalar un acceso con cámara','Si ya hay un equipo, dinos si falla la llamada, la imagen o la apertura. Para un montaje nuevo comprobamos el paso de cable y el tipo de cerradura de la puerta.'],
 });
+
+Object.assign(fichas, {
+ '01059':['Vitoria-Gasteiz','El fallo afecta a varios pisos','Compara si la placa llama a viviendas de distintas plantas. Si todos han perdido la llamada o el audio a la vez, revisamos primero el equipo compartido y su alimentación.'],
+ '01036':['Llodio / Laudio','Separar la avería de la puerta y la del telefonillo','Si el telefonillo suena y el audio funciona, probamos el cerradero y el pulso de apertura antes de cambiar el terminal. Si la puerta va dura, revisamos también el ajuste mecánico.'],
+ '01002':['Amurrio','Añadir cámara a una entrada que ya tiene timbre','Revisamos si el cable existente llega a la puerta y si hay sitio para el monitor. En entradas a pleno sol probamos el encuadre para reducir el contraluz.'],
+ '01051':['Agurain / Salvatierra','Telefonillo nuevo en un sistema antiguo','Anota el modelo que figura en el terminal y si el abrepuertas todavía funciona. Identificamos la línea para comprobar si hay un recambio compatible.'],
+ '01901':['Iruña de Oca / Iruña Oka','Videoportero para una cancela','Indica el núcleo y la distancia de la cancela a la vivienda. Para abrir desde el móvil comprobamos dónde tendrá conexión el equipo y qué mando usa la cancela.'],
+ '01043':['Oyón-Oion','La llamada funciona y la imagen se corta','Comprobamos si la imagen falla al llamar, al activar la cámara o al abrir. Esa diferencia orienta la revisión del monitor, el cableado y la alimentación.'],
+ '01063':['Zuia','Planificar una instalación en casa de pueblo','Dinos en qué núcleo está la vivienda y por dónde puede pasar el cable. Revisamos el recorrido y la distancia hasta el terminal antes de elegir el equipo.'],
+ '09059':['Burgos','Identificar el tramo de un portal que falla','Si varias viviendas tienen la misma avería, anota qué plantas o escaleras están afectadas. Comprobamos si comparten una derivación o un equipo de cabecera.'],
+ '09219':['Miranda de Ebro','La puerta abre desde unos pisos y desde otros no','Probamos el abrepuertas desde terminales de distintas plantas. Si el mando llega bien desde unos pisos, centramos la revisión en los terminales o ramales que fallan.'],
+ '09018':['Aranda de Duero','Reparar el equipo o actualizar el portal','Comprobamos qué falla en la placa, si el cableado se puede conservar y si la cerradura es compatible con apertura desde el móvil, código o llavero.'],
+ '09056':['Briviesca','Cambiar una placa que ya no tiene repuestos','Tomamos las medidas del hueco y anotamos el número de llamadas. Si la placa comunica con varias viviendas, comprobamos qué terminales habría que conservar o sustituir.'],
+ '09209':['Medina de Pomar','Acceso para vivienda, garaje o entrada común','Si hay varias puertas, definimos cuáles deben abrirse desde el monitor y cuáles desde el lector. Conviene separar las pruebas de llamada y apertura de cada acceso.'],
+ '09410':['Valle de Mena','Preparar una visita según el núcleo','Indica el pueblo y si la puerta está junto a la casa o en la entrada de la finca. La distancia y el recorrido disponible condicionan la instalación.'],
+ '09903':['Villarcayo','Recuperar llamadas en una placa comunitaria','Probamos los pulsadores y el audio antes de desmontar la placa. Si solo fallan algunas viviendas, revisamos la configuración de esas llamadas.'],
+ '09194':['Lerma','Adaptar el portero al acceso de una casa antigua','Revisamos si se puede conservar la caja de la placa y la canalización. Si el cable pasa por un muro grueso, valoramos dónde colocar el monitor y la conexión de red.'],
+ '09321':['Roa','Comprobar un abrepuertas que se queda activado','Revisamos si el pulso de apertura termina correctamente y si el cerradero vuelve a su posición. Indica si el fallo aparece desde todos los telefonillos.'],
+ '09330':['Salas de los Infantes','Un monitor con cámara para una entrada exterior','Valoramos el encuadre, la luz de noche y la distancia de cable. Si necesitas avisos en el móvil, comprobamos además la conexión del equipo.'],
+ '09211':['Melgar de Fernamental','Revisión de una placa exterior que falla a ratos','Indica si el fallo coincide con lluvia o aparece al pulsar un botón concreto. Eso ayuda a comprobar conexiones exteriores y localizar el tramo afectado.'],
+ '33024':['Gijón','Diagnóstico en comunidades con más de una escalera','Anota si falla un portal o si la misma incidencia se repite en varios. Probamos las llamadas y la apertura por separado en cada entrada.'],
+ '33044':['Oviedo','Actualizar un telefonillo a monitor con cámara','Antes de cambiar el terminal revisamos si la placa y la línea admiten vídeo. Si se necesita renovar el sistema común, comprobamos cómo mantener las llamadas de cada vivienda.'],
+ '33004':['Avilés','Apertura con llavero en portales comunitarios','Comprobamos el cerradero existente y cómo se dará de baja un llavero perdido. Después probamos que los vecinos puedan seguir abriendo desde sus viviendas.'],
+ '33066':['Siero','Comprobar red y cableado en viviendas con entrada separada','Indica el núcleo y la distancia entre el acceso y la casa. Revisamos si el equipo podrá usar cable de red o si conviene situar la conexión en el monitor interior.'],
+ '33031':['Langreo','Localizar un fallo de audio en una sola vivienda','Si la placa llama y abre, probamos escucha y micrófono en ambos sentidos. Comparamos el funcionamiento con otro piso para descartar la línea común.'],
+ '33037':['Mieres','La placa recibe llamadas, pero un monitor se apaga','Comprobamos si el apagado coincide con el encendido de la cámara o con la apertura. Medir en ese momento permite detectar una caída de tensión.'],
+ '33016':['Castrillón','Elegir dónde colocar la placa de un acceso exterior','Revisamos la luz, la exposición a la intemperie y el punto desde el que la cámara capta al visitante. También comprobamos dónde se protegerán las conexiones.'],
+ '33076':['Villaviciosa','Control de puerta y cancela desde el interior','Identificamos qué entrada debe abrir cada botón. Si el acceso tiene un motor o un cerradero separado, comprobamos cómo se conecta cada mando.'],
+ '33036':['Llanes','Aviso de videoportero en vivienda o segunda residencia','Indica si el fallo está en la imagen, en la llamada o en la apertura. Si quieres atender visitas desde fuera, primero comprobamos qué conexión tiene la vivienda.'],
+ '33011':['Cangas del Narcea','Revisión de telefonillo antiguo en vivienda','Antes de montar un recambio, identificamos el sistema y la función de cada conexión. Si no queda repuesto compatible, podemos valorar la renovación completa.'],
+ '33041':['Navia','Reparar la placa exterior de un portal','Probamos la llamada de varios pulsadores y el audio de placa. Si el problema se limita a una vivienda, comprobamos su terminal antes de cambiar el frontal.'],
+ '33034':['Valdés','Preparar el montaje en Luarca o en otros núcleos','Indica el núcleo, el acceso que quieres controlar y si existe canalización. Con esos datos se puede preparar la visita y valorar el recorrido hasta el monitor.'],
+});
+
+fichas['01031'] = ['Laguardia','Videoportero para una entrada con cableado antiguo','Identificamos si la línea existente admite vídeo y cómo se acciona la cerradura. Si el cableado no llega a la puerta, revisamos la canalización antes de proponer el equipo.'];
+
+Object.assign(antenas, {
+ '01031':'Revisamos si la pérdida de canales se produce en la captación, en el amplificador o en la toma de la vivienda. También valoramos la orientación de la antena o parabólica antes de sustituirla.',
+ '09211':'Si la televisión se pixela en varias habitaciones, medimos en la entrada y en las tomas para distinguir un problema de antena de una pérdida en la distribución.',
+ '33024':'En un edificio con varias escaleras, comprobamos qué viviendas pierden señal y si comparten cabecera o ramal. Así se acota dónde medir antes de ajustar la amplificación.',
+ '33044':'Si han desaparecido los mismos canales en varias plantas, comparamos los niveles en la cabecera y en las tomas para localizar si el fallo es de captación o del reparto.',
+ '33036':'En viviendas y segundas residencias revisamos la fijación de la antena, las conexiones exteriores y la señal en la toma antes de decidir si hay que reorientar o renovar el equipo.',
+});

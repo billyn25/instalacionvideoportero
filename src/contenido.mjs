@@ -124,3 +124,24 @@ Object.assign(antenas, {
 });
 
 fichas['48901'] = ['Derio','Reparación de placa, telefonillo y abrepuertas','Si la llamada llega al piso pero la puerta no abre, comprobamos el mando y el cerradero por separado. En una instalación nueva revisamos también el paso de cable y la compatibilidad con la apertura desde el móvil.'];
+
+export const casos = [
+ {
+  id:'fermax-tegui-sfera-new',
+  titulo:'Renovación de portero Fermax a videoportero Tegui Sfera New',
+  estado:'Renovación estudiada',
+  ubicaciones:['Zalla','Gernika-Lumo','Donostia / San Sebastián'],
+  necesidad:'Varias comunidades de propietarios querían sustituir sus porteros automáticos Fermax por videoporteros con cámara. La opción estudiada fue una placa Tegui Sfera New.',
+  criterio:'Revisamos si se podía aprovechar el cableado existente. En los tramos que necesitaban renovación se planteó un par trenzado de dos hilos para el bus. La decisión dependía del estado de la línea, el recorrido y los requisitos del equipo.',
+  resumen:'La comunidad quería pasar de un portero Fermax a un videoportero Tegui Sfera New. La revisión del cableado permitió decidir qué tramos se podían conservar y cuáles convenía renovar.',
+ },
+ {
+  id:'golmar-supra-caja-stadio',
+  titulo:'Presupuesto para placa Golmar Supra aprovechando la caja de empotrar',
+  estado:'Presupuesto preparado',
+  ubicaciones:['Burgos','León'],
+  necesidad:'En una comunidad de Burgos y otra de León se preparó un presupuesto con placa Golmar Supra. El punto de partida era el hueco de la placa Golmar Stadio existente.',
+  criterio:'Se eligió Supra para el presupuesto porque era compatible con la caja de empotrar existente. La propuesta permitía aprovechar ese hueco y evitar sustituir la caja si su estado lo permitía.',
+  resumen:'Se presupuestó una placa Golmar Supra tras comprobar que podía aprovecharse la caja de empotrar de la placa Stadio existente.',
+ },
+];

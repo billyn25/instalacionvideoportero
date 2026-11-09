@@ -1,5 +1,5 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { antenas, fichas, servicios } from './contenido.mjs';
+import { antenas, casos, fichas, servicios } from './contenido.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -43,7 +43,7 @@ for (const area of areaList) {
  }
 }
 const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
-const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo'];
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
@@ -130,6 +130,15 @@ const serviceExamples = {
 };
 const referencePhotos = () => '<p class="readable">Hemos realizado trabajos en esta localidad. Las fotos siguientes muestran ejemplos del servicio y están pendientes de identificar por obra.</p>'
  +servicePhotos(['placa-comunitaria','tdt-y-parabolicas']);
+const casesAt = place => casos.filter(item => item.ubicaciones.some(name => slug(name) === slug(place)));
+const caseReferences = place => casesAt(place).map(item =>
+ '<article class="case-reference"><p class="eyebrow">'+esc(item.estado)+'</p><h3>'+esc(item.titulo)+'</h3><p>'+esc(item.resumen)+'</p><p>'+
+ link('/trabajos/#caso-'+item.id,'Leer el caso completo →')+'</p></article>').join('');
+const caseStudies = band('Casos de comunidades',
+ '<div class="case-list">'+casos.map(item => '<article class="case-reference" id="caso-'+item.id+'"><p class="eyebrow">'+esc(item.estado)
+ +'</p><h3>'+esc(item.titulo)+'</h3><p class="case-places">'+esc(new Intl.ListFormat('es').format(item.ubicaciones))
+ +'</p><h4>Qué necesitaba la comunidad</h4><p>'+esc(item.necesidad)+'</p><h4>Qué se valoró</h4><p>'+esc(item.criterio)
+ +'</p></article>').join('')+'</div>','casos');
 const destinationSection = band('Otros destinos y desplazamientos',
  '<p>Consulta el desplazamiento para trabajos de antenas, porteros o videoporteros en estas localidades.</p>'
  +list(destinations.map(place => {
@@ -138,8 +147,10 @@ const destinationSection = band('Otros destinos y desplazamientos',
  }))
  +destinations.filter(place => !towns.some(t => slug(t.name) === slug(place))).map(place => {
   const localJobs = jobsAt(place);
-  return localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs)
-   : confirmedWorkPlaces.has(slug(place)) ? '<h3>Trabajos en '+esc(place)+'</h3>'+referencePhotos() : '';
+  const references = caseReferences(place);
+  return (localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs)
+   : confirmedWorkPlaces.has(slug(place)) ? '<h3>Trabajos en '+esc(place)+'</h3>'+referencePhotos() : '')
+   +(references ? '<h3>Casos en '+esc(place)+'</h3>'+references : '');
  }).join(''),'desplazamientos');
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p><p>'+link('/contacto/','Abrir formulario de presupuesto →')+'</p>' + contact(place) + '</section></div>';
 
@@ -161,7 +172,7 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
 </section>`;
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
  homeHero
- + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards)+'</div>'
+ + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards+'<p>'+link('/trabajos/#casos','Ver casos de comunidades →')+'</p>')+'</div>'
  + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>Servicio de antenista</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/antenas/','Ver servicio de antenista ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
  + band('Servicio en '+coverage,areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
  + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
@@ -196,6 +207,7 @@ for (const area of areaList) {
   const [,heading,advice]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
+  const localCases=caseReferences(town.name);
   page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,'<p class="readable">'+esc(advice)+'</p>')
@@ -204,12 +216,14 @@ for (const area of areaList) {
      '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>','antenas') : '')
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Trabajos en '+town.name,referencePhotos()) : '')
+   +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>'))) : '')
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
  }
 }
 page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
- hero('Galería','Fotos de porteros, videoporteros y antenas','Placas exteriores, equipos interiores y detalles del cableado y de las instalaciones de televisión.')
+ hero('Galería','Fotos de porteros, videoporteros y antenas','Casos de comunidades, presupuestos y fotos de placas, equipos interiores y antenas.')
+ + caseStudies
  + band('Una placa de videoportero de cerca',videoExample,'video')
  + serviceTypes.map(tipo => {
    const selection = jobs.filter(job => job.tipo === tipo);

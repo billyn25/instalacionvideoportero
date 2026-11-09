@@ -81,16 +81,40 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .mobile { display: none }
 @media (max-width: 850px) { .cards:not(.service-photos) { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
 @media (max-width: 650px) {
-  body { padding-bottom: calc(62px + env(safe-area-inset-bottom)) }
+  html { --contact-clearance: calc(62px + env(safe-area-inset-bottom, 0px)); scroll-padding-bottom: var(--contact-clearance) }
+  body { padding-bottom: var(--contact-clearance) }
   .wrap { width: calc(100% - 32px) }
-  .top { flex-wrap: wrap; gap: .65rem; padding-block: .65rem }
+  .top { flex-wrap: wrap; gap: .4rem; padding-block: .65rem }
+  header .top { min-height: auto; align-items: flex-start; flex-direction: column; gap: .5rem; padding-bottom: .2rem }
+  header nav { display: grid; width: 100%; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .2rem }
+  header nav a { display: grid; min-height: 44px; place-items: center; border-radius: .45rem; font-size: clamp(.77rem, 3.65vw, .95rem) }
+  header nav a:last-child { color: var(--accent); background: var(--pale) }
   .home-hero, .antenna-teaser, .cards.areas { grid-template-columns: 1fr }
-  .home-hero { gap: 1.25rem }
-  .home-copy h1 { font-size: clamp(2.65rem, 10vw, 4.25rem) }
-  .hero-plate img { aspect-ratio: 4/4.3 }
+  .home-hero { gap: .9rem; padding-block: 1.55rem 1.9rem }
+  .home-copy h1 { font-size: clamp(2.45rem, 9.5vw, 4.25rem) }
+  .hero-link { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; margin-top: .3rem; padding: .4rem .65rem; border-radius: .45rem; background: var(--pale); text-decoration: none }
+  .hero-equipment { padding: .55rem; border-radius: .85rem }
+  .hero-photos { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: .45rem }
+  .hero-photos > div { border-radius: .55rem; background: white }
+  .hero-photos img { aspect-ratio: 5/4; object-fit: cover; object-position: 50% 43% }
+  .hero-photos span { position: static; display: block; padding: .28rem .4rem; border-radius: 0; font-size: clamp(.66rem, 2.8vw, .77rem) }
+  .hero-equipment figcaption { align-items: center; padding-top: .3rem }
+  .hero-equipment figcaption a { display: inline-flex; align-items: center; min-height: 44px; gap: .25rem }
   .places { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .places li:has(> a:only-child) { padding: 0 }
+  .places li > a:only-child { display: flex; align-items: center; min-height: 44px; padding: .35rem .6rem }
   .contact { display: none }
-  .mobile { position: fixed; z-index: 4; inset: auto 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding: .45rem .8rem calc(.45rem + env(safe-area-inset-bottom)); background: var(--dark) }
+  .contact-form .button { width: 100% }
+  .mobile {
+    position: fixed; z-index: 4; inset: auto 0 0;
+    display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem;
+    padding: .4rem max(.75rem,env(safe-area-inset-right,0px)) calc(.4rem + env(safe-area-inset-bottom,0px)) max(.75rem,env(safe-area-inset-left,0px));
+    border-top: 1px solid var(--line); background: var(--paper); box-shadow: 0 -5px 18px #171c2b15;
+  }
+  .mobile a { gap: .42rem; min-height: 46px; padding: .4rem .48rem; font-size: .94rem }
+  .mobile a + a { background: #e7f6ee; border-color: #b6dfc5; color: #126039 }
+  .mobile svg { width: 1.1rem; height: 1.1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round }
+  .mobile a:focus-visible { outline-color: var(--accent); outline-offset: 2px }
 }
 @media (max-width: 380px) {
   .cards:not(.service-photos), .places { grid-template-columns: 1fr }

@@ -1,11 +1,11 @@
 [
-  {"municipio":"Bilbao","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Donostia / San Sebastián","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Irun","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Errenteria","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Eibar","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Zarautz","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Tolosa","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Hernani","titulo":"","descripcion":"","foto":"","alt":""},
-  {"municipio":"Arrasate / Mondragón","titulo":"","descripcion":"","foto":"","alt":""}
+  {"municipio":"Bilbao","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Donostia / San Sebastián","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Irun","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Errenteria","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Eibar","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Zarautz","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Tolosa","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Hernani","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
+  {"municipio":"Arrasate / Mondragón","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"}
 ]

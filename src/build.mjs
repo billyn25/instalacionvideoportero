@@ -33,15 +33,26 @@ for (const area of Object.values(areas)) {
   town.path = town.center.path + '#municipio-' + town.code;
  }
 }
-const jobs = read('data/trabajos.json').filter(j => j.titulo?.trim() && j.descripcion?.trim() && j.municipio?.trim() && j.alt?.trim()
- && /^[a-z0-9][a-z0-9._-]*\.(?:webp|jpe?g|png)$/i.test(j.foto) && existsSync(file('fotos-trabajos/' + j.foto)));
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila'];
+const serviceTypes = ['porteros','antenas'];
+const jobs = read('data/trabajos.json').flatMap(job => {
+ const tipo = job.tipo || 'porteros';
+ if (!serviceTypes.includes(tipo) || !job.titulo?.trim() || !job.descripcion?.trim() || !job.municipio?.trim() || !job.alt?.trim()
+   || !/^[a-z0-9][a-z0-9._-]*\.(?:webp|jpe?g|png)$/i.test(job.foto)) return [];
+ const path = 'fotos-trabajos/' + tipo + '/' + job.foto;
+ return existsSync(file(path)) ? [{...job,tipo,path}] : [];
+});
+const jobsAt = place => jobs.filter(job => slug(job.municipio) === slug(place));
+const jobAnchor = ({tipo,municipio}) => 'trabajos-'+tipo+'-'+slug(municipio);
 const published = new Set();
 rmSync(file('dist/'),{recursive:true,force:true});
 mkdirSync(file('dist/'));
 cpSync(file('assets/'),file('dist/assets/'),{recursive:true});
-if (jobs.length) {
- mkdirSync(file('dist/fotos-trabajos/'));
- for (const {foto} of jobs) cpSync(file('fotos-trabajos/' + foto),file('dist/fotos-trabajos/' + foto));
+for (const tipo of serviceTypes) {
+ const selection = jobs.filter(job => job.tipo === tipo);
+ if (!selection.length) continue;
+ mkdirSync(file('dist/fotos-trabajos/' + tipo + '/'),{recursive:true});
+ for (const {path} of selection) cpSync(file(path),file('dist/' + path));
 }
 
 const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
@@ -73,14 +84,25 @@ ${index && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : 
 }
 const serviceCards = '<div class="cards">' + servicios.map(([id,name,copy],i) => '<article><span class="number">0'+(i+1)+'</span><h3>' + link('/servicios/'+id+'/',name) + '</h3><p>' + esc(copy) + '</p></article>').join('') + '</div>';
 const areaCards = '<div class="cards areas">' + Object.values(areas).map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,6).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
-const jobCards = cards => '<div class="cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/fotos-trabajos/' + encodeURIComponent(j.foto) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p></article>').join('') + '</div>';
+const jobCards = cards => cards.length ? '<div class="cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p></article>').join('') + '</div>' : '';
+const destinationSection = band('Otros destinos y desplazamientos',
+ '<p>Consulta el desplazamiento para trabajos de antenas, porteros o videoporteros en estas localidades.</p>'
+ +list(destinations.map(place => {
+  const town = towns.find(t => slug(t.name) === slug(place));
+  return '<li>' + link(town?.path || wa(place),place) + '</li>';
+ }))
+ +destinations.filter(place => !towns.some(t => slug(t.name) === slug(place))).map(place => {
+  const localJobs = jobsAt(place);
+  return localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs) : '';
+ }).join(''),'desplazamientos');
+const featuredJobs = serviceTypes.flatMap(tipo => jobs.filter(job => job.tipo === tipo).slice(0,1));
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p>' + contact(place) + '</section></div>';
 
 page('/','Instalación y reparación de videoporteros en Bizkaia y Gipuzkoa','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero. Reparación e instalación en Bilbao, Gipuzkoa y Bizkaia. Tel. '+phone+'.',
  hero('Porteros automáticos y control de acceso','Que vuelva a sonar tu portero','Instalamos, renovamos y reparamos telefonillos y videoporteros para viviendas y comunidades. Si quieres abrir desde el móvil o con llavero, revisamos qué encaja en tu portal.','',true)
  + band('Instalación, reparación y control de acceso',serviceCards+'<p>'+link('/servicios/#antenas-locales','Ver municipios con servicio de antenas →')+'</p>')
- + band('Servicio en Bizkaia y Gipuzkoa',areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+'</p>')
- + (jobs.length ? band('Trabajos reales',jobCards(jobs.slice(0,3))+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
+ + band('Servicio en Bizkaia y Gipuzkoa',areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
+ + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
  + callout());
 page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+antennaLinks,'antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
@@ -89,7 +111,7 @@ for (const [id,name,copy,detail] of servicios) {
 page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en Bizkaia o Gipuzkoa y consulta la cobertura de reparación e instalación.',
  hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en Bizkaia y Gipuzkoa.')
  + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
- + Object.values(areas).map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>');
+ + Object.values(areas).map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
 for (const area of Object.values(areas)) {
  const areaUrl = '/' + area.slug + '/';
  page(areaUrl,'Porteros automáticos y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
@@ -100,21 +122,26 @@ for (const area of Object.values(areas)) {
  for (const town of area.main) {
   const [,heading,advice]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town));
-  const localJobs=jobs.filter(j=>slug(j.municipio)===slug(town.name));
+  const localJobs=jobsAt(town.name);
   page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,'<p class="readable">'+esc(advice)+'</p>')
    +band('Reparación e instalación',serviceCards)
    +(antenas[town.code] ? band('Instalación y reparación de antenas en '+town.name,
      '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar servicio de antenas')+'</p>','antenas') : '')
-   +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs)) : '')
-   +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+'</li>'))) : '')
+   +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas'))) : '')
+   +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>'))) : '')
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
  }
 }
-page('/trabajos/','Trabajos de porteros y videoporteros','Galería de trabajos documentados de Videoporteros Fuentes.',
+page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de trabajos documentados de Videoporteros Fuentes.',
  hero('Galería','Trabajos de porteros y videoporteros',jobs.length ? 'Instalaciones y reparaciones documentadas con fotos y detalles de la intervención.' : 'Si necesitas renovar un portal o reparar un telefonillo, envíanos una foto del equipo para orientarte.')
- +(jobs.length ? band('Intervenciones documentadas',jobCards(jobs)) : band('Qué fotos ayudan a identificar el sistema','<p class="readable">Para valorar el trabajo suele bastar una foto de la placa exterior y otra del telefonillo o monitor. Si la puerta falla al abrir, cuéntanos si les ocurre también a otros vecinos.</p>')),{index:jobs.length>0});
+ +(jobs.length ? serviceTypes.map(tipo => {
+   const selection = jobs.filter(job => job.tipo === tipo);
+   const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()];
+   return selection.length ? band(tipo === 'antenas' ? 'Trabajos de antenas' : 'Trabajos de porteros y videoporteros',
+     places.map(place => '<div id="'+jobAnchor({tipo,municipio:place})+'"><h3>'+esc(place)+'</h3>'+jobCards(selection.filter(job => slug(job.municipio) === slug(place)))+'</div>').join('')) : '';
+ }).join('') : band('Qué fotos ayudan a identificar el sistema','<p class="readable">Para valorar el trabajo suele bastar una foto de la placa exterior y otra del telefonillo o monitor. Si la puerta falla al abrir, cuéntanos si les ocurre también a otros vecinos.</p>')),{index:jobs.length>0});
 page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><p>Videoporteros Fuentes. Titular: Roberto Fuentes González.</p><p>Contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable: Roberto Fuentes González. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';

@@ -112,3 +112,6 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
   .footer-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.1rem }
   .footer-grid > div { grid-column: 1/-1 }
 }
+.video-example { max-width: 24rem; padding: .65rem; border: 1px solid var(--line); border-radius: .8rem; background: white }
+.video-example video { display: block; width: 100%; height: auto; max-height: 68vh; border-radius: .5rem; background: #171c2b }
+.video-example figcaption { padding: .5rem .2rem .1rem; font-size: .87rem; color: var(--muted) }

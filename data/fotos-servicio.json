@@ -70,5 +70,17 @@
     "alt": "Antena terrestre y dos parabólicas junto a la cubierta",
     "ancho": 690,
     "alto": 920
+  },
+  "videoportero-golmar-exterior": {
+    "servicio": "porteros",
+    "alt": "Placa Golmar con cámara y protector transparente en una entrada exterior",
+    "ancho": 518,
+    "alto": 920
+  },
+  "videoportero-tegui-comunidad": {
+    "servicio": "porteros",
+    "alt": "Placa Tegui con cámara y pulsadores iluminados para varias viviendas",
+    "ancho": 517,
+    "alto": 920
   }
 }

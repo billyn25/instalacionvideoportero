@@ -42,8 +42,8 @@ for (const area of areaList) {
   town.path = town.center.path + '#municipio-' + town.code;
  }
 }
-const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila']);
-const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila'];
+const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
@@ -120,9 +120,12 @@ const servicePhotos = names => '<div class="cards service-photos">' + names.map(
 }).join('') + '</div>';
 const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
  Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
+const videoExample = '<figure class="video-example"><video width="360" height="640" controls playsinline preload="none" poster="/assets/fotos-servicio/detalle-videoportero.webp" aria-label="Detalle de una placa de videoportero exterior">'
+ +'<source src="/assets/fotos-servicio/detalle-videoportero.mp4" type="video/mp4"></video>'
+ +'<figcaption>Detalle de una placa exterior con cámara y pulsador. Vídeo sin audio.</figcaption></figure>';
 const serviceExamples = {
  reparacion: ['cableado-de-placa','telefonillo-interior'],
- instalacion: ['placa-comunitaria','monitor-y-auricular'],
+ instalacion: ['videoportero-golmar-exterior','videoportero-tegui-comunidad','monitor-y-auricular'],
  llaveros: ['teclado-de-acceso'],
 };
 const referencePhotos = () => '<p class="readable">Hemos realizado trabajos en esta localidad. Las fotos siguientes muestran ejemplos del servicio y están pendientes de identificar por obra.</p>'
@@ -207,6 +210,7 @@ for (const area of areaList) {
 }
 page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
  hero('Galería','Fotos de porteros, videoporteros y antenas','Placas exteriores, equipos interiores y detalles del cableado y de las instalaciones de televisión.')
+ + band('Una placa de videoportero de cerca',videoExample,'video')
  + serviceTypes.map(tipo => {
    const selection = jobs.filter(job => job.tipo === tipo);
    const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()];

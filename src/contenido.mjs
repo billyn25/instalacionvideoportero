@@ -122,3 +122,5 @@ Object.assign(antenas, {
  '33044':'Si han desaparecido los mismos canales en varias plantas, comparamos los niveles en la cabecera y en las tomas para localizar si el fallo es de captación o del reparto.',
  '33036':'En viviendas y segundas residencias revisamos la fijación de la antena, las conexiones exteriores y la señal en la toma antes de decidir si hay que reorientar o renovar el equipo.',
 });
+
+fichas['48901'] = ['Derio','Reparación de placa, telefonillo y abrepuertas','Si la llamada llega al piso pero la puerta no abre, comprobamos el mando y el cerradero por separado. En una instalación nueva revisamos también el paso de cable y la compatibilidad con la apertura desde el móvil.'];

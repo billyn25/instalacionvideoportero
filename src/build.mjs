@@ -19,7 +19,8 @@ const areas = {
  '31': {name:'Navarra', slug:'navarra', intro:'Servicio de porteros y videoporteros en Pamplona y su comarca, Tudela, Tierra Estella, la Zona Media y otros municipios. Revisamos desde telefonillos individuales hasta accesos comunitarios con cámara o llavero.'},
  '40': {name:'Segovia', slug:'segovia', intro:'Atendemos Segovia capital, El Espinar, Cuéllar, Riaza, Boceguillas y otros municipios. Reparamos instalaciones existentes y valoramos el cableado y la apertura antes de instalar un equipo nuevo.'},
 };
-const areaNames = Object.values(areas).map(area => area.name);
+const areaList = ['48','20','31','40'].map(code => areas[code]);
+const areaNames = areaList.map(area => area.name);
 const coverage = new Intl.ListFormat('es').format(areaNames);
 const towns = read('data/municipios.json').map(([code, official, population, lat, lon]) => {
  const entry = fichas[code];
@@ -29,7 +30,7 @@ const towns = read('data/municipios.json').map(([code, official, population, lat
 });
 const ordered = list => [...list].sort((a,b) => a.name.localeCompare(b.name,'es'));
 const distance = (a,b) => (a.lat-b.lat)**2 + ((a.lon-b.lon)*Math.cos(a.lat*Math.PI/180))**2;
-for (const area of Object.values(areas)) {
+for (const area of areaList) {
  area.towns = towns.filter(t => t.area === area);
  area.main = area.towns.filter(t => t.entry).sort((a,b) => b.population-a.population);
  for (const town of area.towns.filter(t => !t.entry)) {
@@ -61,9 +62,10 @@ for (const tipo of serviceTypes) {
 
 const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
 const contact = place => '<div class="contact"><a class="button" href="' + tel + '">Llamar al 641 49 05 36</a><a class="button secondary" href="' + esc(wa(place)) + '">WhatsApp</a></div>';
-const logo = '<a href="/" class="brand"><svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#e9fb93"/><rect x="12" y="7" width="12" height="22" rx="3" fill="none" stroke="#122c2c" stroke-width="2"/><circle cx="18" cy="14" r="2.5" fill="#122c2c"/><circle cx="18" cy="23" r="1.6" fill="#122c2c"/></svg><span>Videoporteros <strong>Fuentes</strong></span></a>';
+const logo = '<a href="/" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2738c7"/><rect x="12" y="7" width="16" height="26" rx="3" fill="none" stroke="#fff" stroke-width="1.75"/><circle cx="20" cy="14.5" r="2.75" fill="#d9e2ff"/><path d="M17 23h6m-6 4h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Videoporteros<strong>Fuentes</strong></span></a>';
 const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
-const hero = (label,title,description,place='',art=false) => '<section class="hero"><div class="wrap hero-inner' + (art ? ' with-art' : '') + '"><div><p class="eyebrow">' + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place) + '</div>' + (art ? '<figure><img src="/assets/videoportero.svg" alt="Ilustración de una placa de videoportero, un monitor y un llavero" width="620" height="460" fetchpriority="high"><figcaption>Placa exterior · Monitor interior · Llavero de proximidad</figcaption></figure>' : '') + '</div></section>';
+const hero = (label,title,description,place='') => '<section class="hero"><div class="wrap hero-inner"><p class="eyebrow">'
+ + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place) + '</div></section>';
 const band = (title,body,id='') => '<section class="wrap section"' + (id ? ' id="'+esc(id)+'"' : '') + '><h2>' + esc(title) + '</h2>' + body + '</section>';
 const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + link(t.path+'#antenas','Antenas en '+t.name) + '</li>'));
 
@@ -75,7 +77,7 @@ function page(path, title, description, body, {place='',trail=[],index=true}={})
  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} | ${brand}</title><meta name="description" content="${esc(description)}">
 ${index && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}${index ? '' : '<meta name="robots" content="noindex,follow">'}
-<meta name="theme-color" content="#122c2c"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
+<meta name="theme-color" content="#f8f7f3"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
 <script type="application/ld+json">${JSON.stringify(schema)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
 <header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}</nav></div></header>
 <main id="contenido">${crumb}${body}</main><footer><div class="wrap top">${logo}<nav aria-label="Información">${link('/zonas/','Cobertura')}${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
@@ -87,7 +89,7 @@ ${index && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : 
  writeFileSync(new URL('index.html',target),html);
 }
 const serviceCards = '<div class="cards">' + servicios.map(([id,name,copy],i) => '<article><span class="number">0'+(i+1)+'</span><h3>' + link('/servicios/'+id+'/',name) + '</h3><p>' + esc(copy) + '</p></article>').join('') + '</div>';
-const areaCards = '<div class="cards areas">' + Object.values(areas).map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,6).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
+const areaCards = '<div class="cards areas">' + areaList.map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,6).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
 const jobCards = cards => cards.length ? '<div class="cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p></article>').join('') + '</div>' : '';
 const destinationSection = band('Otros destinos y desplazamientos',
  '<p>Consulta el desplazamiento para trabajos de antenas, porteros o videoporteros en estas localidades.</p>'
@@ -101,10 +103,13 @@ const destinationSection = band('Otros destinos y desplazamientos',
  }).join(''),'desplazamientos');
 const featuredJobs = serviceTypes.flatMap(tipo => jobs.filter(job => job.tipo === tipo).slice(0,1));
 const serviceImages = read('data/fotos-servicio.json');
-const servicePhotos = names => '<div class="cards service-photos">' + names.map(name => {
+const equipmentPhoto = (name, eager = false) => {
  const {alt,ancho,alto} = serviceImages[name];
- return '<figure><img loading="lazy" decoding="async" src="/assets/fotos-servicio/'+name+'.webp" width="'+ancho+
-  '" height="'+alto+'" alt="'+esc(alt)+'"><figcaption>'+esc(alt)+'</figcaption></figure>';
+ return '<img src="/assets/fotos-servicio/'+name+'.webp" width="'+ancho+'" height="'+alto+'" alt="'+esc(alt)+'"'
+  +(eager ? ' fetchpriority="high"' : ' loading="lazy" decoding="async"')+'>';
+};
+const servicePhotos = names => '<div class="cards service-photos">' + names.map(name => {
+ return '<figure>'+equipmentPhoto(name)+'<figcaption>'+esc(serviceImages[name].alt)+'</figcaption></figure>';
 }).join('') + '</div>';
 const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
  Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
@@ -115,10 +120,26 @@ const serviceExamples = {
 };
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p>' + contact(place) + '</section></div>';
 
+const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portada">
+  <div class="home-copy">
+    <p class="eyebrow">Porteros automáticos y control de acceso</p>
+    <h1 id="titulo-portada">Porteros y<br><span>videoporteros.</span></h1>
+    <p class="lede">Reparamos telefonillos y videoporteros e instalamos sistemas con cámara, apertura desde el móvil o lector de llavero.</p>
+    ${contact()}
+    <a class="hero-link" href="/zonas/">Encuentra tu municipio <span aria-hidden="true">↗</span></a>
+  </div>
+  <figure class="hero-equipment">
+    <div class="hero-photos">
+      <div class="hero-plate">${equipmentPhoto('placa-comunitaria',true)}<span>01 · Placa exterior</span></div>
+      <div class="hero-monitor">${equipmentPhoto('monitor-y-auricular')}<span>02 · Monitor interior</span></div>
+    </div>
+    <figcaption>Fotografías de equipos e instalaciones <a href="/trabajos/">Ver galería <span aria-hidden="true">↗</span></a></figcaption>
+  </figure>
+</section>`;
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
- hero('Porteros automáticos y control de acceso','Que vuelva a sonar tu portero','Instalamos, renovamos y reparamos telefonillos y videoporteros para viviendas y comunidades. Si quieres abrir desde el móvil o con llavero, revisamos qué encaja en tu portal.','',true)
- + band('Instalación, reparación y control de acceso',serviceCards+'<p>'+link('/servicios/#antenas-locales','Ver municipios con servicio de antenas →')+'</p>')
- + band('Equipos e instalaciones',servicePhotos(['placa-comunitaria','monitor-y-auricular','tdt-y-parabolicas'])+'<p>'+link('/trabajos/','Ver la galería de instalaciones →')+'</p>')
+ homeHero
+ + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards)+'</div>'
+ + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>También instalamos y reparamos antenas</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/#antenas-locales','Ver servicio de antenas ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
  + band('Servicio en '+coverage,areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>')
  + (jobs.length ? band('Trabajos reales',jobCards(featuredJobs)+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
  + callout());
@@ -129,8 +150,8 @@ for (const [id,name,copy,detail] of servicios) {
 page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en '+coverage+' y consulta la cobertura de reparación e instalación.',
  hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en '+coverage+'.')
  + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
- + Object.values(areas).map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
-for (const area of Object.values(areas)) {
+ + areaList.map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
+for (const area of areaList) {
  const areaUrl = '/' + area.slug + '/';
  page(areaUrl,'Porteros automáticos y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
   hero('Cobertura','Porteros y videoporteros en '+area.name,area.intro,area.name)

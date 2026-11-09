@@ -42,19 +42,6 @@ Object.assign(fichas, {
  '20032':['Elgoibar','El telefonillo suena pero la puerta no abre','Comprobamos si el cierre queda trabado, si llega alimentación y si la apertura falla desde todos los terminales.'],
 });
 
-export const antenas = {
- '48034':'Si varios vecinos pierden canales a la vez, comprobamos si la avería está en la cabecera comunitaria o en un tramo de distribución.',
- '48085':'En una instalación de vivienda revisamos la orientación de la antena y el estado de las conexiones exteriores antes de sustituir piezas.',
- '48029':'Si la televisión falla solo en una habitación, medimos en esa toma y comprobamos el cableado y los repartidores antes de intervenir en la antena.',
- '48011':'Para una instalación nueva de TDT valoramos el punto de montaje, el recorrido de cable y el número de tomas interiores.',
- '48080':'Si la señal se corta a ratos, comprobamos los niveles en la toma y el estado del cable coaxial, los conectores y la amplificación.',
- '20009':'Si falla la TDT de una comunidad, comprobamos qué viviendas y canales están afectados para localizar la avería en la cabecera o en la distribución.',
- '20074':'Ante cortes de imagen, revisamos si el problema aparece en una toma o en varias y medimos la señal antes de ajustar el amplificador.',
- '20019':'En una instalación de TDT o satélite revisamos el lugar de montaje, la orientación y la compatibilidad de las tomas existentes.',
- '20017':'Si hay pérdidas de señal después de lluvia o viento, revisamos sujeción, conectores y cableado exterior.',
- '20032':'Comprobamos la antena y la señal en el interior cuando faltan canales o aparece pixelación en varias tomas.',
-};
-
 Object.assign(fichas, {
  '31201':['Pamplona / Iruña','Comprobar la avería antes de cambiar el telefonillo','Si solo falla tu piso, revisamos si el terminal recibe la llamada y responde al abrepuertas. Si falla todo el portal, la comprobación empieza por la alimentación y la placa común.'],
  '31232':['Tudela','Videoportero para una puerta exterior','Comprobamos el encuadre de la cámara y el recorrido del cable hasta la vivienda. Si quieres recibir avisos en el móvil, revisamos dónde tendrá conexión el equipo.'],
@@ -115,14 +102,6 @@ Object.assign(fichas, {
 
 fichas['01031'] = ['Laguardia','Videoportero para una entrada con cableado antiguo','Identificamos si la línea existente admite vídeo y cómo se acciona la cerradura. Si el cableado no llega a la puerta, revisamos la canalización antes de proponer el equipo.'];
 
-Object.assign(antenas, {
- '01031':'Revisamos si la pérdida de canales se produce en la captación, en el amplificador o en la toma de la vivienda. También valoramos la orientación de la antena o parabólica antes de sustituirla.',
- '09211':'Si la televisión se pixela en varias habitaciones, medimos en la entrada y en las tomas para distinguir un problema de antena de una pérdida en la distribución.',
- '33024':'En un edificio con varias escaleras, comprobamos qué viviendas pierden señal y si comparten cabecera o ramal. Así se acota dónde medir antes de ajustar la amplificación.',
- '33044':'Si han desaparecido los mismos canales en varias plantas, comparamos los niveles en la cabecera y en las tomas para localizar si el fallo es de captación o del reparto.',
- '33036':'En viviendas y segundas residencias revisamos la fijación de la antena, las conexiones exteriores y la señal en la toma antes de decidir si hay que reorientar o renovar el equipo.',
-});
-
 fichas['48901'] = ['Derio','Reparación de placa, telefonillo y abrepuertas','Si la llamada llega al piso pero la puerta no abre, comprobamos el mando y el cerradero por separado. En una instalación nueva revisamos también el paso de cable y la compatibilidad con la apertura desde el móvil.'];
 
 export const casos = [
@@ -146,8 +125,11 @@ export const casos = [
  },
 ];
 
-Object.assign(antenas, {
- '48901':'Si la TDT se ve en el salón pero falla en otra habitación, medimos la señal en ambas tomas y revisamos el reparto antes de cambiar la antena.',
+// Antenista Fuentes cubre las otras provincias de este sitio.
+export const antenas = {
+ '33024':'En un edificio con varias escaleras, comprobamos qué viviendas pierden señal y si comparten cabecera o ramal. Así se acota dónde medir antes de ajustar la amplificación.',
+ '33044':'Si han desaparecido los mismos canales en varias plantas, comparamos los niveles en la cabecera y en las tomas para localizar si el fallo es de captación o del reparto.',
+ '33036':'En viviendas y segundas residencias revisamos la fijación de la antena, las conexiones exteriores y la señal en la toma antes de decidir si hay que reorientar o renovar el equipo.',
  '31201':'En una comunidad, anota si faltan los mismos canales en varios pisos. Comprobamos la señal en la cabecera y en las tomas para localizar el tramo afectado.',
  '31232':'Para montar una parabólica, revisamos el punto de sujeción, la orientación y el recorrido del coaxial hasta el receptor.',
  '31097':'Si quieres aprovechar la instalación al reformar una vivienda, comprobamos qué señal llega a cada toma y qué cableado puede conservarse.',
@@ -165,14 +147,9 @@ Object.assign(antenas, {
  '40040':'En antenas que llevan tiempo sin usarse, comprobamos la fijación, la bajante y los niveles que llegan a la vivienda antes de sustituir el equipo.',
  '40170':'Si solo falla la parabólica, revisamos la orientación, el LNB y el cable del receptor. La antena terrestre se comprueba por separado si también pierde canales.',
  '40032':'Para una casa de pueblo, indica cuántas tomas quieres usar y si ya existe mástil. Revisamos la captación y el estado del cableado antes de proponer el montaje.',
-});
+};
 
 export const antenasCercanos = {
- '20009': ["20063","20903","20073","20072"],
- '20017': ["20081","20027","20039","20003"],
- '20019': ["20076","20049","20043","20005"],
- '20032': ["20029","20056","20065","20901"],
- '20074': ["20059","20080","20051","20013"],
  '31010': ["31084","31189","31138","31027"],
  '31050': ["31250","31153","31221","31082"],
  '31097': ["31206","31041","31152","31260"],
@@ -193,12 +170,4 @@ export const antenasCercanos = {
  '40076': ["40225","40152","40233","40104"],
  '40170': ["40024","40079","40191","40053"],
  '40194': ["40155","40181","40112","40906"],
- '48011': ["48916","48094","48065","48055"],
- '48029': ["48912","48052"],
- '48034': ["48073","48001","48032","48057"],
- '48080': ["48002","48083","48090","48071"],
- '48085': ["48016","48089","48043","48077"],
- '48901': ["48904","48905","48081","48903"],
- '01031': ["01028","01017","01022","01033"],
- '09211': ["09427","09363","09091","09373"],
 };

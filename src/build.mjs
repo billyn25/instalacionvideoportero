@@ -76,7 +76,9 @@ const townsByCode = new Map(towns.map(town => [town.code,town]));
 const antennaHubs = towns.filter(town => antenas[town.code]);
 const antennaNearby = new Map(Object.entries(antenasCercanos).flatMap(([code,nearby]) =>
  nearby.map(id => [id, townsByCode.get(code).path+'#antena-municipio-'+id])));
-const antennaLinks = '<div class="antenna-areas">'+areaList.map(area => {
+const antennaAreas = areaList.filter(area => antennaHubs.some(town => town.area === area));
+const antennaCoverage = new Intl.ListFormat('es').format(antennaAreas.map(area => area.name));
+const antennaLinks = '<div class="antenna-areas">'+antennaAreas.map(area => {
  const hubs = antennaHubs.filter(town => town.area === area).sort((a,b) => b.population-a.population);
  const nearby = ordered(area.towns.filter(town => antennaNearby.has(town.code)));
  return '<article><h3>'+esc(area.name)+'</h3>'
@@ -165,7 +167,7 @@ const caseStudies = band('Casos de comunidades',
  +'</p><h4>Qué necesitaba la comunidad</h4><p>'+esc(item.necesidad)+'</p><h4>Qué se valoró</h4><p>'+esc(item.criterio)
  +'</p></article>').join('')+'</div>','casos');
 const destinationSection = band('Otros destinos y desplazamientos',
- '<p>Consulta el desplazamiento para trabajos de antenas, porteros o videoporteros en estas localidades.</p>'
+ '<p>Consulta el desplazamiento para trabajos de porteros y videoporteros en estas localidades.</p>'
  +list(destinations.map(place => {
   const town = towns.find(t => slug(t.name) === slug(place));
   return '<li>' + link(town?.path || wa(place),place) + '</li>';
@@ -206,8 +208,8 @@ page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparac
 for (const [id,name,copy,detail] of servicios) {
  page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
-page('/servicios/antenas/','Antenista | Instalación y reparación de antenas','Antenista para instalación y reparación de antenas TDT y parabólicas. Revisamos fallos de señal en viviendas y comunidades. Tel. '+phone+'.',
- hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos pérdida de canales, imagen pixelada e instalaciones nuevas de TDT o parabólica.')
+page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
+ hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'.')
  +band('Qué comprobamos cuando falla la señal','<p class="readable">Si falla una sola toma, comprobamos el conector y el cable de esa habitación. Cuando afecta a varias viviendas, comparamos niveles en la cabecera y en las tomas para acotar el fallo.</p>'+servicePhotos(imageSets.antenas))
  +band('Municipios con servicio de antenista','<p class="readable">Consulta los municipios principales y abre el listado de localidades cercanas de tu provincia. Confirmamos el desplazamiento al pedir cita.</p>'+antennaLinks)
  +callout(),{trail:[['/servicios/','Servicios'],['','Antenista']]});

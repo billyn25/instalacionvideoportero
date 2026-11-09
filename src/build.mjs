@@ -1,5 +1,5 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { antenas, casos, fichas, servicios } from './contenido.mjs';
+import { antenas, antenasCercanos, casos, fichas, servicios } from './contenido.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -72,7 +72,19 @@ const list = (items, className = 'places') => '<ul class="' + className + '">' +
 const hero = (label,title,description,place='') => '<section class="hero"><div class="wrap hero-inner"><p class="eyebrow">'
  + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place) + '</div></section>';
 const band = (title,body,id='') => '<section class="wrap section"' + (id ? ' id="'+esc(id)+'"' : '') + '><h2>' + esc(title) + '</h2>' + body + '</section>';
-const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + link(t.path+'#antenas','Antenista en '+t.name) + '</li>'));
+const townsByCode = new Map(towns.map(town => [town.code,town]));
+const antennaHubs = towns.filter(town => antenas[town.code]);
+const antennaNearby = new Map(Object.entries(antenasCercanos).flatMap(([code,nearby]) =>
+ nearby.map(id => [id, townsByCode.get(code).path+'#antena-municipio-'+id])));
+const antennaLinks = '<div class="antenna-areas">'+areaList.map(area => {
+ const hubs = antennaHubs.filter(town => town.area === area).sort((a,b) => b.population-a.population);
+ const nearby = ordered(area.towns.filter(town => antennaNearby.has(town.code)));
+ return '<article><h3>'+esc(area.name)+'</h3>'
+  +list(hubs.map(town => '<li>'+link(town.path+'#antenas','Antenista en '+town.name)+'</li>'))
+  +(nearby.length ? '<details><summary>Ver '+nearby.length+' municipios cercanos</summary>'
+   +list(nearby.map(town => '<li>'+link(antennaNearby.get(town.code),town.name)+'</li>'))+'</details>' : '')
+  +'</article>';
+}).join('')+'</div>';
 
 function page(path, title, description, body, {place='',trail=[],index=true}={}) {
  const indexable = index && !preview;
@@ -197,7 +209,7 @@ for (const [id,name,copy,detail] of servicios) {
 page('/servicios/antenas/','Antenista | Instalación y reparación de antenas','Antenista para instalación y reparación de antenas TDT y parabólicas. Revisamos fallos de señal en viviendas y comunidades. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos pérdida de canales, imagen pixelada e instalaciones nuevas de TDT o parabólica.')
  +band('Qué comprobamos cuando falla la señal','<p class="readable">Si falla una sola toma, comprobamos el conector y el cable de esa habitación. Cuando afecta a varias viviendas, comparamos niveles en la cabecera y en las tomas para acotar el fallo.</p>'+servicePhotos(imageSets.antenas))
- +band('Municipios con servicio de antenista',antennaLinks)
+ +band('Municipios con servicio de antenista','<p class="readable">Consulta los municipios principales y abre el listado de localidades cercanas de tu provincia. Confirmamos el desplazamiento al pedir cita.</p>'+antennaLinks)
  +callout(),{trail:[['/servicios/','Servicios'],['','Antenista']]});
 page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o reparación de porteros, videoporteros y antenas. Tel. '+phone+'.',
  '<section class="wrap section"><p class="eyebrow">Contacto</p><h1>Cuéntanos qué necesitas</h1><p>Indica dónde está la instalación y qué quieres reparar o montar. Revisarás el mensaje antes de enviarlo en WhatsApp.</p>'
@@ -221,13 +233,19 @@ for (const area of areaList) {
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
   const localCases=caseReferences(town.name);
+  const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
   page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
    +band('Reparación e instalación',list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
    +(antenas[town.code] ? band('Antenista en '+town.name,
      illustratedText('<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>',
-      imageSets.antenas[Number(town.code) % imageSets.antenas.length]),'antenas') : '')
+      imageSets.antenas[Number(town.code) % imageSets.antenas.length])
+     +(localAntennaNearby.length ? '<h3>Antenas en pueblos cercanos</h3>'+list(localAntennaNearby.map(place =>
+       '<li id="antena-municipio-'+place.code+'"><strong>'+esc(place.name)+'</strong><br>'+
+       link(wa(place.name,'una antena'),'Consultar visita de antenista')+'</li>')) : ''),'antenas') : '')
+   +(antennaNearby.has(town.code) ? band('Servicio de antenista en '+town.name,
+     '<p>'+link(antennaNearby.get(town.code),'Consultar cobertura de TDT y parabólicas en '+town.name)+'</p>') : '')
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Trabajos en '+town.name,referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')

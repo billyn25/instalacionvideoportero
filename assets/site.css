@@ -152,3 +152,9 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
   .local-illustration { grid-template-columns: 1fr }
   .local-illustration figure { width: min(100%, 24rem) }
 }
+.antenna-areas { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .8rem; align-items: start }
+.antenna-areas article { min-width: 0; padding: .85rem 1rem; border: 1px solid var(--line); border-radius: .75rem; background: white }
+.antenna-areas .places { grid-template-columns: repeat(2,minmax(0,1fr)); margin-block: .65rem }
+.antenna-areas summary { width: fit-content; padding: .4rem 0; cursor: pointer; color: var(--accent); font-weight: 700 }
+.antenna-areas summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px }
+@media (max-width: 650px) { .antenna-areas { grid-template-columns: 1fr } }

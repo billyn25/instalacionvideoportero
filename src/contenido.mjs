@@ -1,0 +1,56 @@
+export const servicios = [
+ ['reparacion', 'Reparación de porteros y videoporteros', 'Si el telefonillo no suena, se oye mal o el abrepuertas falla, localizamos la avería en la vivienda, la placa o la instalación compartida.', 'Antes de cambiar el equipo, comprobamos alimentación, llamada, audio y apertura. Si solo falla una vivienda, revisamos su terminal y su línea. Si fallan varios vecinos, empezamos por la placa, la fuente o el cableado común.'],
+ ['instalacion', 'Instalación y renovación de porteros', 'Montamos telefonillos y videoporteros para casas, comunidades, locales y portales con varios accesos.', 'Revisamos el cableado existente, el espacio de la placa y el funcionamiento de la cerradura. En una renovación valoramos qué se puede reutilizar y cómo coordinar el cambio de terminales de las viviendas.'],
+ ['wifi', 'Videoporteros Wi‑Fi y apertura desde el móvil', 'Con un equipo compatible, puedes recibir llamadas, ver la cámara y abrir la puerta desde el móvil.', 'La conectividad puede estar en el monitor interior, en la placa o en una pasarela. Comprobamos la cobertura de red y las funciones disponibles en el equipo antes de preparar la instalación.'],
+ ['llaveros', 'Apertura con llavero, tarjeta o código', 'Añadimos lectores de proximidad, teclados y sistemas de acceso para vecinos, personal y usuarios autorizados.', 'Un lector puede ir integrado en la placa o separado. Revisamos la alimentación y la cerradura y, si el sistema lo permite, configuramos el alta y la baja individual de llaveros.'],
+];
+
+export const fichas = {
+ '48020':['Bilbao','¿Falla solo un piso o todo el portal?','Antes de cambiar un telefonillo, comprobamos si la llamada y el audio llegan a otros pisos. Si falla toda la comunidad, revisamos primero la fuente y la placa exterior.'],
+ '48013':['Barakaldo','Apertura que falla en un portal compartido','Si todos oyen la llamada pero la puerta no abre, conviene medir la tensión bajo carga y revisar el cerradero. Eso ayuda a separar un fallo eléctrico de un problema mecánico.'],
+ '48044':['Getxo','Placa exterior que falla con lluvia','Si la avería aparece al mojarse la entrada, comprobamos conexiones, estanqueidad y estado de la caja antes de elegir repuestos.'],
+ '48082':['Santurtzi','Sustitución de una placa sin perder llamadas','Revisamos cuántos pulsadores o códigos necesita el edificio y comprobamos cada llamada y apertura al poner el nuevo equipo en marcha.'],
+ '48078':['Portugalete','Pasar de telefonillo a monitor','Medimos el recorrido del cableado y comprobamos la compatibilidad del sistema. Así podemos valorar si se conserva la canalización existente.'],
+ '48015':['Basauri','Llamadas sin audio en una vivienda','Probamos llamada, escucha y apertura por separado para localizar si falla el terminal interior o el tramo de cable hacia la vivienda.'],
+ '48054':['Leioa','Lector de acceso para el portal','Antes del montaje revisamos la cerradura y cómo se gestionarán las altas y bajas. En una comunidad interesa que se puedan retirar llaveros perdidos sin cambiar todos los demás.'],
+ '48027':['Durango','Una comunidad con dos entradas','Al renovar un sistema con dos placas, comprobamos qué puerta abre cada monitor y cómo se identifican las llamadas de cada acceso.'],
+ '48036':['Galdakao','El monitor enciende y la cámara no se ve','Se comprueba si otros vecinos tienen imagen y si el fallo aparece también al activar la cámara desde el monitor. Esa prueba orienta la revisión de la línea o la placa.'],
+ '48046':['Gernika-Lumo','Videoportero para una entrada exterior','Antes de instalarlo revisamos dónde quedará la cámara, el contraluz y el recorrido desde la entrada hasta el monitor o el punto de red.'],
+ '48069':['Mungia','Apertura desde el móvil en una vivienda','Comprobamos dónde hay cobertura de red y si el portón usa una entrada de impulso o un cerradero. Ambas cosas condicionan cómo se integra la apertura.'],
+ '48096':['Zalla','Reparación de sistemas antiguos','Identificamos el sistema y las conexiones antes de sustituir un telefonillo. En equipos antiguos, que un terminal encaje en la pared no garantiza que sea compatible.'],
+ '20069':['Donostia / San Sebastián','Renovar el videoportero de una comunidad','Si hay varias escaleras, revisamos cómo se reparten las llamadas y cómo se accede al cableado común antes de programar la intervención.'],
+ '20045':['Irun','La llamada llega pero no se oye la calle','Probamos el audio en los dos sentidos. Si el fallo se repite en varios pisos, revisamos el micrófono de placa y la línea común.'],
+ '20067':['Errenteria','Telefonillo que no llama en un solo piso','Comprobamos el timbre y las conexiones del terminal. Si los demás vecinos reciben llamadas, la revisión se centra en el tramo de la vivienda y su configuración.'],
+ '20030':['Eibar','Videoportero que reinicia al abrir','Revisamos si la tensión cae al activar el abrepuertas y comprobamos alimentación, conexiones y cerradura antes de sustituir el monitor.'],
+ '20079':['Zarautz','Placa exterior expuesta a humedad','Revisamos la caja de empotrar, el paso del cable y el estado de los contactos cuando la llamada o el audio fallan después de llover.'],
+ '20055':['Arrasate / Mondragón','Actualizar un sistema de varios vecinos','Identificamos derivaciones y terminales antes de presupuestar la renovación. El objetivo es comprobar cada vivienda y cada apertura al terminar.'],
+ '20040':['Hernani','Llavero de acceso para vecinos','Vemos si el lector puede incorporarse a la placa actual o necesita ir aparte. El administrador debe poder gestionar las credenciales con el procedimiento acordado.'],
+ '20071':['Tolosa','La cámara se ve mal de noche','Comprobamos la iluminación del portal, el estado de la lente y si la imagen falla en un solo monitor o en todo el edificio.'],
+ '20036':['Hondarribia','Videoportero para puerta y cancela','Definimos qué acceso se abre desde cada botón y cómo llega la llamada a la casa. También comprobamos la distancia y la red si se quiere usar el móvil.'],
+ '20009':['Andoain','Pulsadores que dejan de llamar','Probamos cada pulsador y comparamos la llamada en varios terminales para distinguir un fallo de botonera de una incidencia en la instalación.'],
+};
+
+Object.assign(fichas, {
+ '48034':['Ermua','Avería de audio y apertura en portales','Probamos la llamada y el abrepuertas de forma separada. Si el fallo solo afecta a una escalera, revisamos su derivación antes de intervenir en la placa compartida.'],
+ '48085':['Sopela','Instalación con cámara para una vivienda','Revisamos el ángulo de la cámara y el paso de cable hasta el monitor. Si se quiere abrir con el móvil, comprobamos la red en el punto que utilizará el equipo.'],
+ '48029':['Etxebarri','Un pulsador deja de llamar','Comprobamos si falla una sola llamada en la placa o un grupo de viviendas. Así acotamos la avería antes de desmontar todo el equipo.'],
+ '48011':['Arrigorriaga','Añadir un lector de llaveros a un portal','Revisamos el espacio disponible y el tipo de cerradero. Si el lector va separado, definimos su alimentación y dónde se gestionarán los llaveros.'],
+ '48080':['Valle de Trápaga-Trapagaran','Renovar un telefonillo de una instalación común','Identificamos el tipo de sistema y comprobamos si se puede cambiar solo el terminal interior. En una renovación completa coordinamos las pruebas con la comunidad.'],
+ '20074':['Bergara','La puerta abre desde unos pisos y desde otros no','Probamos el mando de apertura en varios terminales y seguimos el tramo común para separar un fallo de configuración de un problema de línea.'],
+ '20019':['Beasain','Monitor con cámara y aviso al móvil','Confirmamos si la red se necesita en la placa, el monitor o una pasarela. Probamos la llamada y el aviso antes de entregar el sistema.'],
+ '20017':['Azkoitia','Cambiar la placa exterior de un portal','Comprobamos el hueco existente, el número de llamadas y la cerradura. Eso permite preparar el recambio y reducir el tiempo de intervención.'],
+ '20032':['Elgoibar','El telefonillo suena pero la puerta no abre','Comprobamos si el cierre queda trabado, si llega alimentación y si la apertura falla desde todos los terminales.'],
+});
+
+export const antenas = {
+ '48034':'Si varios vecinos pierden canales a la vez, comprobamos si la avería está en la cabecera comunitaria o en un tramo de distribución.',
+ '48085':'En una instalación de vivienda revisamos la orientación de la antena y el estado de las conexiones exteriores antes de sustituir piezas.',
+ '48029':'Si la televisión falla solo en una habitación, medimos en esa toma y comprobamos el cableado y los repartidores antes de intervenir en la antena.',
+ '48011':'Para una instalación nueva de TDT valoramos el punto de montaje, el recorrido de cable y el número de tomas interiores.',
+ '48080':'Si la señal se corta a ratos, comprobamos los niveles en la toma y el estado del cable coaxial, los conectores y la amplificación.',
+ '20009':'Si falla la TDT de una comunidad, comprobamos qué viviendas y canales están afectados para localizar la avería en la cabecera o en la distribución.',
+ '20074':'Ante cortes de imagen, revisamos si el problema aparece en una toma o en varias y medimos la señal antes de ajustar el amplificador.',
+ '20019':'En una instalación de TDT o satélite revisamos el lugar de montaje, la orientación y la compatibilidad de las tomas existentes.',
+ '20017':'Si hay pérdidas de señal después de lluvia o viento, revisamos sujeción, conectores y cableado exterior.',
+ '20032':'Comprobamos la antena y la señal en el interior cuando faltan canales o aparece pixelación en varias tomas.',
+};

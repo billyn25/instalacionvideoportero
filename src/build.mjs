@@ -1,0 +1,123 @@
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { antenas, fichas, servicios } from './contenido.mjs';
+
+const root = new URL('../', import.meta.url);
+const file = path => new URL(path, root);
+const read = path => JSON.parse(readFileSync(file(path), 'utf8'));
+const site = process.env.SITE_URL || process.env.URL;
+const origin = site ? new URL(site).origin : '';
+if (site && !/^https?:\/\//.test(origin)) throw new Error('SITE_URL debe ser una URL HTTP o HTTPS');
+const brand = 'Videoporteros Fuentes';
+const phone = '+34 641 49 05 36';
+const tel = 'tel:+34641490536';
+const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/34641490536?text=' + encodeURIComponent('Hola, necesito ayuda con ' + service + (place ? ' en ' + place : '') + '.');
+const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug = name => name.toLowerCase().normalize('NFD').replace(/\p{Mark}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const areas = {
+ '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
+ '20': {name:'Gipuzkoa', slug:'gipuzkoa', intro:'Atendemos instalaciones y reparaciones en Donostia, el Bidasoa y los municipios del interior. Podemos revisar un sistema existente o preparar una renovación con cámara, móvil y llaveros.'},
+};
+const towns = read('data/municipios.json').map(([code, official, population, lat, lon]) => {
+ const entry = fichas[code];
+ const name = entry?.[0] || official.replaceAll('/', ' / ');
+ const area = areas[code.slice(0,2)];
+ return {code,name,population,lat,lon,entry,area,path:entry ? '/' + area.slug + '/' + slug(name) + '/' : ''};
+});
+const ordered = list => [...list].sort((a,b) => a.name.localeCompare(b.name,'es'));
+const distance = (a,b) => (a.lat-b.lat)**2 + ((a.lon-b.lon)*Math.cos(a.lat*Math.PI/180))**2;
+for (const area of Object.values(areas)) {
+ area.towns = towns.filter(t => t.area === area);
+ area.main = area.towns.filter(t => t.entry).sort((a,b) => b.population-a.population);
+ for (const town of area.towns.filter(t => !t.entry)) {
+  town.center = area.main.reduce((a,b) => distance(town,a) < distance(town,b) ? a : b);
+  town.path = town.center.path + '#municipio-' + town.code;
+ }
+}
+const jobs = read('data/trabajos.json').filter(j => j.titulo?.trim() && j.descripcion?.trim() && j.municipio?.trim() && j.alt?.trim()
+ && /^[a-z0-9][a-z0-9._-]*\.(?:webp|jpe?g|png)$/i.test(j.foto) && existsSync(file('fotos-trabajos/' + j.foto)));
+const published = new Set();
+rmSync(file('dist/'),{recursive:true,force:true});
+mkdirSync(file('dist/'));
+cpSync(file('assets/'),file('dist/assets/'),{recursive:true});
+if (jobs.length) {
+ mkdirSync(file('dist/fotos-trabajos/'));
+ for (const {foto} of jobs) cpSync(file('fotos-trabajos/' + foto),file('dist/fotos-trabajos/' + foto));
+}
+
+const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
+const contact = place => '<div class="contact"><a class="button" href="' + tel + '">Llamar al 641 49 05 36</a><a class="button secondary" href="' + esc(wa(place)) + '">WhatsApp</a></div>';
+const logo = '<a href="/" class="brand"><svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="9" fill="#e9fb93"/><rect x="12" y="7" width="12" height="22" rx="3" fill="none" stroke="#122c2c" stroke-width="2"/><circle cx="18" cy="14" r="2.5" fill="#122c2c"/><circle cx="18" cy="23" r="1.6" fill="#122c2c"/></svg><span>Videoporteros <strong>Fuentes</strong></span></a>';
+const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
+const hero = (label,title,description,place='',art=false) => '<section class="hero"><div class="wrap hero-inner' + (art ? ' with-art' : '') + '"><div><p class="eyebrow">' + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place) + '</div>' + (art ? '<figure><img src="/assets/videoportero.svg" alt="Ilustración de una placa de videoportero, un monitor y un llavero" width="620" height="460" fetchpriority="high"><figcaption>Placa exterior · Monitor interior · Llavero de proximidad</figcaption></figure>' : '') + '</div></section>';
+const band = (title,body,id='') => '<section class="wrap section"' + (id ? ' id="'+esc(id)+'"' : '') + '><h2>' + esc(title) + '</h2>' + body + '</section>';
+const antennaLinks = list(towns.filter(t => antenas[t.code]).map(t => '<li>' + link(t.path+'#antenas','Antenas en '+t.name) + '</li>'));
+
+function page(path, title, description, body, {place='',trail=[],index=true}={}) {
+ const canonical = origin ? origin + path : '';
+ const schema = {'@context':'https://schema.org','@type':'Organization',name:brand,telephone:phone,areaServed:['Bizkaia','Gipuzkoa']};
+ if (origin) schema.url = origin;
+ const crumb = trail.length ? '<nav class="wrap crumb" aria-label="Ruta">' + link('/','Inicio') + trail.map(([url,label]) => ' <span aria-hidden="true">›</span> ' + (url ? link(url,label) : esc(label))).join('') + '</nav>' : '';
+ const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(title)} | ${brand}</title><meta name="description" content="${esc(description)}">
+${index && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}${index ? '' : '<meta name="robots" content="noindex,follow">'}
+<meta name="theme-color" content="#122c2c"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
+<script type="application/ld+json">${JSON.stringify(schema)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
+<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}</nav></div></header>
+<main id="contenido">${crumb}${body}</main><footer><div class="wrap top">${logo}<nav aria-label="Información">${link('/zonas/','Cobertura')}${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
+<div class="mobile" aria-label="Contacto rápido"><a href="${tel}">Llamar</a><a href="${esc(wa(place))}">WhatsApp</a></div></body></html>`;
+ if (published.has(path)) throw new Error('Ruta duplicada: ' + path);
+ if (index) published.add(path);
+ const target = file('dist' + path);
+ mkdirSync(target,{recursive:true});
+ writeFileSync(new URL('index.html',target),html);
+}
+const serviceCards = '<div class="cards">' + servicios.map(([id,name,copy],i) => '<article><span class="number">0'+(i+1)+'</span><h3>' + link('/servicios/'+id+'/',name) + '</h3><p>' + esc(copy) + '</p></article>').join('') + '</div>';
+const areaCards = '<div class="cards areas">' + Object.values(areas).map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,6).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
+const jobCards = cards => '<div class="cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/fotos-trabajos/' + encodeURIComponent(j.foto) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p></article>').join('') + '</div>';
+const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p>' + contact(place) + '</section></div>';
+
+page('/','Instalación y reparación de videoporteros en Bizkaia y Gipuzkoa','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero. Reparación e instalación en Bilbao, Gipuzkoa y Bizkaia. Tel. '+phone+'.',
+ hero('Porteros automáticos y control de acceso','Que vuelva a sonar tu portero','Instalamos, renovamos y reparamos telefonillos y videoporteros para viviendas y comunidades. Si quieres abrir desde el móvil o con llavero, revisamos qué encaja en tu portal.','',true)
+ + band('Instalación, reparación y control de acceso',serviceCards+'<p>'+link('/servicios/#antenas-locales','Ver municipios con servicio de antenas →')+'</p>')
+ + band('Servicio en Bizkaia y Gipuzkoa',areaCards+'<p>'+link('/zonas/','Buscar mi municipio →')+'</p>')
+ + (jobs.length ? band('Trabajos reales',jobCards(jobs.slice(0,3))+'<p>'+link('/trabajos/','Ver todos los trabajos →')+'</p>') : '')
+ + callout());
+page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenas en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+antennaLinks,'antenas-locales')+callout());
+for (const [id,name,copy,detail] of servicios) {
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
+}
+page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en Bizkaia o Gipuzkoa y consulta la cobertura de reparación e instalación.',
+ hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en Bizkaia y Gipuzkoa.')
+ + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
+ + Object.values(areas).map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>');
+for (const area of Object.values(areas)) {
+ const areaUrl = '/' + area.slug + '/';
+ page(areaUrl,'Porteros automáticos y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
+  hero('Cobertura','Porteros y videoporteros en '+area.name,area.intro,area.name)
+  +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')))
+  +band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>')))
+  +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});
+ for (const town of area.main) {
+  const [,heading,advice]=town.entry;
+  const nearby=ordered(area.towns.filter(t=>t.center===town));
+  const localJobs=jobs.filter(j=>slug(j.municipio)===slug(town.name));
+  page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
+   hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
+   +band(heading,'<p class="readable">'+esc(advice)+'</p>')
+   +band('Reparación e instalación',serviceCards)
+   +(antenas[town.code] ? band('Instalación y reparación de antenas en '+town.name,
+     '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar servicio de antenas')+'</p>','antenas') : '')
+   +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs)) : '')
+   +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+'</li>'))) : '')
+   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
+ }
+}
+page('/trabajos/','Trabajos de porteros y videoporteros','Galería de trabajos documentados de Videoporteros Fuentes.',
+ hero('Galería','Trabajos de porteros y videoporteros',jobs.length ? 'Instalaciones y reparaciones documentadas con fotos y detalles de la intervención.' : 'Si necesitas renovar un portal o reparar un telefonillo, envíanos una foto del equipo para orientarte.')
+ +(jobs.length ? band('Intervenciones documentadas',jobCards(jobs)) : band('Qué fotos ayudan a identificar el sistema','<p class="readable">Para valorar el trabajo suele bastar una foto de la placa exterior y otra del telefonillo o monitor. Si la puerta falla al abrir, cuéntanos si les ocurre también a otros vecinos.</p>')),{index:jobs.length>0});
+page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><p>Videoporteros Fuentes. Titular: Roberto Fuentes González.</p><p>Contacto: '+link(tel,phone)+'.</p></section>',{index:false});
+page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable: Roberto Fuentes González. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
+const sitemap = origin ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';
+if (sitemap) writeFileSync(file('dist/sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n'+sitemap);
+writeFileSync(file('dist/robots.txt'),'User-agent: *\nAllow: /\n'+(origin ? 'Sitemap: '+origin+'/sitemap.xml\n' : ''));
+console.log(published.size+' páginas indexables · '+towns.length+' municipios · '+jobs.length+' trabajos documentados');

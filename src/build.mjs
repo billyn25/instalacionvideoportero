@@ -118,11 +118,21 @@ const equipmentPhoto = (name, eager = false) => {
  return '<img src="/assets/fotos-servicio/'+name+'.webp" width="'+ancho+'" height="'+alto+'" alt="'+esc(alt)+'"'
   +(eager ? ' fetchpriority="high"' : ' loading="lazy" decoding="async"')+'>';
 };
-const servicePhotos = names => '<div class="cards service-photos">' + names.map(name => {
- return '<figure>'+equipmentPhoto(name)+'<figcaption>'+esc(serviceImages[name].alt)+'</figcaption></figure>';
-}).join('') + '</div>';
+const photoFigure = name => '<figure>'+equipmentPhoto(name)+'<figcaption>'+esc(serviceImages[name].alt)+'</figcaption></figure>';
+const servicePhotos = names => '<div class="cards service-photos">' + names.map(photoFigure).join('') + '</div>';
 const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
  Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
+const photoForTown = (town, topic) => {
+ let options = imageSets.porteros;
+ if (/llavero|teclado|lector/i.test(topic)) options = ['teclado-de-acceso'];
+ else if (/cámara|monitor|imagen|vídeo|videoportero/i.test(topic)) {
+  options = ['monitor-y-auricular','videoportero-golmar-exterior','videoportero-tegui-comunidad'];
+ } else if (/cable|conex|alimentación/i.test(topic)) {
+  options = ['placa-en-revision','cableado-de-placa'];
+ }
+ return options[Number(town.code) % options.length];
+};
+const illustratedText = (copy, photo) => '<div class="local-illustration"><div>'+copy+'</div>'+photoFigure(photo)+'</div>';
 const videoExample = '<figure class="video-example"><video width="360" height="640" controls playsinline preload="none" poster="/assets/fotos-servicio/detalle-videoportero.webp" aria-label="Detalle de una placa de videoportero exterior">'
  +'<source src="/assets/fotos-servicio/detalle-videoportero.mp4" type="video/mp4"></video>'
  +'<figcaption>Detalle de una placa exterior con cámara y pulsador. Vídeo sin audio.</figcaption></figure>';
@@ -213,10 +223,11 @@ for (const area of areaList) {
   const localCases=caseReferences(town.name);
   page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
-   +band(heading,'<p class="readable">'+esc(advice)+'</p>')
+   +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
    +band('Reparación e instalación',list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
    +(antenas[town.code] ? band('Antenista en '+town.name,
-     '<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>','antenas') : '')
+     illustratedText('<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>',
+      imageSets.antenas[Number(town.code) % imageSets.antenas.length]),'antenas') : '')
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Trabajos en '+town.name,referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')

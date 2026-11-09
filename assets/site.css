@@ -144,3 +144,11 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .case-reference h4 { margin: .9rem 0 .15rem }
 .case-reference p { max-width: 67ch }
 .case-places { color: var(--muted); font-size: .9rem }
+.local-illustration { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); gap: clamp(.75rem, 3vw, 2rem); align-items: start }
+.local-illustration figure { overflow: hidden; border: 1px solid var(--line); border-radius: .75rem; background: white }
+.local-illustration img { aspect-ratio: 4/3; object-fit: contain; background: #eef0f6 }
+.local-illustration figcaption { color: var(--muted); padding: .45rem .65rem; font-size: .82rem }
+@media (max-width: 650px) {
+  .local-illustration { grid-template-columns: 1fr }
+  .local-illustration figure { width: min(100%, 24rem) }
+}

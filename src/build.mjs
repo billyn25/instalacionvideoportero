@@ -9,6 +9,8 @@ const preview = ['deploy-preview','branch-deploy'].includes(process.env.CONTEXT)
 const origin = site ? new URL(site).origin : '';
 if (site && !/^https?:\/\//.test(origin)) throw new Error('SITE_URL debe ser una URL HTTP o HTTPS');
 const brand = 'Videoporteros Fuentes';
+const owner = 'David Corregidor Gonzalo';
+const legalAddress = 'Calle La Fragua s/n, Madrid';
 const phone = '+34 641 49 05 36';
 const tel = 'tel:+34641490536';
 const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/34641490536?text=' + encodeURIComponent('Hola, necesito ayuda con ' + service + (place ? ' en ' + place : '') + '.');
@@ -155,7 +157,7 @@ const serviceExamples = {
  instalacion: ['videoportero-golmar-exterior','videoportero-tegui-comunidad','monitor-y-auricular'],
  llaveros: ['teclado-de-acceso'],
 };
-const referencePhotos = () => '<p class="readable">Hemos realizado trabajos en esta localidad. Las fotos siguientes muestran ejemplos del servicio y están pendientes de identificar por obra.</p>'
+const referencePhotos = () => '<p class="readable">Hemos realizado trabajos en esta localidad. Estas fotos ilustran los tipos de equipos con los que trabajamos.</p>'
  +servicePhotos(['placa-comunitaria','tdt-y-parabolicas']);
 const casesAt = place => casos.filter(item => item.ubicaciones.some(name => slug(name) === slug(place)));
 const caseReferences = place => casesAt(place).map(item =>
@@ -218,7 +220,7 @@ page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o repara
  +'<form class="contact-form" data-contact-form action="'+esc(wa())+'"><div><label for="consulta-municipio">Municipio</label><input id="consulta-municipio" required maxlength="90" autocomplete="address-level2"></div>'
  +'<div><label for="consulta-servicio">Servicio</label><select id="consulta-servicio"><option>Reparación de portero o videoportero</option><option>Instalación de portero o videoportero</option><option>Apertura con llavero, código o móvil</option><option>Instalación o reparación de antena</option><option>Otra consulta</option></select></div>'
  +'<div><label for="consulta-detalle">Qué necesitas</label><textarea id="consulta-detalle" rows="5" required maxlength="1200"></textarea></div><button type="submit" class="button">Abrir consulta en WhatsApp</button></form>'
- +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'.</p></section>',{trail:[['','Contacto']]});
+ +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p></section>',{trail:[['','Contacto']]});
 page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en '+coverage+' y consulta la cobertura de reparación e instalación.',
  hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en '+coverage+'.')
  + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
@@ -249,7 +251,7 @@ for (const area of areaList) {
    +(antennaNearby.has(town.code) ? band('Servicio de antenista en '+town.name,
      '<p>'+link(antennaNearby.get(town.code),'Consultar cobertura de TDT y parabólicas en '+town.name)+'</p>') : '')
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
-     : confirmedWorkPlaces.has(slug(town.name)) ? band('Trabajos en '+town.name,referencePhotos()) : '')
+     : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>'))) : '')
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
@@ -266,8 +268,8 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
    return band(heading,servicePhotos(imageSets[tipo])
      +places.map(place => '<div id="'+jobAnchor({tipo,municipio:place})+'"><h3>'+esc(place)+'</h3>'+jobCards(selection.filter(job => slug(job.municipio) === slug(place)))+'</div>').join(''));
  }).join(''));
-page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><p>Videoporteros Fuentes. Titular: Roberto Fuentes González.</p><p>Contacto: '+link(tel,phone)+'.</p></section>',{index:false});
-page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable: Roberto Fuentes González. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
+page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoporteros Fuentes.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
+page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable del tratamiento: '+esc(owner)+'. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>El formulario de presupuesto prepara un mensaje para que puedas revisarlo y enviarlo desde WhatsApp. WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin && !preview ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';
 if (sitemap) writeFileSync(file('dist/sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n'+sitemap);
 writeFileSync(file('dist/robots.txt'),'User-agent: *\nAllow: /\n'+(sitemap ? 'Sitemap: '+origin+'/sitemap.xml\n' : ''));

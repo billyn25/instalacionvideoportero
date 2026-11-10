@@ -130,5 +130,11 @@
     "alt": "Base de un monitor Auta con bornes y cableado a la vista durante una valoración",
     "ancho": 675,
     "alto": 900
+  },
+  "visita-monitor-auta-neos": {
+    "servicio": "visitas",
+    "alt": "Vista frontal de un monitor Auta Neos manos libres durante una visita técnica",
+    "ancho": 675,
+    "alto": 900
   }
 }

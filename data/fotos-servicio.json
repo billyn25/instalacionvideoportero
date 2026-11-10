@@ -124,5 +124,11 @@
     "alt": "Caja exterior abierta con conexiones de cable coaxial",
     "ancho": 405,
     "alto": 900
+  },
+  "visita-base-monitor-auta": {
+    "servicio": "visitas",
+    "alt": "Base de un monitor Auta con bornes y cableado a la vista durante una valoración",
+    "ancho": 675,
+    "alto": 900
   }
 }

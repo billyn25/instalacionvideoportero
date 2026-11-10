@@ -139,6 +139,7 @@ const equipmentPhoto = (name, eager = false) => {
 const photoFigure = name => '<figure>'+equipmentPhoto(name)+'<figcaption>'+esc(serviceImages[name].alt)+'</figcaption></figure>';
 const servicePhotos = names => '<div class="cards service-photos">' + names.map(photoFigure).join('') + '</div>';
 const visitPhotos = Object.keys(serviceImages).filter(name => serviceImages[name].servicio === 'visitas');
+const visitDispatch = visit => visit[2] ? 'El técnico de la zona de '+esc(visit[2])+' se desplazó para atender este aviso urgente. ' : '';
 const visitLinks = visits => list(Object.keys(visits).map(code => {
  const town = townsByCode.get(code);
  const url = town.entry ? town.path+'#visita-valoracion' : town.path;
@@ -256,7 +257,7 @@ for (const area of areaList) {
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
    +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,
-     '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+esc(localVisit[1])+'</p></article>',
+     '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+visitDispatch(localVisit)+esc(localVisit[1])+'</p></article>',
      'visita-valoracion') : '')
    +band('¿Se puede reparar el portero que ya tienes?',repairQuote+list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
    +(antenas[town.code] ? band('Antenista en '+town.name,
@@ -273,7 +274,7 @@ for (const area of areaList) {
    +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t => {
     const visit = visitasUrgentes[t.code];
     return '<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)
-     +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
+     +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }))) : '')
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});

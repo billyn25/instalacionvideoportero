@@ -217,7 +217,16 @@ page('/','Instalación y reparación de videoporteros','Porteros automáticos, v
  + callout());
 page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenista en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+'<p>'+link('/servicios/antenas/','Ver servicio de antenista →')+'</p>','antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
- page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+(id === 'reparacion' ? band('Presupuesto de reparación o sustitución',repairQuote) : '')+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
+ const repairDetails = id === 'reparacion'
+  ? band('Qué observar antes de avisar', '<ul class="readable">'
+   + '<li><strong>No suena el telefonillo.</strong> Si puedes, pregunta si también les falla a otros vecinos y si ocurre desde todos los accesos.</li>'
+   + '<li><strong>Hay sonido, pero la pantalla queda negra.</strong> Indica si sucede siempre o solo al llamar desde una placa concreta.</li>'
+   + '<li><strong>Se oye bien, pero la puerta no abre.</strong> Anota si se oye actuar el cerradero al pulsar el botón y si el fallo ocurre desde más de una vivienda.</li>'
+   + '</ul><p class="readable">Al pedir visita, indica tu municipio y, si puedes, adjunta una foto de la placa o del terminal interior. La marca y la referencia ayudan a preparar la revisión.</p>'
+   + '<p>'+link('/trabajos/','Ver fotos de equipos y trabajos reales')+'</p>')
+   + band('Presupuesto de reparación o sustitución',repairQuote)
+  : '';
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards)+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
 page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'.')

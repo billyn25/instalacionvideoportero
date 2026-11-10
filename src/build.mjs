@@ -1,5 +1,5 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { antenas, antenasCercanos, casos, fichas, servicios } from './contenido.mjs';
+import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios } from './contenido.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -229,9 +229,13 @@ page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra 
  + areaList.map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
 for (const area of areaList) {
  const areaUrl = '/' + area.slug + '/';
+ const [serviceHeading, serviceText, photo] = servicioProvincial[area.slug];
  page(areaUrl,'Cobertura provincial de porteros y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
   hero('Cobertura provincial','Porteros y videoporteros en la provincia de '+area.name,area.intro,area.name)
-  +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')))
+  +band(serviceHeading,illustratedText('<p class="readable">'+esc(serviceText)+'</p>'
+   +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
+   +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo))
+  +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')),'municipios')
   +band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>')))
   +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});
  for (const town of area.main) {

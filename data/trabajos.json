@@ -1,20 +1,154 @@
 [
-  {"municipio":"Bilbao","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Donostia / San Sebastián","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Irun","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Errenteria","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Eibar","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Zarautz","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Tolosa","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Hernani","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Arrasate / Mondragón","titulo":"","descripcion":"","foto":"","alt":"","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Placa comunitaria Tegui","descripcion":"Placa Tegui con pulsadores para varias plantas. Si dejan de sonar solo algunas viviendas, se puede comprobar qué pulsadores o tramos comparten antes de presupuestar el cambio de la placa.","foto":"burgos-placa-tegui.webp","alt":"Placa exterior Tegui con dos columnas de pulsadores de vivienda","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Botonera de un portero comunitario","descripcion":"Detalle de una placa con pulsadores por vivienda. La revisión de llamada y audio permite distinguir una avería del pulsador de un problema del módulo común.","foto":"burgos-botonera-comunitaria.webp","alt":"Placa de portero con rejilla de audio y pulsadores por vivienda","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Placa Fermax con cámara y lector","descripcion":"En esta placa se ven la cámara, los pulsadores de llamada y el lector de proximidad. Al valorar una avería conviene comprobar la llamada y la apertura por separado.","foto":"burgos-fermax-lector.webp","alt":"Placa Fermax con cámara, pulsadores y lector de proximidad","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Conexiones detrás de la placa","descripcion":"Detalle de los bornes y el cableado del equipo existente, que se pueden revisar antes de valorar un recambio.","foto":"burgos-bornes-videoportero.webp","alt":"Regleta de bornes y cables detrás de una placa de videoportero","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Módulo Fermax BUS-2","descripcion":"Vista del amplificador de placa y sus conexiones. Identificar la referencia del equipo ayuda a comprobar qué recambios son compatibles.","foto":"burgos-modulo-fermax.webp","alt":"Módulo Fermax BUS-2 con la regleta de conexión a la vista","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Placa existente en un portal","descripcion":"Vista del equipo que ya tenía la comunidad antes de valorar una renovación.","foto":"burgos-placa-existente.webp","alt":"Portero comunitario con módulo de audio y botonera vertical","tipo":"porteros"},
-  {"municipio":"Burgos","titulo":"Medición de la placa antes de presupuestar","descripcion":"Se tomó la medida del equipo existente para valorar el espacio disponible y si una placa nueva podría aprovechar el hueco.","foto":"burgos-medidas-placa.webp","alt":"Cinta métrica junto a los módulos del portero comunitario","tipo":"porteros"},
-  {"municipio":"Cabezón de la Sal","titulo":"Renovación de portero de audio a dos hilos","descripcion":"En una comunidad de Cabezón de la Sal se renovó el portero de audio convencional y se instaló un sistema de audio a dos hilos. En la foto se ve la placa Tegui con pulsadores de llamada para las viviendas.","foto":"cabezon-de-la-sal-tegui-dos-hilos.webp","alt":"Placa Tegui de portero automático con seis pulsadores en Cabezón de la Sal","tipo":"porteros"},
-  {"municipio":"Torrelavega","titulo":"Placa Tegui de videoportero comunitario","descripcion":"Placa exterior de una comunidad en Torrelavega (Cantabria), con cámara y pulsadores de llamada identificados por vivienda.","foto":"torrelavega-placa-tegui.webp","alt":"Placa exterior Tegui con cámara y pulsadores por vivienda en Torrelavega","tipo":"porteros"}
+  {
+    "municipio": "Bilbao",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Donostia / San Sebastián",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Irun",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Errenteria",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Eibar",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Zarautz",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Tolosa",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Hernani",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Arrasate / Mondragón",
+    "titulo": "",
+    "descripcion": "",
+    "foto": "",
+    "alt": "",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Placa comunitaria Tegui",
+    "descripcion": "Placa Tegui con pulsadores para varias plantas. Si dejan de sonar solo algunas viviendas, se puede comprobar qué pulsadores o tramos comparten antes de presupuestar el cambio de la placa.",
+    "foto": "burgos-placa-tegui.webp",
+    "alt": "Placa exterior Tegui con dos columnas de pulsadores de vivienda",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Botonera de un portero comunitario",
+    "descripcion": "Detalle de una placa con pulsadores por vivienda. La revisión de llamada y audio permite distinguir una avería del pulsador de un problema del módulo común.",
+    "foto": "burgos-botonera-comunitaria.webp",
+    "alt": "Placa de portero con rejilla de audio y pulsadores por vivienda",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Placa Fermax con cámara y lector",
+    "descripcion": "En esta placa se ven la cámara, los pulsadores de llamada y el lector de proximidad. Al valorar una avería conviene comprobar la llamada y la apertura por separado.",
+    "foto": "burgos-fermax-lector.webp",
+    "alt": "Placa Fermax con cámara, pulsadores y lector de proximidad",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Conexiones detrás de la placa",
+    "descripcion": "Detalle de los bornes y el cableado del equipo existente, que se pueden revisar antes de valorar un recambio.",
+    "foto": "burgos-bornes-videoportero.webp",
+    "alt": "Regleta de bornes y cables detrás de una placa de videoportero",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Módulo Fermax BUS-2",
+    "descripcion": "Vista del amplificador de placa y sus conexiones. Identificar la referencia del equipo ayuda a comprobar qué recambios son compatibles.",
+    "foto": "burgos-modulo-fermax.webp",
+    "alt": "Módulo Fermax BUS-2 con la regleta de conexión a la vista",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Placa existente en un portal",
+    "descripcion": "Vista del equipo que ya tenía la comunidad antes de valorar una renovación.",
+    "foto": "burgos-placa-existente.webp",
+    "alt": "Portero comunitario con módulo de audio y botonera vertical",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
+    "titulo": "Medición de la placa antes de presupuestar",
+    "descripcion": "Se tomó la medida del equipo existente para valorar el espacio disponible y si una placa nueva podría aprovechar el hueco.",
+    "foto": "burgos-medidas-placa.webp",
+    "alt": "Cinta métrica junto a los módulos del portero comunitario",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Cabezón de la Sal",
+    "titulo": "Renovación de portero de audio a dos hilos",
+    "descripcion": "En una comunidad de Cabezón de la Sal se renovó el portero de audio convencional y se instaló un sistema de audio a dos hilos. En la foto se ve la placa Tegui con pulsadores de llamada para las viviendas.",
+    "foto": "cabezon-de-la-sal-tegui-dos-hilos.webp",
+    "alt": "Placa Tegui de portero automático con seis pulsadores en Cabezón de la Sal",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Torrelavega",
+    "titulo": "Placa Tegui de videoportero comunitario",
+    "descripcion": "Placa exterior de una comunidad en Torrelavega (Cantabria), con cámara y pulsadores de llamada identificados por vivienda.",
+    "foto": "torrelavega-placa-tegui.webp",
+    "alt": "Placa exterior Tegui con cámara y pulsadores por vivienda en Torrelavega",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "El Espinar",
+    "titulo": "Cambio de portero convencional de cinco hilos a dos hilos",
+    "descripcion": "Trabajo real en una comunidad de El Espinar (Segovia): sustitución del portero convencional de cinco hilos por un sistema de portero de dos hilos. La fotografía muestra la placa exterior de audio con dos columnas de pulsadores identificados por vivienda.",
+    "foto": "el-espinar-portero-dos-hilos.webp",
+    "alt": "Placa de portero comunitario en El Espinar tras el cambio de cinco hilos a dos hilos",
+    "tipo": "porteros"
+  }
 ]

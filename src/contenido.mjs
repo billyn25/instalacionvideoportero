@@ -114,6 +114,15 @@ fichas['01031'] = ['Laguardia','Videoportero para una entrada con cableado antig
 
 fichas['48901'] = ['Derio','Reparación de placa, telefonillo y abrepuertas','Si la llamada llega al piso pero la puerta no abre, comprobamos el mando y el cerradero por separado. En una instalación nueva revisamos también el paso de cable y la compatibilidad con la apertura desde el móvil.'];
 
+export const visitasUrgentes = {
+ '01036': ['El portero llama, pero la puerta no abre', 'En este tipo de aviso comprobamos si llega la orden al abrepuertas y si el cierre se queda presionado contra el marco. Esa prueba ayuda a distinguir un problema eléctrico de un atasco de la puerta.'],
+ '48902': ['Sin llamada en el portal', 'Lo primero es saber si falla un pulsador o si ninguna vivienda recibe la llamada. Con esa diferencia podemos centrar la revisión en el pulsador y su línea o empezar por la alimentación y la placa común.'],
+ '20039': ['Cortes de audio en una placa exterior', 'Probamos el micrófono y el altavoz por separado. Si el fallo aparece con lluvia, revisamos también si ha entrado humedad en las conexiones de la placa antes de proponer un recambio.'],
+ '20902': ['El monitor recibe la llamada, pero no da imagen', 'Comparamos la imagen con otro terminal cuando es posible. Si solo falla uno, comprobamos su referencia y su conexión antes de presupuestar un monitor compatible.'],
+ '20030': ['El videoportero se apaga al pulsar para abrir', 'Comprobamos la alimentación mientras se acciona el cerradero. Si la tensión cae en ese momento, revisamos el recorrido del cable y las conexiones para localizar la pérdida.'],
+ '20071': ['Imagen oscura al anochecer', 'Comprobamos si la imagen falla en varios monitores y cómo se ilumina la entrada. Revisamos también la lente y la cámara de la placa antes de decidir qué parte del sistema necesita atención.'],
+};
+
 export const visitasValoracion = {
  '01901': ['Portero de una cancela exterior', 'Primero comprobamos la llamada, el audio y la apertura desde la vivienda. Si la cancela queda lejos, revisamos el recorrido del cable y la alimentación del cerradero antes de valorar si se puede reparar la placa o instalar un videoportero aprovechando el tendido.'],
  '31232': ['Revisión del portero antes de instalar una cámara', 'Identificamos el equipo que ya tiene la vivienda y probamos la comunicación desde la entrada. Si se plantea instalar cámara, comprobamos el hueco de la placa y qué cableado admite el sistema. Para atender desde el móvil, revisamos dónde tendrá conexión el equipo.'],

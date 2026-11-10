@@ -1,5 +1,5 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasValoracion } from './contenido.mjs';
+import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasUrgentes, visitasValoracion } from './contenido.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -139,6 +139,11 @@ const equipmentPhoto = (name, eager = false) => {
 const photoFigure = name => '<figure>'+equipmentPhoto(name)+'<figcaption>'+esc(serviceImages[name].alt)+'</figcaption></figure>';
 const servicePhotos = names => '<div class="cards service-photos">' + names.map(photoFigure).join('') + '</div>';
 const visitPhotos = Object.keys(serviceImages).filter(name => serviceImages[name].servicio === 'visitas');
+const visitLinks = visits => list(Object.keys(visits).map(code => {
+ const town = townsByCode.get(code);
+ const url = town.entry ? town.path+'#visita-valoracion' : town.path;
+ return '<li>'+link(url,town.name)+'</li>';
+}));
 const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
  Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
 const photoForTown = (town, topic) => {
@@ -244,12 +249,13 @@ for (const area of areaList) {
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
   const localCases=caseReferences(town.name);
-  const localVisit=visitasValoracion[town.code];
+  const urgentVisit=visitasUrgentes[town.code];
+  const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
   page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
    hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
-   +(localVisit ? band('Visita de valoración en '+town.name,
+   +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,
      '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+esc(localVisit[1])+'</p></article>',
      'visita-valoracion') : '')
    +band('¿Se puede reparar el portero que ya tienes?',repairQuote+list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
@@ -264,7 +270,12 @@ for (const area of areaList) {
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
-   +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t=>'<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)+(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>'))) : '')
+   +(nearby.length ? band('También atendemos localidades cercanas',list(nearby.map(t => {
+    const visit = visitasUrgentes[t.code];
+    return '<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)
+     +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
+     +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
+   }))) : '')
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
  }
 }
@@ -273,11 +284,11 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
  + caseStudies
  + band('Visitas de valoración de porteros y antenas',
    '<p class="readable">En la primera visita revisamos la instalación existente y valoramos si se puede reparar. En un portero, probamos llamada, audio y apertura. En una antena, medimos la señal y revisamos el cableado o el alimentador según el fallo. Con la valoración, podemos presupuestar el arreglo o proponer una sustitución si hace falta.</p>'
-   + list(Object.keys(visitasValoracion).map(code => {
-     const town = townsByCode.get(code);
-     return '<li>'+link(town.path+'#visita-valoracion',town.name)+'</li>';
-   }))
-   + '<p class="readable">Fotos de equipos vistos en visitas técnicas.</p>'+servicePhotos(visitPhotos),'visitas-valoracion')
+   + visitLinks(visitasValoracion)
+   + '<h3 id="avisos-urgentes">Avisos atendidos en horario de urgencia</h3>'
+   + '<p class="readable">Estos son municipios donde nuestros técnicos han atendido avisos urgentes. En cada enlace explicamos qué se comprueba en una primera visita antes de proponer un arreglo.</p>'
+   + visitLinks(visitasUrgentes)
+   + '<p class="readable">Fotos de equipos vistos en visitas técnicas de porteros, videoporteros y antenas.</p>'+servicePhotos(visitPhotos),'visitas-valoracion')
  + band('Una placa de videoportero de cerca',videoExample,'video')
  + serviceTypes.map(tipo => {
    const selection = jobs.filter(job => job.tipo === tipo);

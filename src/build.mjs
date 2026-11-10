@@ -129,7 +129,8 @@ const repairQuote = '<p class="readable">Primero revisamos el portero automátic
  + '<p class="readable">Si la reparación es viable y hay recambio compatible, te damos presupuesto para reparar. Si no se puede reparar, te presupuestamos un equipo nuevo y te indicamos qué cableado o componentes se pueden aprovechar.</p>';
 const areaCards = '<div class="cards areas">' + areaList.map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,6).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
 const jobCards = cards => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p></article>').join('') + '</div>' : '';
-const featuredJobs = serviceTypes.flatMap(tipo => jobs.filter(job => job.tipo === tipo).slice(0,1));
+const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,3);
+const featuredJobs = featuredPlaces.map(place => jobs.find(job => job.municipio === place));
 const serviceImages = read('data/fotos-servicio.json');
 const equipmentPhoto = (name, eager = false) => {
  const {alt,ancho,alto} = serviceImages[name];

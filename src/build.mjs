@@ -106,7 +106,7 @@ function page(path, title, description, body, {place='',trail=[],index=true}={})
  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} | ${brand}</title><meta name="description" content="${esc(description)}">
 ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}${indexable ? '' : '<meta name="robots" content="noindex,follow">'}
-<meta name="theme-color" content="#f8f7f3"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
+<meta name="theme-color" content="#f8f7f3"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
 <script type="application/ld+json">${JSON.stringify(structured)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
 <header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/contacto/','Contacto')}</nav></div></header>
 <main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">

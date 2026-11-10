@@ -82,5 +82,23 @@
     "alt": "Placa Tegui con cámara y pulsadores iluminados para varias viviendas",
     "ancho": 517,
     "alto": 920
+  },
+  "visita-placa-portero": {
+    "servicio": "visitas",
+    "alt": "Placa exterior de portero automático de un pulsador",
+    "ancho": 1050,
+    "alto": 591
+  },
+  "visita-monitor-auta": {
+    "servicio": "visitas",
+    "alt": "Monitor interior Auta con auricular y pulsadores",
+    "ancho": 677,
+    "alto": 900
+  },
+  "visita-conexiones-antena": {
+    "servicio": "visitas",
+    "alt": "Alimentador y conexiones coaxiales en una caja de registro de televisión",
+    "ancho": 1050,
+    "alto": 591
   }
 }

@@ -114,6 +114,14 @@ fichas['01031'] = ['Laguardia','Videoportero para una entrada con cableado antig
 
 fichas['48901'] = ['Derio','Reparación de placa, telefonillo y abrepuertas','Si la llamada llega al piso pero la puerta no abre, comprobamos el mando y el cerradero por separado. En una instalación nueva revisamos también el paso de cable y la compatibilidad con la apertura desde el móvil.'];
 
+export const visitasValoracion = {
+ '01901': ['Portero de una cancela exterior', 'Primero comprobamos la llamada, el audio y la apertura desde la vivienda. Si la cancela queda lejos, revisamos el recorrido del cable y la alimentación del cerradero antes de valorar si se puede reparar la placa o instalar un videoportero aprovechando el tendido.'],
+ '31232': ['Revisión del portero antes de instalar una cámara', 'Identificamos el equipo que ya tiene la vivienda y probamos la comunicación desde la entrada. Si se plantea instalar cámara, comprobamos el hueco de la placa y qué cableado admite el sistema. Para atender desde el móvil, revisamos dónde tendrá conexión el equipo.'],
+ '33031': ['El telefonillo llama, pero falla el sonido', 'Probamos el audio en los dos sentidos. Si solo falla un piso, revisamos primero su terminal y su línea. Si varios vecinos tienen el mismo problema, comprobamos el grupo fónico de la placa y su alimentación antes de buscar un recambio.'],
+ '40181': ['Aprovechar el cable al cambiar el terminal', 'Antes de recomendar un monitor o telefonillo nuevo, identificamos la instalación y comprobamos el estado de la línea. Si la placa común funciona, revisamos si hay un terminal compatible que permita conservarla y evitar tender cable nuevo.'],
+ '09209': ['Comprobar la apertura en un acceso con varias puertas', 'Probamos cada cerradero por separado y comprobamos desde qué monitor o pulsador recibe la orden. Si falla una sola puerta, revisamos su alimentación, el cable y el ajuste del cierre antes de valorar un cambio de equipo.'],
+};
+
 export const casos = [
  {
   id:'fermax-tegui-sfera-new',

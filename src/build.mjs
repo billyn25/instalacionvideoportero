@@ -201,8 +201,10 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
     <h1 id="titulo-portada">Porteros y<br><span>videoporteros.</span></h1>
     <p class="lede">Reparamos telefonillos y videoporteros e instalamos sistemas con cámara, apertura desde el móvil o lector de llavero.</p>
     ${contact()}
-    <a class="hero-link" href="/#trabajos-destacados">Ver trabajos reales <span aria-hidden="true">↓</span></a>
-    <a class="hero-link" href="/#municipios-portada">Encuentra tu municipio <span aria-hidden="true">↓</span></a>
+    <div class="home-shortcuts">
+      <a class="hero-link" href="/#trabajos-destacados">Trabajos reales <span aria-hidden="true">↓</span></a>
+      <a class="hero-link" href="/#municipios-portada">Buscar municipio <span aria-hidden="true">↓</span></a>
+    </div>
   </div>
   <figure class="hero-equipment">
     <div class="hero-photos">

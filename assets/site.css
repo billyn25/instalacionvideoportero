@@ -44,7 +44,7 @@ img { display: block; width: 100%; height: auto }
 .hero-photos { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .85fr); gap: .65rem; align-items: end }
 .hero-photos > div { position: relative; overflow: hidden; border-radius: .8rem; background: #d1d8ee }
 .hero-photos img { aspect-ratio: 3/4; object-fit: cover }
-.hero-monitor img { aspect-ratio: 1/1; object-position: 50% 46% }
+.hero-photos .hero-monitor img { aspect-ratio: 4/3; object-fit: contain; object-position: center }
 .hero-photos span { position: absolute; bottom: .5rem; left: .5rem; background: #fff; border-radius: .3rem; padding: .18rem .45rem; font-size: .72rem; font-weight: 750 }
 .hero-equipment figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding-top: .7rem; color: var(--muted); font-size: .79rem }
 .hero-equipment figcaption a { color: var(--accent); font-weight: 750 }

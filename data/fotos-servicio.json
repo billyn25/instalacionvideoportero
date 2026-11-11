@@ -141,5 +141,10 @@
     "alt": "Videoportero Tegui con cámara y pulsadores de llamada en una comunidad de Pamplona",
     "ancho": 941,
     "alto": 1250
+  },
+  "monitor-golmar-portada": {
+    "alt": "Monitor interior Golmar con pantalla y mandos táctiles",
+    "ancho": 900,
+    "alto": 681
   }
 }

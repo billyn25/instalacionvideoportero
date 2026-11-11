@@ -206,5 +206,13 @@
     "foto": "portugalete-golmar-supra-dos-accesos.webp",
     "alt": "Placa Golmar Supra con cámara y lector de proximidad instalada en uno de los accesos en Portugalete",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Pamplona / Iruña",
+    "titulo": "Videoportero Tegui en una comunidad de Pamplona",
+    "descripcion": "Trabajo real en Pamplona / Iruña. En la fotografía se ve la placa exterior Tegui con cámara y dos módulos de pulsadores de llamada para las viviendas.",
+    "foto": "pamplona-videoportero-tegui.webp",
+    "alt": "Placa Tegui con cámara y dos módulos de pulsadores en un portal de Pamplona",
+    "tipo": "porteros"
   }
 ]

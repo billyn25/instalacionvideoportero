@@ -206,10 +206,10 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
   </div>
   <figure class="hero-equipment">
     <div class="hero-photos">
-      <div class="hero-plate">${equipmentPhoto('placa-portada-comunidad',true)}<span>Placa exterior</span></div>
+      <div class="hero-plate">${equipmentPhoto('placa-portada-comunidad',true)}<span>Tegui en Pamplona</span></div>
       <div class="hero-monitor">${equipmentPhoto('monitor-y-auricular')}<span>Monitor interior</span></div>
     </div>
-    <figcaption>Fotografías de equipos e instalaciones <a href="/trabajos/">Ver galería <span aria-hidden="true">↗</span></a></figcaption>
+    <figcaption>Videoportero comunitario en Pamplona <a href="/trabajos/#trabajos-porteros-pamplona-iruna">Ver trabajo real <span aria-hidden="true">↗</span></a></figcaption>
   </figure>
 </section>`;
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',

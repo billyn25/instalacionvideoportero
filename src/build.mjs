@@ -317,8 +317,14 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
    const selection = jobs.filter(job => job.tipo === tipo);
    const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()];
    const heading = tipo === 'antenas' ? 'Fotos de antenas' : 'Fotos de porteros y videoporteros';
-   return band(heading,servicePhotos(imageSets[tipo])
-     +places.map(place => '<div class="job-group" id="'+jobAnchor({tipo,municipio:place})+'"><h3>'+esc(place)+'</h3>'+jobCards(selection.filter(job => slug(job.municipio) === slug(place)))+'</div>').join(''));
+   const groups = places.map(place => {
+     const localJobs = selection.filter(job => slug(job.municipio) === slug(place));
+     const classes = localJobs.length > 1 ? 'job-group job-group--multiple' : 'job-group';
+     return '<div class="'+classes+'" id="'+jobAnchor({tipo,municipio:place})+'">'
+       +'<h3>'+esc(place)+'</h3>'+jobCards(localJobs)+'</div>';
+   }).join('');
+   return band(heading,(groups ? '<div class="job-gallery">'+groups+'</div>' : '')
+     +servicePhotos(imageSets[tipo]));
  }).join(''));
 page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoporteros Fuentes.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable del tratamiento: '+esc(owner)+'. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>El formulario de presupuesto prepara un mensaje para que puedas revisarlo y enviarlo desde WhatsApp. WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});

@@ -169,3 +169,47 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .antenna-areas summary { width: fit-content; padding: .4rem 0; cursor: pointer; color: var(--accent); font-weight: 700 }
 .antenna-areas summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px }
 @media (max-width: 650px) { .antenna-areas { grid-template-columns: 1fr } }
+
+/* Galería de trabajos por municipio. */
+.job-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-block: 1.25rem 2rem;
+}
+.job-gallery .job-group {
+  min-width: 0;
+  margin: 0;
+}
+.job-gallery .job-group--multiple {
+  grid-column: 1 / -1;
+}
+.job-gallery .job-cards article {
+  max-width: none;
+  overflow: hidden;
+  padding: 0;
+}
+.job-gallery .job-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 45%;
+  border-radius: 0;
+  margin: 0;
+}
+.job-gallery article > :is(p, h3) {
+  margin-inline: 1rem;
+}
+.job-gallery article > .eyebrow {
+  margin-top: 1rem;
+}
+.job-gallery article > p:last-child {
+  margin-bottom: 1rem;
+}
+@media (max-width: 650px) {
+  .job-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.15rem;
+  }
+}

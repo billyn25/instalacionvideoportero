@@ -213,3 +213,22 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
     gap: 1.15rem;
   }
 }
+
+.gallery-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding-block: 1rem 0;
+}
+.gallery-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .45rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: .55rem;
+  background: var(--white);
+  font-weight: 650;
+}
+.gallery-nav a:hover { color: var(--accent); border-color: var(--accent) }
+.job-gallery .job-group:target > h3 { color: var(--accent) }

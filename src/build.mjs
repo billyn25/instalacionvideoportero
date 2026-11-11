@@ -302,8 +302,28 @@ for (const area of areaList) {
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
  }
 }
+const documentedWork = serviceTypes.map(tipo => {
+   const selection = jobs.filter(job => job.tipo === tipo);
+   if (!selection.length) return '';
+   const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()].reverse();
+   const heading = tipo === 'antenas' ? 'Trabajos de antenas con foto' : 'Trabajos de porteros y videoporteros con foto';
+   const groups = places.map(place => {
+     const localJobs = selection.filter(job => slug(job.municipio) === slug(place));
+     const classes = localJobs.length > 1 ? 'job-group job-group--multiple' : 'job-group';
+     return '<div class="'+classes+'" id="'+jobAnchor({tipo,municipio:place})+'">'
+       +'<h3>'+esc(place)+'</h3>'+jobCards(localJobs)+'</div>';
+   }).join('');
+   return band(heading,'<div class="job-gallery">'+groups+'</div>','trabajos-con-foto-'+tipo);
+}).join('');
 page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
- hero('Galería','Fotos de porteros, videoporteros y antenas','Casos de comunidades, presupuestos y fotos de placas, equipos interiores y antenas.')
+ hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta los trabajos con foto, las valoraciones de comunidades y los equipos.')
+ + '<nav class="wrap gallery-nav" aria-label="Secciones de la galería">'
+ + link('#trabajos-con-foto-porteros','Trabajos con foto')
+ + link('#casos','Casos de comunidades')
+ + link('#visitas-valoracion','Visitas técnicas')
+ + link('#video','Vídeo')
+ + link('#equipos','Fotos de equipos')+'</nav>'
+ + documentedWork
  + caseStudies
  + band('Visitas de valoración de porteros y antenas',
    '<p class="readable">En la primera visita revisamos la instalación existente y valoramos si se puede reparar. En un portero, probamos llamada, audio y apertura. En una antena, medimos la señal y revisamos el cableado o el alimentador según el fallo. Con la valoración, podemos presupuestar el arreglo o proponer una sustitución si hace falta.</p>'
@@ -313,19 +333,7 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
    + visitLinks(visitasUrgentes)
    + '<p class="readable">Fotos de equipos vistos en visitas técnicas de porteros, videoporteros y antenas.</p>'+servicePhotos(visitPhotos),'visitas-valoracion')
  + band('Una placa de videoportero de cerca',videoExample,'video')
- + serviceTypes.map(tipo => {
-   const selection = jobs.filter(job => job.tipo === tipo);
-   const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()];
-   const heading = tipo === 'antenas' ? 'Fotos de antenas' : 'Fotos de porteros y videoporteros';
-   const groups = places.map(place => {
-     const localJobs = selection.filter(job => slug(job.municipio) === slug(place));
-     const classes = localJobs.length > 1 ? 'job-group job-group--multiple' : 'job-group';
-     return '<div class="'+classes+'" id="'+jobAnchor({tipo,municipio:place})+'">'
-       +'<h3>'+esc(place)+'</h3>'+jobCards(localJobs)+'</div>';
-   }).join('');
-   return band(heading,(groups ? '<div class="job-gallery">'+groups+'</div>' : '')
-     +servicePhotos(imageSets[tipo]));
- }).join(''));
+ + band('Fotos de equipos e instalaciones',serviceTypes.map(tipo => servicePhotos(imageSets[tipo])).join(''),'equipos'));
 page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoporteros Fuentes.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable del tratamiento: '+esc(owner)+'. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>El formulario de presupuesto prepara un mensaje para que puedas revisarlo y enviarlo desde WhatsApp. WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin && !preview ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';

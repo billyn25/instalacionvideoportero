@@ -40,14 +40,6 @@
     "tipo": "porteros"
   },
   {
-    "municipio": "Zarautz",
-    "titulo": "",
-    "descripcion": "",
-    "foto": "",
-    "alt": "",
-    "tipo": "porteros"
-  },
-  {
     "municipio": "Tolosa",
     "titulo": "",
     "descripcion": "",
@@ -213,6 +205,14 @@
     "descripcion": "Trabajo real en Pamplona / Iruña. En la fotografía se ve la placa exterior Tegui con cámara y dos módulos de pulsadores de llamada para las viviendas.",
     "foto": "pamplona-videoportero-tegui.webp",
     "alt": "Placa Tegui con cámara y dos módulos de pulsadores en un portal de Pamplona",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Zarautz",
+    "titulo": "Videoportero comunitario en Zarautz",
+    "descripcion": "Trabajo real en Zarautz, Gipuzkoa. La fotografía muestra la placa exterior del videoportero, con cámara y pulsadores identificados por vivienda.",
+    "foto": "zarautz-videoportero-comunitario.webp",
+    "alt": "Placa exterior de videoportero con cámara y pulsadores por vivienda en un portal de Zarautz",
     "tipo": "porteros"
   }
 ]

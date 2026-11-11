@@ -49,8 +49,9 @@ const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zam
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
- if (!serviceTypes.includes(tipo) || !job.titulo?.trim() || !job.descripcion?.trim() || !job.municipio?.trim() || !job.alt?.trim()
-   || !/^[a-z0-9][a-z0-9._-]*\.(?:webp|jpe?g|png)$/i.test(job.foto)) return [];
+ if (!serviceTypes.includes(tipo) || !job.titulo?.trim() || !job.descripcion?.trim() || !job.municipio?.trim()) return [];
+ if (job.foto === undefined) return [{...job,tipo}];
+ if (!job.alt?.trim() || !/^[a-z0-9][a-z0-9._-]*\.(?:webp|jpe?g|png)$/i.test(job.foto)) return [];
  const path = 'fotos-trabajos/' + tipo + '/' + job.foto;
  return existsSync(file(path)) ? [{...job,tipo,path}] : [];
 });
@@ -61,7 +62,7 @@ rmSync(file('dist/'),{recursive:true,force:true});
 mkdirSync(file('dist/'));
 cpSync(file('assets/'),file('dist/assets/'),{recursive:true});
 for (const tipo of serviceTypes) {
- const selection = jobs.filter(job => job.tipo === tipo);
+ const selection = jobs.filter(job => job.tipo === tipo && job.path);
  if (!selection.length) continue;
  mkdirSync(file('dist/fotos-trabajos/' + tipo + '/'),{recursive:true});
  for (const {path} of selection) cpSync(file(path),file('dist/' + path));
@@ -128,7 +129,7 @@ const serviceCards = '<div class="cards">' + servicios.map(([id,name,copy],i) =>
 const repairQuote = '<p class="readable">Primero revisamos el portero automático o videoportero que ya tienes. Según el fallo, comprobamos la fuente de alimentación, el grupo fónico de la placa, el cableado, el telefonillo o el abrepuertas.</p>'
  + '<p class="readable">Si la reparación es viable y hay recambio compatible, te damos presupuesto para reparar. Si no se puede reparar, te presupuestamos un equipo nuevo y te indicamos qué cableado o componentes se pueden aprovechar.</p>';
 const areaCards = (limit = 6) => '<div class="cards areas">' + areaList.map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,limit).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
-const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
+const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article>' + (j.path ? '<img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '">' : '') + '<p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
  + (showCaseLink ? '<p>'+link('/trabajos/#'+jobAnchor(j),'Ver trabajo en '+j.municipio+' →')+'</p>' : '')
  + '</article>').join('') + '</div>' : '';
 const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,8);
@@ -308,7 +309,7 @@ const documentedWork = serviceTypes.map(tipo => {
    const selection = jobs.filter(job => job.tipo === tipo);
    if (!selection.length) return '';
    const places = [...new Map(selection.map(job => [slug(job.municipio),job.municipio])).values()].reverse();
-   const heading = tipo === 'antenas' ? 'Trabajos de antenas con foto' : 'Trabajos de porteros y videoporteros con foto';
+   const heading = tipo === 'antenas' ? 'Trabajos de antenas con foto' : 'Trabajos de porteros y videoporteros documentados';
    const groups = places.map(place => {
      const localJobs = selection.filter(job => slug(job.municipio) === slug(place));
      const classes = localJobs.length > 1 ? 'job-group job-group--multiple' : 'job-group';
@@ -318,9 +319,9 @@ const documentedWork = serviceTypes.map(tipo => {
    return band(heading,'<div class="job-gallery">'+groups+'</div>','trabajos-con-foto-'+tipo);
 }).join('');
 page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
- hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta los trabajos con foto, las valoraciones de comunidades y los equipos.')
+ hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta los trabajos realizados, las valoraciones de comunidades y los equipos.')
  + '<nav class="wrap gallery-nav" aria-label="Secciones de la galería">'
- + link('#trabajos-con-foto-porteros','Trabajos con foto')
+ + link('#trabajos-con-foto-porteros','Trabajos realizados')
  + link('#casos','Casos de comunidades')
  + link('#visitas-valoracion','Visitas técnicas')
  + link('#video','Vídeo')

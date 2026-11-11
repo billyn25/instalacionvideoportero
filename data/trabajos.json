@@ -262,5 +262,11 @@
     "foto": "tafalla-fermax-duox-wifi.webp",
     "alt": "Placa exterior Fermax con cámara y pulsador en una vivienda individual de Tafalla",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Sondika",
+    "titulo": "Reparación del grupo fónico Fermax en Sondika",
+    "descripcion": "En Sondika reparamos el grupo fónico de una instalación Fermax. El trabajo se centró en el módulo de audio de la placa exterior, que permite hablar y escuchar entre la entrada y el terminal interior.",
+    "tipo": "porteros"
   }
 ]

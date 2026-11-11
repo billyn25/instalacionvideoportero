@@ -16,6 +16,7 @@ export const servicios = [
 ];
 
 export const fichas = {
+ '48904':['Sondika','Cuando falla el audio del portero','Indica si desde la calle se oye a la vivienda, si sucede al revés o si el fallo es en ambos sentidos. Si varias viviendas tienen el mismo problema, podemos revisar el módulo de audio de la placa y las conexiones comunes.'],
  '48020':['Bilbao','¿Falla solo un piso o todo el portal?','Si en Bilbao varios vecinos oyen la llamada pero ninguno escucha a quien está en la calle, apunta si el audio falla en un solo sentido o en los dos. Si el problema afecta a una única vivienda, una foto del modelo del terminal nos ayuda a preparar la comprobación de ese ramal. Si falla el portal entero, indica si hay una segunda entrada y si allí ocurre lo mismo. Así podemos acotar qué parte de la instalación comparten.'],
  '48013':['Barakaldo','Apertura que falla en un portal compartido','Si todos oyen la llamada pero la puerta no abre, conviene medir la tensión bajo carga y revisar el cerradero. Eso ayuda a separar un fallo eléctrico de un problema mecánico.'],
  '48044':['Getxo','Placa exterior que falla con lluvia','Si la avería aparece al mojarse la entrada, comprobamos conexiones, estanqueidad y estado de la caja antes de elegir repuestos.'],

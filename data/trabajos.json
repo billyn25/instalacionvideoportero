@@ -254,5 +254,13 @@
     "foto": "laguardia-fermax-monitor.webp",
     "alt": "Monitor Fermax encendido con la imagen de la entrada en Laguardia",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Tafalla",
+    "titulo": "Instalación de videoportero Fermax DUOX con Wi-Fi en Tafalla",
+    "descripcion": "En una vivienda individual de la avenida de la Baja Navarra, 5, en Tafalla, sustituimos el portero automático convencional Fermax por un videoportero Fermax DUOX con Wi-Fi. En la foto se ve la placa exterior con cámara y un pulsador de llamada.",
+    "foto": "tafalla-fermax-duox-wifi.webp",
+    "alt": "Placa exterior Fermax con cámara y pulsador en una vivienda individual de Tafalla",
+    "tipo": "porteros"
   }
 ]

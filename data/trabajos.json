@@ -198,5 +198,13 @@
     "foto": "zaragoza-santa-nunila-grupo-fonico.webp",
     "alt": "Placa de portero Tegui con pulsadores de Santa Nunila 25 y 27 en Zaragoza",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Portugalete",
+    "titulo": "Instalación de videoportero Golmar Supra con lector en dos accesos",
+    "descripcion": "Instalación nueva realizada por Roberto Fuentes en Portugalete. Los dos accesos quedaron equipados con lector de proximidad. La fotografía muestra una de las placas Golmar Supra, con cámara, pulsadores de llamada por vivienda y lector.",
+    "foto": "portugalete-golmar-supra-dos-accesos.webp",
+    "alt": "Placa Golmar Supra con cámara y lector de proximidad instalada en uno de los accesos en Portugalete",
+    "tipo": "porteros"
   }
 ]

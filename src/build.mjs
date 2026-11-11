@@ -206,8 +206,8 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
   </div>
   <figure class="hero-equipment">
     <div class="hero-photos">
-      <div class="hero-plate">${equipmentPhoto('placa-comunitaria',true)}<span>01 · Placa exterior</span></div>
-      <div class="hero-monitor">${equipmentPhoto('monitor-y-auricular')}<span>02 · Monitor interior</span></div>
+      <div class="hero-plate">${equipmentPhoto('placa-portada-comunidad',true)}<span>Placa exterior</span></div>
+      <div class="hero-monitor">${equipmentPhoto('monitor-y-auricular')}<span>Monitor interior</span></div>
     </div>
     <figcaption>Fotografías de equipos e instalaciones <a href="/trabajos/">Ver galería <span aria-hidden="true">↗</span></a></figcaption>
   </figure>

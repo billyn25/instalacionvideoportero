@@ -136,5 +136,10 @@
     "alt": "Vista frontal de un monitor Auta Neos manos libres durante una visita técnica",
     "ancho": 675,
     "alto": 900
+  },
+  "placa-portada-comunidad": {
+    "alt": "Videoportero comunitario con cámara y dos módulos de pulsadores de llamada",
+    "ancho": 941,
+    "alto": 1250
   }
 }

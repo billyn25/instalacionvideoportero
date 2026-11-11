@@ -97,6 +97,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
   .hero-photos { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: .45rem }
   .hero-photos > div { border-radius: .55rem; background: white }
   .hero-photos img { aspect-ratio: 5/4; object-fit: cover; object-position: 50% 43% }
+  .hero-photos .hero-plate img { aspect-ratio: 3/4; object-position: center }
   .hero-photos span { position: static; display: block; padding: .28rem .4rem; border-radius: 0; font-size: clamp(.66rem, 2.8vw, .77rem) }
   .hero-equipment figcaption { align-items: center; padding-top: .3rem }
   .hero-equipment figcaption a { display: inline-flex; align-items: center; min-height: 44px; gap: .25rem }

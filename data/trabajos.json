@@ -81,6 +81,14 @@
   },
   {
     "municipio": "Burgos",
+    "titulo": "Reparación del grupo fónico Fermax PVT9696 en Burgos centro",
+    "descripcion": "Reparación del grupo fónico PVT9696 de un portero automático comunitario en el centro de Burgos. La foto muestra la placa exterior Fermax con la rejilla de audio y los pulsadores de las viviendas.",
+    "foto": "burgos-centro-fermax-pvt9696.webp",
+    "alt": "Placa exterior Fermax del portero automático reparado en Burgos centro",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Burgos",
     "titulo": "Placa comunitaria Tegui",
     "descripcion": "Placa Tegui con pulsadores para varias plantas. Si dejan de sonar solo algunas viviendas, se puede comprobar qué pulsadores o tramos comparten antes de presupuestar el cambio de la placa.",
     "foto": "burgos-placa-tegui.webp",

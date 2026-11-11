@@ -45,7 +45,7 @@ for (const area of areaList) {
  }
 }
 const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
-const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas'];
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas','Zaragoza'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
@@ -131,7 +131,7 @@ const areaCards = (limit = 6) => '<div class="cards areas">' + areaList.map(area
 const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
  + (showCaseLink ? '<p>'+link('/trabajos/#'+jobAnchor(j),'Ver trabajo en '+j.municipio+' →')+'</p>' : '')
  + '</article>').join('') + '</div>' : '';
-const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,5);
+const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,7);
 const featuredJobs = featuredPlaces.map(place => jobs.find(job => job.municipio === place));
 const serviceImages = read('data/fotos-servicio.json');
 const equipmentPhoto = (name, eager = false) => {

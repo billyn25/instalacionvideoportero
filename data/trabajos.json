@@ -182,5 +182,21 @@
     "foto": "asturias-fermax-monitor-manos-libres.webp",
     "alt": "Monitor de videoportero Fermax manos libres instalado sobre pared de azulejos",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Beasain",
+    "titulo": "Instalación de videoportero Tegui con lector de llaves oculto",
+    "descripcion": "Instalación en un portal de Beasain, Gipuzkoa. La placa Tegui incorpora cámara y pulsadores de llamada por vivienda. El lector de llaves quedó oculto en el conjunto de la entrada.",
+    "foto": "beasain-videoportero-tegui-lector-oculto.webp",
+    "alt": "Placa de videoportero Tegui con cámara y pulsadores de vivienda instalada en Beasain",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Zaragoza",
+    "titulo": "Reparación de grupo fónico en la calle Santa Nunila",
+    "descripcion": "Reparación del grupo fónico de un portero comunitario Tegui en la calle Santa Nunila, Zaragoza. En la fotografía se ve la placa con los pulsadores de los portales 25 y 27.",
+    "foto": "zaragoza-santa-nunila-grupo-fonico.webp",
+    "alt": "Placa de portero Tegui con pulsadores de Santa Nunila 25 y 27 en Zaragoza",
+    "tipo": "porteros"
   }
 ]

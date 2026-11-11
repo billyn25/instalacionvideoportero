@@ -45,7 +45,7 @@ for (const area of areaList) {
  }
 }
 const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
-const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León'];
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
@@ -131,7 +131,7 @@ const areaCards = (limit = 6) => '<div class="cards areas">' + areaList.map(area
 const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article><img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '"><p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
  + (showCaseLink ? '<p>'+link('/trabajos/#'+jobAnchor(j),'Ver trabajo en '+j.municipio+' →')+'</p>' : '')
  + '</article>').join('') + '</div>' : '';
-const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,4);
+const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,5);
 const featuredJobs = featuredPlaces.map(place => jobs.find(job => job.municipio === place));
 const serviceImages = read('data/fotos-servicio.json');
 const equipmentPhoto = (name, eager = false) => {
@@ -255,14 +255,15 @@ page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra 
  + areaList.map(a=>'<section data-group><h3>'+link('/'+a.slug+'/',a.name)+'</h3>'+list(ordered(a.towns).map(t=>'<li data-town>'+link(t.path,t.name)+'</li>'))+'</section>').join('')+'</section>'+destinationSection);
 for (const area of areaList) {
  const areaUrl = '/' + area.slug + '/';
- const areaJobs = jobs.filter(job => area.towns.some(t => slug(t.name) === slug(job.municipio)));
+ const areaJobs = jobs.filter(job => slug(job.municipio) === area.slug
+  || area.towns.some(t => slug(t.name) === slug(job.municipio)));
  const [serviceHeading, serviceText, photo] = servicioProvincial[area.slug];
  page(areaUrl,'Cobertura provincial de porteros y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
   hero('Cobertura provincial','Porteros y videoporteros en la provincia de '+area.name,area.intro,area.name)
   +band(serviceHeading,illustratedText('<p class="readable">'+esc(serviceText)+'</p>'
    +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
    +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo))
-  +(areaJobs.length ? band('Trabajos reales en '+area.name,jobCards(areaJobs.slice(0,3))+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>') : '')
+  +(areaJobs.length ? band('Trabajos reales en '+area.name,jobCards(areaJobs.slice(0,4),true)+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>') : '')
   +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')),'municipios')
   +band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>')))
   +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});

@@ -150,5 +150,37 @@
     "foto": "el-espinar-portero-dos-hilos.webp",
     "alt": "Placa de portero comunitario en El Espinar tras el cambio de cinco hilos a dos hilos",
     "tipo": "porteros"
+  },
+  {
+    "municipio": "Asturias",
+    "titulo": "Reparación de grupo fónico Fermax",
+    "descripcion": "Reparación de un portero comunitario Fermax en Asturias. La foto muestra el grupo fónico de la placa abierta y las conexiones de la instalación.",
+    "foto": "asturias-fermax-grupo-fonico.webp",
+    "alt": "Grupo fónico Fermax y conexiones en una placa comunitaria abierta en Asturias",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Asturias",
+    "titulo": "Placa exterior del portero comunitario",
+    "descripcion": "Vista exterior del portero Fermax durante los trabajos de reparación en Asturias, con la rejilla de audio y los pulsadores de las viviendas.",
+    "foto": "asturias-fermax-placa-exterior.webp",
+    "alt": "Placa exterior de portero comunitario Fermax con pulsadores de llamada en Asturias",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Asturias",
+    "titulo": "Monitor Fermax con auricular",
+    "descripcion": "Equipo interior Fermax fotografiado en trabajos de reparación en Asturias. El monitor y el auricular forman parte del equipo desde el que se atiende la llamada.",
+    "foto": "asturias-fermax-monitor-auricular.webp",
+    "alt": "Monitor de videoportero Fermax con auricular en Asturias",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Asturias",
+    "titulo": "Monitor Fermax manos libres",
+    "descripcion": "Otro equipo interior Fermax documentado en Asturias, con pantalla y mandos de llamada y apertura.",
+    "foto": "asturias-fermax-monitor-manos-libres.webp",
+    "alt": "Monitor de videoportero Fermax manos libres instalado sobre pared de azulejos",
+    "tipo": "porteros"
   }
 ]

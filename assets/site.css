@@ -232,3 +232,31 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 }
 .gallery-nav a:hover { color: var(--accent); border-color: var(--accent) }
 .job-gallery .job-group:target > h3 { color: var(--accent) }
+
+.gallery-content > .section {
+  padding-block: clamp(1.7rem, 3.6vw, 3rem);
+  scroll-margin-top: .75rem;
+}
+.gallery-content > .section + .section {
+  border-top: 1px solid var(--line);
+}
+.gallery-content .job-gallery { margin-bottom: 0 }
+.gallery-content :is(.case-list, .video-example, .service-photos) {
+  margin-top: 1rem;
+}
+.gallery-content .gallery-subsection + .gallery-subsection,
+#visitas-valoracion .gallery-subsection {
+  margin-top: clamp(1.6rem, 3vw, 2.5rem);
+}
+.gallery-content .gallery-subsection > h3 { margin: 0 }
+.gallery-content .service-photos {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.gallery-content .service-photos figcaption { padding: .7rem .85rem }
+@media (max-width: 720px) {
+  .gallery-content .service-photos { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+@media (max-width: 400px) {
+  .gallery-content .service-photos { grid-template-columns: minmax(0, 1fr) }
+}

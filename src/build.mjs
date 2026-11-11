@@ -323,17 +323,21 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
  + link('#visitas-valoracion','Visitas técnicas')
  + link('#video','Vídeo')
  + link('#equipos','Fotos de equipos')+'</nav>'
+ + '<div class="gallery-content">'
  + documentedWork
  + caseStudies
  + band('Visitas de valoración de porteros y antenas',
    '<p class="readable">En la primera visita revisamos la instalación existente y valoramos si se puede reparar. En un portero, probamos llamada, audio y apertura. En una antena, medimos la señal y revisamos el cableado o el alimentador según el fallo. Con la valoración, podemos presupuestar el arreglo o proponer una sustitución si hace falta.</p>'
    + visitLinks(visitasValoracion)
-   + '<h3 id="avisos-urgentes">Avisos atendidos en horario de urgencia</h3>'
+   + '<div class="gallery-subsection"><h3 id="avisos-urgentes">Avisos atendidos en horario de urgencia</h3>'
    + '<p class="readable">Estos son municipios donde nuestros técnicos han atendido avisos urgentes. En cada enlace explicamos qué se comprueba en una primera visita antes de proponer un arreglo.</p>'
-   + visitLinks(visitasUrgentes)
-   + '<p class="readable">Fotos de equipos vistos en visitas técnicas de porteros, videoporteros y antenas.</p>'+servicePhotos(visitPhotos),'visitas-valoracion')
+   + visitLinks(visitasUrgentes)+'</div>'
+   + '<div class="gallery-subsection"><h3>Equipos vistos en visitas técnicas</h3>'+servicePhotos(visitPhotos)+'</div>','visitas-valoracion')
  + band('Una placa de videoportero de cerca',videoExample,'video')
- + band('Fotos de equipos e instalaciones',serviceTypes.map(tipo => servicePhotos(imageSets[tipo])).join(''),'equipos'));
+ + band('Fotos de equipos e instalaciones',serviceTypes.map(tipo => {
+   const heading = tipo === 'antenas' ? 'Antenas y distribución de TV' : 'Porteros y videoporteros';
+   return '<div class="gallery-subsection"><h3>'+esc(heading)+'</h3>'+servicePhotos(imageSets[tipo])+'</div>';
+ }).join(''),'equipos')+'</div>');
 page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoporteros Fuentes.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable del tratamiento: '+esc(owner)+'. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>El formulario de presupuesto prepara un mensaje para que puedas revisarlo y enviarlo desde WhatsApp. WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin && !preview ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';

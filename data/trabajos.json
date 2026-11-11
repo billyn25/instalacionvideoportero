@@ -64,6 +64,22 @@
     "tipo": "porteros"
   },
   {
+    "municipio": "Valle de Mena",
+    "titulo": "Reparación de videoportero Fermax",
+    "descripcion": "Reparamos un videoportero Fermax en Valle de Mena, Burgos. La foto muestra el alimentador Fermax de referencia 4825 y sus conexiones.",
+    "foto": "valle-de-mena-fermax-alimentador.webp",
+    "alt": "Alimentador Fermax 4825 y cableado del videoportero en Valle de Mena",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Valle de Mena",
+    "titulo": "Interior de la placa durante la reparación",
+    "descripcion": "Detalle de la misma intervención en Valle de Mena. Con la placa abierta se ven el módulo de vídeo y sus bornes de conexión.",
+    "foto": "valle-de-mena-fermax-placa-abierta.webp",
+    "alt": "Módulo interior de la placa Fermax y bornes de conexión en Valle de Mena",
+    "tipo": "porteros"
+  },
+  {
     "municipio": "Burgos",
     "titulo": "Placa comunitaria Tegui",
     "descripcion": "Placa Tegui con pulsadores para varias plantas. Si dejan de sonar solo algunas viviendas, se puede comprobar qué pulsadores o tramos comparten antes de presupuestar el cambio de la placa.",
@@ -213,6 +229,22 @@
     "descripcion": "Trabajo real en Zarautz, Gipuzkoa. La fotografía muestra la placa exterior del videoportero, con cámara y pulsadores identificados por vivienda.",
     "foto": "zarautz-videoportero-comunitario.webp",
     "alt": "Placa exterior de videoportero con cámara y pulsadores por vivienda en un portal de Zarautz",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Laguardia",
+    "titulo": "Instalación de videoportero Fermax",
+    "descripcion": "Instalamos un videoportero Fermax en Laguardia, Álava. La placa exterior incorpora cámara y un pulsador de llamada.",
+    "foto": "laguardia-fermax-placa.webp",
+    "alt": "Placa exterior Fermax con cámara y pulsador de llamada en Laguardia",
+    "tipo": "porteros"
+  },
+  {
+    "municipio": "Laguardia",
+    "titulo": "Monitor interior de la misma instalación",
+    "descripcion": "El monitor Fermax muestra la imagen de la cámara de la entrada y dispone de un mando de apertura.",
+    "foto": "laguardia-fermax-monitor.webp",
+    "alt": "Monitor Fermax encendido con la imagen de la entrada en Laguardia",
     "tipo": "porteros"
   }
 ]

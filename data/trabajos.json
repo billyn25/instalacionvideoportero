@@ -9,10 +9,10 @@
   },
   {
     "municipio": "Bilbao",
-    "titulo": "",
-    "descripcion": "",
-    "foto": "",
-    "alt": "",
+    "titulo": "Reparación prevista de un portero Golmar Stadio en la calle Ledesma",
+    "descripcion": "En una comunidad de ocho viviendas de la calle Ledesma, en Bilbao, está prevista la reparación del grupo fónico del portero automático Golmar Stadio. La comunidad también está valorando sustituir el equipo por un videoportero. Para comparar las dos opciones, revisaremos si se puede aprovechar el cableado y el hueco de la placa existente en caso de instalar una cámara y monitores.",
+    "foto": "bilbao-ledesma-golmar-stadio.webp",
+    "alt": "Placa Golmar Stadio con ocho pulsadores en un portal de la calle Ledesma de Bilbao",
     "tipo": "porteros"
   },
   {

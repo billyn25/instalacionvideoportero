@@ -324,9 +324,9 @@ const documentedWork = serviceTypes.map(tipo => {
    return band(heading,'<div class="job-gallery">'+groups+'</div>','trabajos-con-foto-'+tipo);
 }).join('');
 page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
- hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta los trabajos realizados, las valoraciones de comunidades y los equipos.')
+ hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta trabajos documentados, intervenciones previstas y valoraciones de comunidades.')
  + '<nav class="wrap gallery-nav" aria-label="Secciones de la galería">'
- + link('#trabajos-con-foto-porteros','Trabajos realizados')
+ + link('#trabajos-con-foto-porteros','Trabajos documentados')
  + link('#casos','Casos de comunidades')
  + link('#visitas-valoracion','Visitas técnicas')
  + link('#video','Vídeo')

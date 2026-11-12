@@ -17,6 +17,8 @@ const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/3464
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug = name => name.toLowerCase().normalize('NFD').replace(/\p{Mark}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const areas = {
+ '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros y videoporteros en Torrelavega y Cabezón de la Sal. Consulta el desplazamiento para otras localidades.'},
+ '50': {name:'Zaragoza', slug:'zaragoza', intro:'Instalación y reparación de porteros y videoporteros en Zaragoza capital. Atendemos viviendas y portales de comunidades.'},
  '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
  '20': {name:'Gipuzkoa', slug:'gipuzkoa', intro:'Atendemos instalaciones y reparaciones en Donostia, el Bidasoa y los municipios del interior. Podemos revisar un sistema existente o preparar una renovación con cámara, móvil y llaveros.'},
  '31': {name:'Navarra', slug:'navarra', intro:'Servicio de porteros y videoporteros en Pamplona y su comarca, Tudela, Tierra Estella, la Zona Media y otros municipios. Revisamos desde telefonillos individuales hasta accesos comunitarios con cámara o llavero.'},
@@ -25,7 +27,7 @@ const areas = {
  '09': {name:'Burgos', slug:'burgos', intro:'Atendemos Burgos capital, Miranda de Ebro, Aranda de Duero, las Merindades y otros municipios. Revisamos la instalación antes de decidir si conviene reparar un terminal o renovar la placa.'},
  '33': {name:'Asturias', slug:'asturias', intro:'Trabajamos en el área central, el oriente y municipios del occidente. En viviendas con la cancela separada, comprobamos la distancia, el cableado y el tipo de cierre antes de instalar el videoportero.'},
 };
-const areaList = ['48','20','01','31','09','33','40'].map(code => areas[code]);
+const areaList = ['48','20','01','31','09','33','40','39','50'].map(code => areas[code]);
 const areaNames = areaList.map(area => area.name);
 const coverage = new Intl.ListFormat('es').format(areaNames);
 const towns = read('data/municipios.json').map(([code, official, population, lat, lon]) => {
@@ -45,7 +47,7 @@ for (const area of areaList) {
  }
 }
 const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
-const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas','Zaragoza'];
+const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
  const tipo = job.tipo || 'porteros';
@@ -268,18 +270,20 @@ for (const area of areaList) {
    +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo))
   +(areaJobs.length ? band('Trabajos reales en '+area.name,jobCards(areaJobs.slice(0,4),true)+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>') : '')
   +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')),'municipios')
-  +band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>')))
+  + (area.towns.some(t=>t.center) ? band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>'))) : '')
   +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});
  for (const town of area.main) {
-  const [,heading,advice]=town.entry;
+  const [,heading,advice,seo={}]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
   const localCases=caseReferences(town.name);
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  page(town.path,'Porteros automáticos y videoporteros en '+town.name,'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.',
-   hero(area.name,'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
+  const title = seo.title || 'Porteros automáticos y videoporteros en '+town.name;
+  const description = seo.description || 'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.';
+  page(town.path,title,description,
+   hero(area.name,seo.title || 'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
    +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
@@ -312,9 +316,10 @@ const documentedWork = serviceTypes.map(tipo => {
    const heading = tipo === 'antenas' ? 'Trabajos de antenas con foto' : 'Trabajos de porteros y videoporteros documentados';
    const groups = places.map(place => {
      const localJobs = selection.filter(job => slug(job.municipio) === slug(place));
+     const town = towns.find(t => t.entry && slug(t.name) === slug(place));
      const classes = localJobs.length > 1 ? 'job-group job-group--multiple' : 'job-group';
      return '<div class="'+classes+'" id="'+jobAnchor({tipo,municipio:place})+'">'
-       +'<h3>'+esc(place)+'</h3>'+jobCards(localJobs)+'</div>';
+       +'<h3>'+(town ? link(town.path,place) : esc(place))+'</h3>'+jobCards(localJobs)+'</div>';
    }).join('');
    return band(heading,'<div class="job-gallery">'+groups+'</div>','trabajos-con-foto-'+tipo);
 }).join('');

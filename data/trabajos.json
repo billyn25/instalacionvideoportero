@@ -1,5 +1,13 @@
 [
   {
+    "municipio": "Sondika",
+    "titulo": "Control de acceso con llaveros en una placa Tegui existente",
+    "descripcion": "En una comunidad de Sondika añadimos un lector de proximidad Fermax junto a la placa Tegui del portal. Los vecinos pueden abrir la puerta acercando su llavero al lector y la comunidad conserva la placa de videoportero que ya tenía.",
+    "foto": "sondika-tegui-lector-fermax.webp",
+    "alt": "Placa de videoportero Tegui existente con lector Fermax para llaveros instalado a su derecha en Sondika",
+    "tipo": "porteros"
+  },
+  {
     "municipio": "Bilbao",
     "titulo": "",
     "descripcion": "",

@@ -1,5 +1,13 @@
 [
   {
+    "municipio": "Barakaldo",
+    "titulo": "Reparación urgente de un grupo fónico Tegui EGF1 en Barakaldo",
+    "descripcion": "Acudimos de urgencia a una comunidad de Barakaldo porque los vecinos no oían la llamada del portal en sus viviendas. La comunidad quería conservar el portero automático que ya tenía, así que reparamos el grupo fónico Tegui EGF1 de la placa exterior.",
+    "foto": "barakaldo-reparacion-grupo-fonico-tegui-egf1.webp",
+    "alt": "Placa exterior del portero automático Tegui con seis pulsadores en el portal de Barakaldo",
+    "tipo": "porteros"
+  },
+  {
     "municipio": "Sondika",
     "titulo": "Control de acceso con llaveros en una placa Tegui existente",
     "descripcion": "En una comunidad de Sondika añadimos un lector de proximidad Fermax junto a la placa Tegui del portal. Los vecinos pueden abrir la puerta acercando su llavero al lector y la comunidad conserva la placa de videoportero que ya tenía.",

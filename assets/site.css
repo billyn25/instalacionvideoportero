@@ -279,3 +279,9 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 @media (max-width: 400px) {
   .gallery-content .service-photos { grid-template-columns: minmax(0, 1fr) }
 }
+
+#desplazamientos > h3 {
+  margin-block: clamp(1.75rem, 4vw, 2.75rem) .65rem;
+  padding-top: clamp(.85rem, 2vw, 1.25rem);
+  border-top: 1px solid var(--line);
+}

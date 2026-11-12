@@ -1,5 +1,6 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasUrgentes, visitasValoracion } from './contenido.mjs';
+import { guias } from './guias.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -111,10 +112,10 @@ function page(path, title, description, body, {place='',trail=[],index=true}={})
 ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}${indexable ? '' : '<meta name="robots" content="noindex,follow">'}
 <meta name="theme-color" content="#f8f7f3"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
 <script type="application/ld+json">${JSON.stringify(structured)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
-<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/contacto/','Contacto')}</nav></div></header>
+<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/guias/','Guías')}${link('/contacto/','Contacto')}</nav></div></header>
 <main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">
 <div>${logo}<p>Instalación y reparación de porteros automáticos, videoporteros y antenas.</p>${link('/contacto/','Pedir presupuesto →')}</div>
-<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}</nav>
+<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}${link('/guias/','Guías de porteros y videoporteros')}</nav>
 <nav aria-label="Zonas del pie"><h2>Zonas de servicio</h2>${areaList.map(area=>link('/'+area.slug+'/',area.name)).join('')}${link('/zonas/','Buscar municipio →')}</nav>
 </div><div class="wrap footer-bottom"><span>Videoporteros Fuentes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
 <nav class="mobile" aria-label="Contacto rápido">
@@ -198,6 +199,44 @@ const destinationSection = band('Otros destinos y desplazamientos',
  }).join(''),'desplazamientos');
 const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p><p>'+link('/contacto/','Abrir formulario de presupuesto →')+'</p>' + contact(place) + '</section></div>';
 
+const guideCards = selection => '<div class="guide-cards">' + selection.map(guide =>
+ '<article><h3>'+link('/guias/'+guide.id+'/',guide.title)+'</h3><p>'+esc(guide.description)+'</p></article>'
+).join('')+'</div>';
+function relatedGuides(topic, localJobs = []) {
+ const jobTopics = localJobs.map(job => job.titulo).join(' ');
+ const selected = [...new Set([
+  ...guias.filter(guide => localJobs.some(job => guide.photos.includes(job.foto))),
+  ...guias.filter(guide => guide.match.test(jobTopics)),
+  ...guias.filter(guide => guide.match.test(topic)),
+  ...guias.slice(0,2),
+ ])].slice(0,2);
+ return band('Guías para resolver dudas antes de la visita',guideCards(selected)
+  +'<p>'+link('/guias/','Ver todas las guías →')+'</p>','guias');
+}
+
+page('/guias/','Guías de porteros automáticos y videoporteros',
+ 'Ayuda para comprobar averías, comparar reparaciones, renovar el portal e instalar llaveros o videoporteros con llamadas al móvil.',
+ hero('Guías','Ayuda para tu portero o videoportero','Comprobaciones para vecinos y criterios para preparar la visita o comparar un presupuesto de comunidad.')
+ +band('Consulta según lo que necesitas',guideCards(guias))
+ +band('Busca el servicio y los trabajos de tu zona','<p class="readable">Las fichas de municipios recogen el servicio, los casos publicados y las guías relacionadas con cada intervención.</p><p>'+link('/zonas/','Buscar mi municipio →')+'</p>'),
+ {trail:[['','Guías']]});
+for (const guide of guias) {
+ const examples = guide.photos.map(photo => jobs.find(job => job.foto === photo));
+ if (examples.some(job => !job)) throw new Error('Falta una foto de trabajo para la guía '+guide.id);
+ const places = [...new Set(examples.map(job => job.municipio))];
+ const localLinks = places.map(place => {
+  const town = towns.find(town => town.entry && town.name === place);
+  return town ? '<li>'+link(town.path,'Servicio en '+town.name)+'</li>' : '';
+ }).join('');
+ page('/guias/'+guide.id+'/',guide.title,guide.description,
+  '<article class="wrap guide-article"><div class="guide-heading"><p class="eyebrow">Guía de Videoporteros Fuentes</p><h1>'+esc(guide.title)+'</h1><p class="lede">'+esc(guide.description)+'</p></div>'
+  +'<nav class="guide-toc" aria-label="Contenido de la guía"><h2>En esta guía</h2><ul>'+guide.sections.map(section => '<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>'
+  +guide.sections.map(section => '<section id="'+section.id+'"><h2>'+esc(section.title)+'</h2>'+section.body+'</section>').join('')
+  +'<section><h2>Trabajos relacionados con esta guía</h2>'+jobCards(examples,true)+'<ul class="guide-local-links">'+localLinks+'</ul></section>'
+  +'<section><h2>Consulta sobre tu instalación</h2><p>Envía el municipio, una foto del equipo y lo que necesitas reparar o mejorar.</p><p>'+link('/servicios/'+guide.service+'/','Consultar el servicio relacionado')+' · '+link('/guias/','Ver otras guías')+'</p>'+contact()+'</section></article>',
+  {trail:[['/guias/','Guías'],['',guide.title]]});
+}
+
 const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portada">
   <div class="home-copy">
     <p class="eyebrow">Porteros automáticos y control de acceso</p>
@@ -223,6 +262,7 @@ page('/','Instalación y reparación de videoporteros','Porteros automáticos, v
     '<p class="readable">Fotos de nuestros técnicos en portales de comunidades. Consulta la placa de cada edificio y los detalles de la intervención.</p>'
     +jobCards(featuredJobs,true)+'<p>'+link('/trabajos/','Ver todos los trabajos y fotografías →')+'</p>','trabajos-destacados') : '')
  + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards+'<p>'+link('/trabajos/#casos','Ver casos de comunidades →')+'</p>')+'</div>'
+ + band('Guías para viviendas y comunidades',guideCards(guias)+'<p>'+link('/guias/','Consultar todas las guías →')+'</p>','guias')
  + band('Antes de cambiarlo, comprobamos si se puede reparar',illustratedText(repairQuote+'<p>Para orientar el diagnóstico, dinos si el fallo afecta a una vivienda o a todo el portal: si no llega la llamada, si se pierde el audio, si la pantalla queda sin imagen o si no abre la puerta. Son síntomas distintos y no siempre requieren cambiar el equipo completo.</p><p>'+link('/servicios/reparacion/','Consultar reparación de porteros y videoporteros →')+'</p>','cableado-de-placa'))
  + band('Renovar el portero de una comunidad',illustratedText('<p>Partimos de la instalación existente: número de viviendas, accesos al edificio, modelo de placa, terminales interiores y estado del cableado. También medimos el hueco de la placa para valorar el montaje y los remates que necesita la entrada.</p><h3>Del audio convencional a un sistema de dos hilos</h3><p>La elección depende de la compatibilidad del conjunto y de las condiciones del cable. Revisamos si se puede aprovechar la línea existente o si hay que renovarla. El presupuesto debe concretar qué equipos se sustituyen y qué elementos se conservan.</p><p>La renovación de audio en Cabezón de la Sal forma parte de nuestros trabajos fotografiados. También puedes consultar valoraciones de renovación de comunidades, identificadas como propuestas cuando todavía no corresponden a una instalación terminada.</p><p>'+link('/trabajos/#casos','Ver trabajos y valoraciones de comunidades →')+'</p>','videoportero-tegui-comunidad'))
  + band('Cámara, móvil o llavero: elegir lo que necesitas','<div class="cards job-cards"><article><h3>Ver quién llama desde casa</h3><p>Un videoportero incorpora cámara exterior y monitor interior. Antes de sustituir solo el telefonillo, comprobamos qué tecnología utiliza el edificio: un monitor nuevo tiene que ser compatible con la instalación comunitaria.</p></article><article><h3>Atender desde el móvil</h3><p>Algunos sistemas permiten recibir la llamada en una aplicación. Revisamos el equipo compatible y la conexión a Internet necesaria para esa función, además de cómo se atenderá y abrirá desde la vivienda.</p></article><article><h3>Abrir con tarjeta o llavero</h3><p>Un lector permite autorizar accesos sin utilizar la llave convencional. Conviene definir quién dará de alta los llaveros y cómo se retirará el permiso de uno perdido, además de comprobar la compatibilidad con el abrepuertas.</p></article></div><p>'+link('/servicios/','Consultar las opciones de instalación →')+'</p>')
@@ -241,7 +281,7 @@ for (const [id,name,copy,detail] of servicios) {
    + '<p>'+link('/trabajos/','Ver fotos de equipos y trabajos reales')+'</p>')
    + band('Presupuesto de reparación o sustitución',repairQuote)
   : '';
- page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id)))+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
 }
 page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'.')
@@ -269,6 +309,7 @@ for (const area of areaList) {
    +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
    +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo))
   +(areaJobs.length ? band('Trabajos reales en '+area.name,jobCards(areaJobs.slice(0,4),true)+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>') : '')
+  +relatedGuides(serviceHeading,areaJobs)
   +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')),'municipios')
   + (area.towns.some(t=>t.center) ? band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>'))) : '')
   +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});
@@ -288,6 +329,7 @@ for (const area of areaList) {
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
+   +relatedGuides(heading,localJobs)
    +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,
      '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+visitDispatch(localVisit)+esc(localVisit[1])+'</p></article>',
      'visita-valoracion') : '')

@@ -275,6 +275,8 @@
     "municipio": "Sondika",
     "titulo": "Reparación del grupo fónico Fermax en Sondika",
     "descripcion": "En Sondika reparamos el grupo fónico de una instalación Fermax. El trabajo se centró en el módulo de audio de la placa exterior, que permite hablar y escuchar entre la entrada y el terminal interior.",
+    "foto": "sondika-reparacion-grupo-fonico-fermax.webp",
+    "alt": "Interior de la placa Fermax abierta con el grupo fónico y el cableado a la vista durante la reparación en Sondika",
     "tipo": "porteros"
   }
 ]

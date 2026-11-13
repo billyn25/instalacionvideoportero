@@ -133,22 +133,25 @@ function page(path, title, description, body, {place='',trail=[],index=true,serv
   })),
  });
  const crumb = trail.length ? '<nav class="wrap crumb" aria-label="Ruta">' + link('/','Inicio') + trail.map(([url,label]) => ' <span aria-hidden="true">›</span> ' + (url ? link(url,label) : esc(label))).join('') + '</nav>' : '';
+ const primaryLinks = link('/servicios/','Servicios')+link('/servicios/comunidades/','Comunidades')+link('/zonas/','Zonas')+link('/trabajos/','Trabajos')+link('/guias/','Guías')+link('/contacto/','Contacto');
  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(documentTitle)}</title><meta name="description" content="${esc(description)}">
 ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}<meta name="robots" content="${indexable ? 'index,follow,max-image-preview:large' : 'noindex,follow'}">
 <meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="${brand}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:image" content="${esc(origin+'/'+image)}">
 <meta name="theme-color" content="#f8f7f3"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/site.css">${styles.map(style=>'<link rel="stylesheet" href="'+esc(style)+'">').join('')}<script defer src="/assets/buscar.js"></script>
 <script type="application/ld+json">${JSON.stringify(structured)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
-<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/servicios/comunidades/','Comunidades')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/guias/','Guías')}${link('/contacto/','Contacto')}</nav></div></header>
+<header><div class="wrap top">${logo}<nav class="desktop-nav" aria-label="Principal">${primaryLinks}</nav>
+<details class="mobile-menu" name="mobile-tools" data-mobile-panel><summary><svg viewBox="0 0 24 24" aria-hidden="true"><path class="menu-bars" d="M4 6h16M4 12h16M4 18h16"/><path class="menu-close" d="m6 6 12 12M6 18 18 6"/></svg>Menú</summary><nav aria-label="Menú principal">${primaryLinks}</nav></details></div></header>
 <main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">
 <div>${logo}<p>Instalación y reparación de porteros automáticos, videoporteros y antenas.</p>${link('/contacto/','Pedir presupuesto →')}</div>
 <nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/comunidades/','Comunidades de vecinos')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}${link('/guias/','Guías de porteros y videoporteros')}</nav>
 <nav aria-label="Zonas del pie"><h2>Zonas de servicio</h2>${areaList.map(area=>link('/'+area.slug+'/',area.name)).join('')}${link('/zonas/','Buscar municipio →')}</nav>
 </div><div class="wrap footer-bottom"><span>Videoporteros Fuentes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
-<nav class="mobile" aria-label="Contacto rápido">
-<a href="${tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>Llamar</a>
-<a href="${esc(wa(place))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>WhatsApp</a>
-</nav></body></html>`;
+<details class="mobile" name="mobile-tools" data-mobile-panel>
+<summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Contactar<svg class="contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></summary>
+<nav aria-label="Contacto rápido"><a class="contact-call" href="${tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>Llamar</a>
+<a class="contact-whatsapp" href="${esc(wa(place))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>WhatsApp</a>
+</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
  if (rendered.has(path)) throw new Error('Ruta duplicada: ' + path);
  rendered.add(path);
  if (indexable) published.add(path);

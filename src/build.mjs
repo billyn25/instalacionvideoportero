@@ -484,7 +484,6 @@ for (const area of areaList) {
   const description = seo.description || 'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
   page(town.path,title,description,
    hero(area.name,seo.title || 'Porteros y videoporteros en '+town.name,focus?.intro || advice,town.name)
-   +travelNotice(town.name,town.code)
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos')
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
@@ -511,6 +510,7 @@ for (const area of areaList) {
      +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }))) : '')
+   +travelNotice(town.name,town.code)
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:'Instalación y reparación de porteros y videoporteros en '+town.name,image:localJobs[0]?.path});
  }
 }

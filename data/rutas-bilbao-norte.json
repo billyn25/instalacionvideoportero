@@ -1,0 +1,140 @@
+[
+  {
+    "code": "48044",
+    "destination": "Getxo",
+    "sourceRoadKm": 14.8,
+    "sourceDrivingMinutes": 16,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Getxo",
+    "accessRoads": ["BI-637"],
+    "accessNote": "Flysch Bizkaia señala la BI-637 como acceso en coche desde Bilbao. El tramo urbano depende de la dirección de destino.",
+    "accessSources": [
+      {
+        "label": "Flysch Bizkaia: cómo llegar a Getxo",
+        "url": "https://www.flyschbizkaia.eus/es/planifica/como-llegar/getxo-como-llegar"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "48027",
+    "destination": "Durango",
+    "sourceRoadKm": 31.7,
+    "sourceDrivingMinutes": 24,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Durango-Basque-Country-Spain",
+    "accessRoads": ["AP-8"],
+    "accessNote": "La AP-8 cuenta con un enlace a Durango. Es una referencia de acceso; el recorrido urbano hasta el portal se concreta con la dirección.",
+    "accessSources": [
+      {
+        "label": "Visit Biscay: cómo llegar a Durango desde Bilbao",
+        "url": "https://www.visitbiscay.eus/es/-/durango-una-villa-palacio-entre-montanas"
+      },
+      {
+        "label": "Interbiak: enlaces de la AP-8, Durango",
+        "url": "https://interbiak.bizkaia.eus/ca_mapaA8.asp"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "48046",
+    "destination": "Gernika-Lumo",
+    "sourceRoadKm": 34.3,
+    "sourceDrivingMinutes": 31,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Gernika-Lumo",
+    "accessRoads": ["AP-8", "BI-635"],
+    "accessNote": "La referencia turística indica AP-8 hasta Amorebieta-Etxano y continuación por BI-635 hacia Gernika-Lumo. La dirección concreta determina el último tramo.",
+    "accessSources": [
+      {
+        "label": "Visit Biscay: cómo llegar a Gernika-Lumo",
+        "url": "https://www.visitbiscay.eus/es/-/gernika-historia-viva-del-pueblo-vasco"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "01036",
+    "destination": "Laudio/Llodio",
+    "sourceRoadKm": 19.9,
+    "sourceDrivingMinutes": 16,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Laudio-Llodio",
+    "accessRoads": ["AP-68"],
+    "accessNote": "La oficina de turismo indica AP-68 y salida Laudio/Orozko desde Bilbao. El recorrido final depende de la dirección de la visita.",
+    "accessSources": [
+      {
+        "label": "Topa! Laudio: cómo llegar en coche desde Bilbao",
+        "url": "https://topalaudio.eus/es/como-llegar/"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "09410",
+    "destination": "Villasana de Mena (Valle de Mena)",
+    "sourceRoadKm": 44.2,
+    "sourceDrivingMinutes": 44,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Villasana-De-Mena",
+    "accessRoads": ["CL-629"],
+    "accessNote": "La CL-629 es una referencia del tramo de acceso a Villasana por las rotondas de Mercadillo. Esta indicación es parcial y no describe todo el recorrido desde Bilbao.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento del Valle de Mena: CL-629 y accesos a Villasana",
+        "url": "https://valledemena.es/noticias/avanzan-las-obras-de-mejora-de-la-cl-629-su-paso-por-el-valle-de-mena"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "20019",
+    "destination": "Beasain",
+    "sourceRoadKm": 81.4,
+    "sourceDrivingMinutes": 59,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Beasain",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "20069",
+    "destination": "Donostia/San Sebastián",
+    "sourceRoadKm": 99.3,
+    "sourceDrivingMinutes": 66,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/San-Sebasti%C3%A1n",
+    "accessRoads": ["AP-8"],
+    "accessNote": "Turismo de San Sebastián señala la AP-8 como acceso desde Bilbao. La entrada urbana se elige según la dirección de la visita.",
+    "accessSources": [
+      {
+        "label": "San Sebastián Turismo: acceso desde Bilbao por la AP-8",
+        "url": "https://sansebastianturismoa.eus/venir/donde-aparcar/parking-disuasorio/"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "20045",
+    "destination": "Irun",
+    "sourceRoadKm": 116.3,
+    "sourceDrivingMinutes": 76,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Ir%C3%BAn",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "01059",
+    "destination": "Vitoria-Gasteiz",
+    "sourceRoadKm": 64.4,
+    "sourceDrivingMinutes": 44,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Vitoria-Gasteiz",
+    "accessRoads": ["AP-68", "N-622"],
+    "accessNote": "AP-68 y N-622 son referencias para la entrada norte por Portal de Foronda. Esta referencia de acceso se adapta después al barrio y la dirección de destino.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento de Vitoria-Gasteiz: conexiones por carretera y acceso norte",
+        "url": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_7ee06f5a_14b9b1d05ef__7efd"
+      }
+    ],
+    "checkedAt": "2026-11-13"
+  }
+]

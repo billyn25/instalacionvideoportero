@@ -69,6 +69,7 @@
         'Municipio: ' + value('municipio'),
         'Servicio: ' + services[value('servicio')]
       ];
+      if (value('ubicacion')) lines.push('Zona de la instalación: ' + value('ubicacion'));
       if (value('tipo')) lines.push('Tipo de edificio: ' + types[value('tipo')]);
       if (value('tipo') === 'comunidad') {
         if (value('viviendas')) lines.push('Viviendas: ' + value('viviendas'));
@@ -77,6 +78,7 @@
       if (value('marca')) lines.push('Marca o modelo: ' + value('marca'));
       if (value('alcance')) lines.push('Alcance de la avería: ' + scopes[value('alcance')]);
       lines.push('Detalle: ' + value('detalle'));
+      lines.push('Antes de concertar la visita, indicadme la disponibilidad y el coste del desplazamiento desde Bilbao.');
 
       const destination = new URL(form.action);
       destination.searchParams.set('text', lines.join('\n'));

@@ -352,6 +352,60 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .visit-questions { max-width: 48rem; margin-top: 1.3rem; padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent); background: var(--white); border-radius: .3rem }
 .visit-questions ul { padding-left: 1.3rem }
 .visit-questions li + li { margin-top: .45rem }
+.home-coverage { max-width: 58ch; margin: 1rem 0; padding-left: .9rem; border-left: 3px solid var(--accent); color: var(--muted); font-size: .92rem }
+.home-coverage strong { color: var(--dark) }
+.home-coverage a { display: inline-block; text-decoration: underline; text-underline-offset: .15em }
+.travel-notice { display: flex; align-items: center; gap: 2rem; margin-block: 1.5rem; padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid #c6cdea; border-radius: .8rem; background: var(--pale) }
+.travel-copy { min-width: 0; flex: 1 }
+.travel-copy .eyebrow { margin: 0 0 .35rem }
+.travel-copy p { max-width: 70ch; margin-block: .6rem; font-size: .94rem }
+.travel-copy .travel-title { margin-top: .2rem; font-size: 1.25rem; font-weight: 750; color: var(--dark) }
+.travel-copy a, .travel-metric a { text-decoration: underline; text-underline-offset: .15em }
+.travel-access { color: var(--muted) }
+.travel-metric { flex: 0 1 18rem; display: grid; gap: .45rem; padding-left: 1.5rem; border-left: 1px solid #c6cdea }
+.travel-metric > strong { font-size: 2rem; line-height: 1.1; letter-spacing: -.04em; color: var(--accent) }
+.travel-metric > span { font-weight: 650 }
+.travel-metric small { font-size: .82rem; color: var(--muted) }
+.travel-metric a { font-size: .85rem }
+.coverage-nav { display: flex; flex-wrap: wrap; gap: .6rem 1.3rem; margin-top: 1.25rem; font-weight: 650 }
+.coverage-nav a { padding-block: .45rem; text-decoration: underline; text-underline-offset: .2em }
+.coverage-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 1.5rem }
+.coverage-steps article { padding: 1.25rem; background: var(--white); border: 1px solid var(--line); border-radius: .75rem }
+.coverage-steps article > span { color: var(--accent); font-weight: 750; font-size: .9rem }
+.coverage-steps h3 { margin-top: .55rem }
+.coverage-steps p { margin-bottom: 0; color: var(--muted) }
+.route-table-wrap { margin-top: 1.5rem }
+.route-table { width: 100%; border-collapse: collapse; background: var(--white); font-size: .94rem }
+.route-table caption { padding: .8rem 0; text-align: left; font-weight: 650; color: var(--muted) }
+.route-table :is(th,td) { padding: 1rem; border: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere }
+.route-table thead { background: var(--pale) }
+.route-table th[scope="row"] { width: 18%; font-size: 1rem }
+.route-table td:nth-child(2) { width: 20% }
+.route-table td:last-child { width: 12% }
+.route-table a { text-decoration: underline; text-underline-offset: .15em }
+.route-table tr:target { background: #eef2ff }
+.route-time, .route-access > span { display: block; margin-top: .35rem; font-size: .84rem; color: var(--muted) }
+.route-sources { margin-top: 1.25rem; font-size: .9rem; overflow-wrap: anywhere }
+.route-sources summary { cursor: pointer; padding-block: .5rem; font-weight: 650 }
+.route-sources summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px }
+.route-sources li + li { margin-top: .75rem }
+.route-sources p { max-width: 85ch; color: var(--muted) }
+.site-footer .footer-grid > div > a { display: block; margin-top: .65rem }
+@media (max-width: 650px) {
+ .travel-notice { display: grid; gap: 1rem }
+ .travel-metric { border-left: 0; border-top: 1px solid #c6cdea; padding: 1rem 0 0 }
+ .travel-metric > strong { font-size: 1.65rem }
+ .coverage-steps { grid-template-columns: minmax(0, 1fr) }
+ .route-table, .route-table tbody { display: block; background: transparent }
+ .route-table caption { display: block }
+ .route-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
+ .route-table tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; margin-bottom: .85rem; border: 1px solid var(--line); border-radius: .7rem; background: var(--white); overflow: hidden }
+ .route-table :is(th,td) { display: block; border: 0; padding: .75rem 1rem; width: auto !important }
+ .route-table th[scope="row"] { grid-column: 1/-1; background: var(--pale) }
+ .route-table td:nth-child(2) { grid-column: 1; grid-row: 2 }
+ .route-table td:last-child { grid-column: 2; grid-row: 2 }
+ .route-table .route-access { grid-column: 1/-1; border-top: 1px solid var(--line) }
+}
 .local-location { padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid var(--line); border-radius: .8rem; background: var(--white) }
 .local-location > p:first-child { margin-top: 0 }
 .local-reference-grid { display: grid; gap: 1rem; margin-block: 1.5rem }

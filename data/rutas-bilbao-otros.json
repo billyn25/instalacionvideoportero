@@ -1,0 +1,82 @@
+[
+  {
+    "code": "31201",
+    "destination": "Pamplona / Iruña",
+    "sourceRoadKm": 157,
+    "sourceDrivingMinutes": 101,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Pamplona",
+    "accessRoads": ["A-1", "AP-8"],
+    "accessNote": "Alternativas de itinerario desde Bilbao. Los enlaces intermedios y el acceso final dependen de la ruta elegida.",
+    "accessSources": [{"label": "RACE: opciones para viajar de Bilbao a Pamplona", "url": "https://www.race.es/mapa-de-carreteras-espana/ir-de-bilbao-pamplona-en-coche"}],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "39087",
+    "destination": "Torrelavega",
+    "sourceRoadKm": 115.2,
+    "sourceDrivingMinutes": 77,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Torrelavega",
+    "accessRoads": ["A-8"],
+    "accessNote": "Acceso al municipio desde el corredor de la A-8; la salida urbana se concreta con la dirección.",
+    "accessSources": [{"label": "Ayuntamiento de Torrelavega: conexión de la ciudad con la A-8", "url": "https://torrelavega.es/noticia/lopez-estrada-torrelavega-es-y-seguira-siendo-un-nodo-fundamental-de-comunicacion-logistica-e-intercambio/"}],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "09059",
+    "destination": "Burgos",
+    "sourceRoadKm": 156.9,
+    "sourceDrivingMinutes": 102,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Burgos",
+    "accessRoads": ["AP-68", "AP-1"],
+    "accessNote": "Corredor por la AP-68 con enlace a la AP-1 hacia Burgos. El acceso urbano depende del portal.",
+    "accessSources": [{"label": "Operador de la AP-68: mapa y enlace AP-1 a Burgos", "url": "https://www.autopistas.com/sites/publica/files/2026-11/26_003%20Avasa%20AP68%20Bilbao_Zaragoza%20NOV%20T26.pdf"}],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "33044",
+    "destination": "Oviedo",
+    "sourceRoadKm": 282.1,
+    "sourceDrivingMinutes": 176,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Oviedo",
+    "accessRoads": ["A-8", "A-64"],
+    "accessNote": "Corredor de la A-8 y enlace a la A-64 en dirección a Oviedo; se concreta el acceso final según la zona.",
+    "accessSources": [
+      {"label": "Ayuntamiento de Siero: enlace desde la A-8 a la A-64", "url": "https://www.ayto-siero.es/localizacion-y-accesos/"},
+      {"label": "Catálogo oficial: A-64 Villaviciosa–Oviedo", "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-18091"}
+    ],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "40194",
+    "destination": "Segovia",
+    "sourceRoadKm": 337,
+    "sourceDrivingMinutes": 242,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Segovia",
+    "accessRoads": ["A-1", "N-110"],
+    "accessNote": "Tramo de acceso desde Burgos a Segovia si se elige ese itinerario; existen otras alternativas de recorrido.",
+    "accessSources": [{"label": "Turismo de Segovia: acceso por carretera desde Burgos", "url": "https://www.turismodesegovia.com/es/como-llegar"}],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "40076",
+    "destination": "El Espinar",
+    "sourceRoadKm": 369.6,
+    "sourceDrivingMinutes": 258,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/El-Espinar",
+    "accessRoads": ["N-VI", "SG-500", "N-603"],
+    "accessNote": "Accesos finales: desde la N-VI por la SG-500; también hay entradas desde la N-603. Concreta el núcleo y la dirección.",
+    "accessSources": [{"label": "Parque Nacional de la Sierra de Guadarrama: accesos a El Espinar", "url": "https://www.parquenacionalsierraguadarrama.es/visita/info-act/regulacion-accesos/88-puntos-como-llegar"}],
+    "checkedAt": "2026-11-13"
+  },
+  {
+    "code": "50297",
+    "destination": "Zaragoza",
+    "sourceRoadKm": 303.9,
+    "sourceDrivingMinutes": 176,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Zaragoza",
+    "accessRoads": ["AP-68"],
+    "accessNote": "Conexión principal Zaragoza–Bilbao por la AP-68. La entrada a la ciudad se concreta con el barrio y la calle.",
+    "accessSources": [{"label": "Turismo de Zaragoza: conexiones por carretera", "url": "https://www.zaragoza.es/sede/portal/turismo/post/por-carretera"}],
+    "checkedAt": "2026-11-13"
+  }
+]

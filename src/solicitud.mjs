@@ -4,7 +4,7 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({
 
 export function solicitudFormulario(action, municipio = '') {
   return `<form id="consulta-formulario" class="contact-form solicitud-form" data-contact-form action="${esc(action)}" aria-describedby="consulta-ayuda consulta-privacidad">
-    <p class="solicitud-wide solicitud-help" id="consulta-ayuda">Cuéntanos qué ocurre para orientar la revisión. El presupuesto se concreta después de comprobar el equipo y el alcance del trabajo.</p>
+    <p class="solicitud-wide solicitud-help" id="consulta-ayuda">Cuéntanos qué ocurre y dónde está la instalación. Confirmaremos la disponibilidad y el coste del desplazamiento desde Bilbao antes de concertar la visita. El presupuesto del trabajo se concreta después de comprobar el equipo y su alcance.</p>
     <div>
       <label for="consulta-municipio">Municipio <span class="solicitud-optional">(obligatorio)</span></label>
       <input id="consulta-municipio" required maxlength="90" autocomplete="address-level2" value="${esc(String(municipio).trim().slice(0, 90))}">
@@ -31,6 +31,11 @@ export function solicitudFormulario(action, municipio = '') {
     <div>
       <label for="consulta-marca">Marca o modelo <span class="solicitud-optional">(opcional)</span></label>
       <input id="consulta-marca" maxlength="100" placeholder="Por ejemplo, Tegui o Fermax">
+    </div>
+    <div class="solicitud-wide">
+      <label for="consulta-ubicacion">Barrio, núcleo o código postal <span class="solicitud-optional">(opcional)</span></label>
+      <input id="consulta-ubicacion" maxlength="160" aria-describedby="consulta-ubicacion-ayuda" placeholder="Por ejemplo, Algorta · 48991">
+      <p class="solicitud-help" id="consulta-ubicacion-ayuda">Ayuda a concretar la zona del desplazamiento. La dirección y el acceso exactos se acuerdan al preparar la visita.</p>
     </div>
     <fieldset class="solicitud-wide solicitud-community" data-community-fields hidden disabled>
       <legend>Datos de la comunidad <span class="solicitud-optional">(opcionales)</span></legend>

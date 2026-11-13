@@ -1,5 +1,5 @@
 [build]
-  command = "node src/build.mjs"
+  command = "node src/build.mjs && node scripts/check-site.mjs"
   publish = "dist"
 
 [build.environment]

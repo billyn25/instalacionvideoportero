@@ -5,7 +5,8 @@
     "descripcion": "Acudimos de urgencia a una comunidad de Barakaldo porque los vecinos no oían la llamada del portal en sus viviendas. La comunidad quería conservar el portero automático que ya tenía, así que reparamos el grupo fónico Tegui EGF1 de la placa exterior.",
     "foto": "barakaldo-reparacion-grupo-fonico-tegui-egf1.webp",
     "alt": "Placa exterior del portero automático Tegui con seis pulsadores en el portal de Barakaldo",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Reparación realizada"
   },
   {
     "municipio": "Sondika",
@@ -13,7 +14,8 @@
     "descripcion": "En una comunidad de Sondika añadimos un lector de proximidad Fermax junto a la placa Tegui del portal. Los vecinos pueden abrir la puerta acercando su llavero al lector y la comunidad conserva la placa de videoportero que ya tenía.",
     "foto": "sondika-tegui-lector-fermax.webp",
     "alt": "Placa de videoportero Tegui existente con lector Fermax para llaveros instalado a su derecha en Sondika",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Lector instalado · placa existente conservada"
   },
   {
     "municipio": "Bilbao",
@@ -21,7 +23,8 @@
     "descripcion": "En una comunidad de ocho viviendas de la calle Ledesma, en Bilbao, está prevista la reparación del grupo fónico del portero automático Golmar Stadio. La comunidad también está valorando sustituir el equipo por un videoportero. Para comparar las dos opciones, revisaremos si se puede aprovechar el cableado y el hueco de la placa existente en caso de instalar una cámara y monitores.",
     "foto": "bilbao-ledesma-golmar-stadio.webp",
     "alt": "Placa Golmar Stadio con ocho pulsadores en un portal de la calle Ledesma de Bilbao",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Intervención prevista · renovación en estudio"
   },
   {
     "municipio": "Donostia / San Sebastián",
@@ -29,7 +32,8 @@
     "descripcion": "En un portal de Navarra 20, en Donostia, reparamos el grupo fónico de la placa Golmar Nexa. Es el módulo de la placa exterior que permite hablar y escuchar entre el portal y las viviendas. En la foto se ve la placa comunitaria con sus pulsadores de llamada.",
     "foto": "donostia-navarra-20-golmar-nexa.webp",
     "alt": "Placa comunitaria Golmar Nexa con pulsadores por vivienda en Navarra 20, Donostia",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Reparación realizada"
   },
   {
     "municipio": "Irun",
@@ -165,7 +169,8 @@
     "descripcion": "En una comunidad de Cabezón de la Sal se renovó el portero de audio convencional y se instaló un sistema de audio a dos hilos. En la foto se ve la placa Tegui con pulsadores de llamada para las viviendas.",
     "foto": "cabezon-de-la-sal-tegui-dos-hilos.webp",
     "alt": "Placa Tegui de portero automático con seis pulsadores en Cabezón de la Sal",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Renovación realizada · portero de audio"
   },
   {
     "municipio": "Torrelavega",
@@ -181,7 +186,8 @@
     "descripcion": "Trabajo real en una comunidad de El Espinar (Segovia): sustitución del portero convencional de cinco hilos por un sistema de portero de dos hilos. La fotografía muestra la placa exterior de audio con dos columnas de pulsadores identificados por vivienda.",
     "foto": "el-espinar-portero-dos-hilos.webp",
     "alt": "Placa de portero comunitario en El Espinar tras el cambio de cinco hilos a dos hilos",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Renovación realizada · portero de audio"
   },
   {
     "municipio": "Asturias",
@@ -237,7 +243,8 @@
     "descripcion": "Instalación nueva realizada por Roberto Fuentes en Portugalete. Los dos accesos quedaron equipados con lector de proximidad. La fotografía muestra una de las placas Golmar Supra, con cámara, pulsadores de llamada por vivienda y lector.",
     "foto": "portugalete-golmar-supra-dos-accesos.webp",
     "alt": "Placa Golmar Supra con cámara y lector de proximidad instalada en uno de los accesos en Portugalete",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Instalación realizada · dos accesos"
   },
   {
     "municipio": "Pamplona / Iruña",
@@ -285,6 +292,7 @@
     "descripcion": "En Sondika reparamos el grupo fónico de una instalación Fermax. El trabajo se centró en el módulo de audio de la placa exterior, que permite hablar y escuchar entre la entrada y el terminal interior.",
     "foto": "sondika-reparacion-grupo-fonico-fermax.webp",
     "alt": "Interior de la placa Fermax abierta con el grupo fónico y el cableado a la vista durante la reparación en Sondika",
-    "tipo": "porteros"
+    "tipo": "porteros",
+    "estado": "Reparación realizada"
   }
 ]

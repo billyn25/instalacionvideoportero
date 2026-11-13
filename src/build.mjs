@@ -1,6 +1,9 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasUrgentes, visitasValoracion } from './contenido.mjs';
 import { guias } from './guias.mjs';
+import { comunidades } from './comunidades.mjs';
+import { solicitudFormulario } from './solicitud.mjs';
+import { enfoquesLocales } from './enfoque-local.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -61,6 +64,7 @@ const jobs = read('data/trabajos.json').flatMap(job => {
 const jobsAt = place => jobs.filter(job => slug(job.municipio) === slug(place));
 const jobAnchor = ({tipo,municipio}) => 'trabajos-'+tipo+'-'+slug(municipio);
 const published = new Set();
+const rendered = new Set();
 rmSync(file('dist/'),{recursive:true,force:true});
 mkdirSync(file('dist/'));
 cpSync(file('assets/'),file('dist/assets/'),{recursive:true});
@@ -72,6 +76,12 @@ for (const tipo of serviceTypes) {
 }
 
 const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
+const requestPath = (place = '', community = false) => {
+ const params = new URLSearchParams();
+ if (place) params.set('municipio', place);
+ if (community) params.set('tipo', 'comunidad');
+ return '/contacto/' + (params.size ? '?' + params : '');
+};
 const contact = place => '<div class="contact"><a class="button" href="' + tel + '">Llamar al 641 49 05 36</a><a class="button secondary" href="' + esc(wa(place)) + '">WhatsApp</a></div>';
 const logo = '<a href="/" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2738c7"/><rect x="12" y="7" width="16" height="26" rx="3" fill="none" stroke="#fff" stroke-width="1.75"/><circle cx="20" cy="14.5" r="2.75" fill="#d9e2ff"/><path d="M17 23h6m-6 4h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Videoporteros<strong>Fuentes</strong></span></a>';
 const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
@@ -94,12 +104,28 @@ const antennaLinks = '<div class="antenna-areas">'+antennaAreas.map(area => {
   +'</article>';
 }).join('')+'</div>';
 
-function page(path, title, description, body, {place='',trail=[],index=true}={}) {
+function page(path, title, description, body, {place='',trail=[],index=true,service='',image='assets/fotos-servicio/placa-portada-comunidad.webp',styles=[]}={}) {
  const indexable = index && !preview;
  const canonical = origin ? origin + path : '';
- const schema = {'@context':'https://schema.org','@type':'Organization',name:brand,telephone:phone,areaServed:areaNames};
- if (origin) schema.url = origin;
- const structured = [schema];
+ const documentTitle = title.length <= 42 ? title + ' | ' + brand : title;
+ const organizationId = origin + '/#organizacion';
+ const structured = [{
+  '@context':'https://schema.org','@type':'Organization','@id':organizationId,
+  name:brand,url:origin,telephone:phone,areaServed:areaNames,
+  contactPoint:{'@type':'ContactPoint',telephone:phone,contactType:'Consultas de instalación y reparación',availableLanguage:'es'},
+ },{
+  '@context':'https://schema.org','@type':'WebSite','@id':origin+'/#sitio',
+  name:brand,url:origin+'/',inLanguage:'es',publisher:{'@id':organizationId},
+ },{
+  '@context':'https://schema.org','@type':path === '/contacto/' ? 'ContactPage' : 'WebPage',
+  '@id':canonical+'#pagina',url:canonical,name:title,description,inLanguage:'es',
+  isPartOf:{'@id':origin+'/#sitio'},publisher:{'@id':organizationId},
+ }];
+ if (service) structured.push({
+  '@context':'https://schema.org','@type':'Service','@id':canonical+'#servicio',
+  name:service,url:canonical,description,provider:{'@id':organizationId},
+  areaServed:place || areaNames,mainEntityOfPage:{'@id':canonical+'#pagina'},
+ });
  if (origin && trail.length && indexable) structured.push({
   '@context':'https://schema.org', '@type':'BreadcrumbList',
   itemListElement: [['/','Inicio'],...trail].map(([url,name],i) => ({
@@ -108,21 +134,23 @@ function page(path, title, description, body, {place='',trail=[],index=true}={})
  });
  const crumb = trail.length ? '<nav class="wrap crumb" aria-label="Ruta">' + link('/','Inicio') + trail.map(([url,label]) => ' <span aria-hidden="true">›</span> ' + (url ? link(url,label) : esc(label))).join('') + '</nav>' : '';
  const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(title)} | ${brand}</title><meta name="description" content="${esc(description)}">
-${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}${indexable ? '' : '<meta name="robots" content="noindex,follow">'}
-<meta name="theme-color" content="#f8f7f3"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/buscar.js"></script>
+<title>${esc(documentTitle)}</title><meta name="description" content="${esc(description)}">
+${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">' : ''}<meta name="robots" content="${indexable ? 'index,follow,max-image-preview:large' : 'noindex,follow'}">
+<meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="${brand}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:image" content="${esc(origin+'/'+image)}">
+<meta name="theme-color" content="#f8f7f3"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/site.css">${styles.map(style=>'<link rel="stylesheet" href="'+esc(style)+'">').join('')}<script defer src="/assets/buscar.js"></script>
 <script type="application/ld+json">${JSON.stringify(structured)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
-<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/guias/','Guías')}${link('/contacto/','Contacto')}</nav></div></header>
+<header><div class="wrap top">${logo}<nav aria-label="Principal">${link('/servicios/','Servicios')}${link('/servicios/comunidades/','Comunidades')}${link('/zonas/','Zonas')}${link('/trabajos/','Trabajos')}${link('/guias/','Guías')}${link('/contacto/','Contacto')}</nav></div></header>
 <main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">
 <div>${logo}<p>Instalación y reparación de porteros automáticos, videoporteros y antenas.</p>${link('/contacto/','Pedir presupuesto →')}</div>
-<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}${link('/guias/','Guías de porteros y videoporteros')}</nav>
+<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/comunidades/','Comunidades de vecinos')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}${link('/guias/','Guías de porteros y videoporteros')}</nav>
 <nav aria-label="Zonas del pie"><h2>Zonas de servicio</h2>${areaList.map(area=>link('/'+area.slug+'/',area.name)).join('')}${link('/zonas/','Buscar municipio →')}</nav>
 </div><div class="wrap footer-bottom"><span>Videoporteros Fuentes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
 <nav class="mobile" aria-label="Contacto rápido">
 <a href="${tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>Llamar</a>
 <a href="${esc(wa(place))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>WhatsApp</a>
 </nav></body></html>`;
- if (published.has(path)) throw new Error('Ruta duplicada: ' + path);
+ if (rendered.has(path)) throw new Error('Ruta duplicada: ' + path);
+ rendered.add(path);
  if (indexable) published.add(path);
  const target = file('dist' + path);
  mkdirSync(target,{recursive:true});
@@ -132,7 +160,7 @@ const serviceCards = '<div class="cards">' + servicios.map(([id,name,copy],i) =>
 const repairQuote = '<p class="readable">Primero revisamos el portero automático o videoportero que ya tienes. Según el fallo, comprobamos la fuente de alimentación, el grupo fónico de la placa, el cableado, el telefonillo o el abrepuertas.</p>'
  + '<p class="readable">Si la reparación es viable y hay recambio compatible, te damos presupuesto para reparar. Si no se puede reparar, te presupuestamos un equipo nuevo y te indicamos qué cableado o componentes se pueden aprovechar.</p>';
 const areaCards = (limit = 6) => '<div class="cards areas">' + areaList.map(area => '<article><h3>' + link('/'+area.slug+'/',area.name) + '</h3><p>' + esc(area.intro) + '</p>' + list(area.main.slice(0,limit).map(t => '<li>' + link(t.path,t.name) + '</li>')) + '</article>').join('') + '</div>';
-const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article>' + (j.path ? '<img class="job-img" loading="lazy" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '">' : '') + '<p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p><h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
+const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article>' + (j.path ? '<img class="job-img" loading="lazy" decoding="async" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '">' : '') + '<p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p>' + (j.estado ? '<p class="work-state">'+esc(j.estado)+'</p>' : '') + '<h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
  + (showCaseLink ? '<p>'+link('/trabajos/#'+jobAnchor(j),'Ver trabajo en '+j.municipio+' →')+'</p>' : '')
  + '</article>').join('') + '</div>' : '';
 const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,8);
@@ -154,16 +182,6 @@ const visitLinks = visits => list(Object.keys(visits).map(code => {
 }));
 const imageSets = Object.fromEntries(serviceTypes.map(tipo => [tipo,
  Object.keys(serviceImages).filter(name => serviceImages[name].servicio === tipo)]));
-const photoForTown = (town, topic) => {
- let options = imageSets.porteros;
- if (/llavero|teclado|lector/i.test(topic)) options = ['teclado-de-acceso'];
- else if (/cámara|monitor|imagen|vídeo|videoportero/i.test(topic)) {
-  options = ['monitor-y-auricular','videoportero-golmar-exterior','videoportero-tegui-comunidad'];
- } else if (/cable|conex|alimentación/i.test(topic)) {
-  options = ['placa-en-revision','cableado-de-placa'];
- }
- return options[Number(town.code) % options.length];
-};
 const illustratedText = (copy, photo) => '<div class="local-illustration"><div>'+copy+'</div>'+photoFigure(photo)+'</div>';
 const videoExample = '<figure class="video-example"><video width="360" height="640" controls playsinline preload="none" poster="/assets/fotos-servicio/detalle-videoportero.webp" aria-label="Detalle de una placa de videoportero exterior">'
  +'<source src="/assets/fotos-servicio/detalle-videoportero.mp4" type="video/mp4"></video>'
@@ -197,7 +215,28 @@ const destinationSection = band('Otros destinos y desplazamientos',
    : confirmedWorkPlaces.has(slug(place)) ? '<h3>Trabajos en '+esc(place)+'</h3>'+referencePhotos() : '')
    +(references ? '<h3>Casos en '+esc(place)+'</h3>'+references : '');
  }).join(''),'desplazamientos');
-const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>Cuéntanos qué falla o qué quieres instalar</h2><p>Indica el municipio, si es una casa o comunidad y qué equipo tienes. Si puedes, envía una foto de la placa y del terminal interior.</p><p>'+link('/contacto/','Abrir formulario de presupuesto →')+'</p>' + contact(place) + '</section></div>';
+const callout = (place='') => '<div class="wrap section"><section class="callout"><h2>'+(place ? 'Prepara tu consulta en '+esc(place) : 'Cuéntanos qué falla o qué quieres instalar')+'</h2><p>Indica si es una vivienda o comunidad, qué equipo tienes y qué necesitas. Confirmamos la disponibilidad de la visita y el desplazamiento para tu ubicación.</p><p>'+link(requestPath(place),'Preparar la consulta de presupuesto →')+'</p>' + contact(place) + '</section></div>';
+const communityLink = place => '<aside class="community-link"><div><p class="eyebrow">Presidentes y administradores</p><h2>El portero de tu comunidad</h2><p>Prepara la reparación o renovación por viviendas y accesos. Consulta qué comparar en el presupuesto y cómo coordinar las pruebas con los vecinos.</p></div><div>'+link('/servicios/comunidades/','Ver servicio para comunidades →')+link(requestPath(place,true),'Consultar por nuestra comunidad →')+'</div></aside>';
+
+const questionsByService = {
+ reparacion:['¿Qué falla: llamada, conversación, imagen o apertura?','¿Le ocurre a una vivienda, a varias o a todo el portal?','¿Desde cuándo ocurre y qué marca o referencia tiene el equipo?'],
+ instalacion:['¿Cuántas viviendas y entradas debe atender la instalación?','¿Qué equipo existe y qué funciones queréis conservar o añadir?','¿Hay canalización entre la placa, las viviendas y las puertas?'],
+ llaveros:['¿Cuántas puertas y usuarios tendrán acceso?','¿Qué placa y cerradura tiene el portal y se quieren conservar?','¿Quién gestionará las altas y las bajas de llaveros?'],
+ wifi:['¿La llamada se quiere atender en casa, en el móvil o en ambos?','¿Qué marca y modelo tiene el portero actual?','¿Dónde hay conexión a Internet y qué puerta se quiere abrir?'],
+};
+const serviceForTopic = topic => /llavero|lector|tarjeta|teclado|código/i.test(topic) ? 'llaveros'
+ : /móvil|red|wifi|wi-fi/i.test(topic) ? 'wifi'
+ : /instala|renova|montaje|actualizar|pasar|cámara para|cambiar la placa/i.test(topic) ? 'instalacion' : 'reparacion';
+function localPreparation(town, focus, heading) {
+ const service = focus?.service || serviceForTopic(heading);
+ const questions = focus?.questions || questionsByService[service];
+ return band(focus?.heading || 'Qué necesitamos saber para la visita',
+  (focus ? focus.paragraphs.map(copy=>'<p class="readable">'+esc(copy)+'</p>').join('') : '')
+  +'<div class="visit-questions"><h3>Prepara la consulta</h3><ul>'+questions.map(question=>'<li>'+esc(question)+'</li>').join('')+'</ul>'
+  +'<p>'+link(requestPath(town.name)+'&servicio='+service,'Preparar consulta en '+town.name+' →')+'</p></div>'
+  +'<p class="readable">La foto de la placa y del terminal ayuda a identificar el sistema. La compatibilidad y el alcance del trabajo se confirman al revisar la instalación.</p>',
+  'preparar-visita');
+}
 
 const guideCards = selection => '<div class="guide-cards">' + selection.map(guide =>
  '<article><h3>'+link('/guias/'+guide.id+'/',guide.title)+'</h3><p>'+esc(guide.description)+'</p></article>'
@@ -239,9 +278,9 @@ for (const guide of guias) {
 
 const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portada">
   <div class="home-copy">
-    <p class="eyebrow">Porteros automáticos y control de acceso</p>
-    <h1 id="titulo-portada">Porteros y<br><span>videoporteros.</span></h1>
-    <p class="lede">Reparamos telefonillos y videoporteros e instalamos sistemas con cámara, apertura desde el móvil o lector de llavero.</p>
+    <p class="eyebrow">Comunidades de vecinos y viviendas</p>
+    <h1 id="titulo-portada">Instalación y reparación de <span>videoporteros.</span></h1>
+    <p class="lede">Reparamos porteros automáticos y telefonillos. Valoramos la instalación de cámara, atención desde el móvil o llaveros a partir del equipo que ya tiene tu portal.</p>
     ${contact()}
     <div class="home-shortcuts">
       <a class="hero-link" href="/#trabajos-destacados">Trabajos reales <span aria-hidden="true">↓</span></a>
@@ -258,6 +297,7 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
 </section>`;
 page('/','Instalación y reparación de videoporteros','Porteros automáticos, videoporteros Wi‑Fi y lectores de llavero en '+coverage+'. Tel. '+phone+'.',
  homeHero
+ +'<section class="wrap community-intro">'+communityLink('')+'</section>'
  + (featuredJobs.length ? band('Trabajos reales en viviendas y comunidades',
     '<p class="readable">Fotos de nuestros técnicos en portales de comunidades. Consulta la placa de cada edificio y los detalles de la intervención.</p>'
     +jobCards(featuredJobs,true)+'<p>'+link('/trabajos/','Ver todos los trabajos y fotografías →')+'</p>','trabajos-destacados') : '')
@@ -269,8 +309,8 @@ page('/','Instalación y reparación de videoporteros','Porteros automáticos, v
  + band('Cómo preparar una visita y un presupuesto','<ol><li><strong>Indica el municipio y el tipo de edificio.</strong> Una vivienda individual, una comunidad y un portal con varios accesos necesitan soluciones diferentes.</li><li><strong>Envía fotografías de la placa y del terminal interior.</strong> La marca y el modelo ayudan a identificar el sistema antes del desplazamiento.</li><li><strong>Explica el fallo o la mejora que buscas.</strong> Si es una avería, indica desde cuándo ocurre y a cuántas viviendas afecta. Si es una renovación, cuántos terminales hay que sustituir.</li></ol><p>Con esa información orientamos la consulta; la valoración de la instalación permite concretar los equipos, el cableado y el alcance del trabajo. Para un aviso urgente, consulta la disponibilidad de desplazamiento al indicar tu localidad.</p>')
  + band('Porteros y videoporteros por municipio',areaCards(9)+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>','municipios-portada')
  + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>Servicio de antenista</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/antenas/','Ver servicio de antenista ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
- + callout());
-page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+band('Servicio de antenista en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+'<p>'+link('/servicios/antenas/','Ver servicio de antenista →')+'</p>','antenas-locales')+callout());
+ + callout(),{service:'Instalación y reparación de porteros automáticos y videoporteros'});
+page('/servicios/','Servicios de porteros automáticos y videoporteros','Reparación, instalación y renovación de porteros, videoporteros Wi‑Fi y lectores para llavero o tarjeta.',hero('Servicios','Porteros y videoporteros','Diagnóstico, renovación y control de acceso para viviendas, portales y locales.')+band('Qué podemos hacer',serviceCards)+'<section class="wrap">'+communityLink('')+'</section>'+band('Servicio de antenista en municipios seleccionados','<p>Instalación y reparación de antenas TDT, parabólicas y distribución de señal.</p>'+servicePhotos(imageSets.antenas)+'<p>'+link('/servicios/antenas/','Ver servicio de antenista →')+'</p>','antenas-locales')+callout());
 for (const [id,name,copy,detail] of servicios) {
  const repairDetails = id === 'reparacion'
   ? band('Qué observar antes de avisar', '<ul class="readable">'
@@ -281,7 +321,7 @@ for (const [id,name,copy,detail] of servicios) {
    + '<p>'+link('/trabajos/','Ver fotos de equipos y trabajos reales')+'</p>')
    + band('Presupuesto de reparación o sustitución',repairQuote)
   : '';
- page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id)))+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]]});
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id)))+'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]],service:name});
 }
 page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'.')
@@ -289,11 +329,20 @@ page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y repar
  +band('Municipios con servicio de antenista','<p class="readable">Consulta los municipios principales y abre el listado de localidades cercanas de tu provincia. Confirmamos el desplazamiento al pedir cita.</p>'+antennaLinks)
  +callout(),{trail:[['/servicios/','Servicios'],['','Antenista']]});
 page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o reparación de porteros, videoporteros y antenas. Tel. '+phone+'.',
- '<section class="wrap section"><p class="eyebrow">Contacto</p><h1>Cuéntanos qué necesitas</h1><p>Indica dónde está la instalación y qué quieres reparar o montar. Revisarás el mensaje antes de enviarlo en WhatsApp.</p>'
- +'<form class="contact-form" data-contact-form action="'+esc(wa())+'"><div><label for="consulta-municipio">Municipio</label><input id="consulta-municipio" required maxlength="90" autocomplete="address-level2"></div>'
- +'<div><label for="consulta-servicio">Servicio</label><select id="consulta-servicio"><option>Reparación de portero o videoportero</option><option>Instalación de portero o videoportero</option><option>Apertura con llavero, código o móvil</option><option>Instalación o reparación de antena</option><option>Otra consulta</option></select></div>'
- +'<div><label for="consulta-detalle">Qué necesitas</label><textarea id="consulta-detalle" rows="5" required maxlength="1200"></textarea></div><button type="submit" class="button">Abrir consulta en WhatsApp</button></form>'
- +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p></section>',{trail:[['','Contacto']]});
+ '<section class="wrap section"><p class="eyebrow">Contacto y presupuesto</p><h1>Cuéntanos qué necesita tu instalación</h1><p class="readable">Prepara el aviso de una vivienda o el presupuesto de tu comunidad. Indica el municipio y el equipo existente; confirmamos el desplazamiento y la disponibilidad antes de la visita.</p>'
+ +solicitudFormulario(wa())
+ +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p>'
+ +'<section class="contact-identity"><h2>Quién atiende tu consulta</h2><p>Videoporteros Fuentes presta servicios de instalación, reparación y control de acceso para viviendas y comunidades. El titular de esta web es '+esc(owner)+'.</p><p>Las páginas de municipios indican zonas de servicio y desplazamiento. Al contactar concretamos la atención para tu ubicación y el alcance de la revisión.</p><p>'+link('/zonas/','Consultar zonas de servicio')+' · '+link('/trabajos/','Ver trabajos documentados')+' · '+link('/aviso-legal/','Datos del titular')+'</p></section></section>',
+ {trail:[['','Contacto']],styles:['/assets/solicitud.css']});
+
+const communityJobs = comunidades.photos.map(photo=>jobs.find(job=>job.foto===photo));
+if (communityJobs.some(job=>!job)) throw new Error('Falta una fotografía de trabajo para comunidades');
+page('/servicios/comunidades/',comunidades.title,comunidades.description,
+ '<article class="wrap guide-article community-page"><div class="guide-heading"><p class="eyebrow">Presidentes y administradores de fincas</p><h1>'+esc(comunidades.title)+'</h1><p class="lede">'+esc(comunidades.intro)+'</p><p><a class="button" href="'+esc(requestPath('',true))+'">Preparar consulta de la comunidad</a></p></div>'
+ +'<nav class="guide-toc" aria-label="Contenido para comunidades"><h2>Organiza la intervención</h2><ul>'+comunidades.sections.map(section=>'<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>'
+ +comunidades.sections.map(section=>'<section id="'+section.id+'"><h2>'+esc(section.title)+'</h2>'+section.body+(section.id==='ejemplos-comunidades' ? jobCards(communityJobs,true) : '')+'</section>').join('')
+ +'<section><h2>Consulta la atención en tu municipio</h2><p>'+link('/zonas/','Buscar mi municipio')+' · '+link(requestPath('',true),'Preparar presupuesto de comunidad')+'</p>'+contact()+'</section></article>',
+ {trail:[['/servicios/','Servicios'],['','Comunidades de vecinos']],service:'Reparación e instalación de porteros y videoporteros para comunidades'});
 page('/zonas/','Municipios con servicio de porteros y videoporteros','Encuentra tu municipio en '+coverage+' y consulta la cobertura de reparación e instalación.',
  hero('Zonas','Busca tu municipio','Encuentra el servicio de reparación e instalación en '+coverage+'.')
  + '<section class="wrap section" data-directory><h2>Municipios atendidos</h2><label for="municipio">Escribe tu pueblo</label><input id="municipio" type="search" placeholder="Por ejemplo, Bilbao o Tolosa"><p data-count role="status"></p>'
@@ -303,37 +352,41 @@ for (const area of areaList) {
  const areaJobs = jobs.filter(job => slug(job.municipio) === area.slug
   || area.towns.some(t => slug(t.name) === slug(job.municipio)));
  const [serviceHeading, serviceText, photo] = servicioProvincial[area.slug];
- page(areaUrl,'Cobertura provincial de porteros y videoporteros en '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
+ page(areaUrl,'Videoporteros en la provincia de '+area.name,'Reparación e instalación de porteros automáticos y videoporteros en '+area.name+'. Tel. '+phone+'.',
   hero('Cobertura provincial','Porteros y videoporteros en la provincia de '+area.name,area.intro,area.name)
   +band(serviceHeading,illustratedText('<p class="readable">'+esc(serviceText)+'</p>'
    +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
    +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo))
-  +(areaJobs.length ? band('Trabajos reales en '+area.name,jobCards(areaJobs.slice(0,4),true)+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>') : '')
+  +(areaJobs.length ? band('Trabajos documentados en '+area.name,jobCards(areaJobs.slice(0,4),true)+'<p>'+link('/trabajos/','Ver todos los trabajos documentados →')+'</p>','trabajos') : '')
+  +'<section class="wrap">'+communityLink(area.name)+'</section>'
   +relatedGuides(serviceHeading,areaJobs)
   +band('Municipios con ficha de servicio',list(area.main.map(t=>'<li>'+link(t.path,t.name)+'</li>')),'municipios')
   + (area.towns.some(t=>t.center) ? band('Otros municipios de '+area.name,list(ordered(area.towns.filter(t=>t.center)).map(t=>'<li>'+link(t.path,t.name)+'</li>'))) : '')
-  +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]]});
+  +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]],service:'Instalación y reparación de porteros y videoporteros en '+area.name,image:areaJobs[0]?.path});
  for (const town of area.main) {
   const [,heading,advice,seo={}]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
+  const focus=enfoquesLocales[town.code];
   const localCases=caseReferences(town.name);
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  const title = seo.title || 'Porteros automáticos y videoporteros en '+town.name;
-  const description = seo.description || 'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+heading+' Tel. '+phone+'.';
+  const title = seo.title || 'Porteros y videoporteros en '+town.name;
+  const description = seo.description || 'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
   page(town.path,title,description,
-   hero(area.name,seo.title || 'Porteros y videoporteros en '+town.name,'Reparación de telefonillos, instalación de videoporteros y apertura con móvil, código o llavero según el equipo y el acceso.',town.name)
-   +(localJobs.length ? band('Trabajos reales en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')))
+   hero(area.name,seo.title || 'Porteros y videoporteros en '+town.name,focus?.intro || advice,town.name)
+   +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos')
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
-   +band(heading,illustratedText('<p class="readable">'+esc(advice)+'</p>',photoForTown(town,heading)))
-   +relatedGuides(heading,localJobs)
+   +localPreparation(town,focus,heading)
+   +relatedGuides(focus?.heading || heading,localJobs)
    +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,
      '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+visitDispatch(localVisit)+esc(localVisit[1])+'</p></article>',
      'visita-valoracion') : '')
-   +band('¿Se puede reparar el portero que ya tienes?',repairQuote+list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>')))
+   +band('Elige el servicio que necesitas',list(servicios.map(([id,name])=>'<li>'+link('/servicios/'+id+'/',name)+'</li>').concat('<li>'+link('/servicios/comunidades/','Porteros para comunidades de vecinos')+'</li>'))
+    +'<p>'+link(requestPath(town.name,true),'Preparar presupuesto de comunidad en '+town.name+' →')+'</p>'
+    +(areaJobs.length && !localJobs.length ? '<p>'+link(areaUrl+'#trabajos','Consultar trabajos documentados en '+area.name)+'</p>' : ''))
    +(antenas[town.code] ? band('Antenista en '+town.name,
      illustratedText('<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(wa(town.name,'una antena'),'Consultar con un antenista')+'</p>',
       imageSets.antenas[Number(town.code) % imageSets.antenas.length])
@@ -348,7 +401,7 @@ for (const area of areaList) {
      +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }))) : '')
-   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]]});
+   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:'Instalación y reparación de porteros y videoporteros en '+town.name,image:localJobs[0]?.path});
  }
 }
 const documentedWork = serviceTypes.map(tipo => {
@@ -393,4 +446,5 @@ page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<s
 const sitemap = origin && !preview ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';
 if (sitemap) writeFileSync(file('dist/sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n'+sitemap);
 writeFileSync(file('dist/robots.txt'),'User-agent: *\nAllow: /\n'+(sitemap ? 'Sitemap: '+origin+'/sitemap.xml\n' : ''));
+writeFileSync(file('dist/_redirects'),[...rendered].map(path=>path+'index.html '+path+' 301!').join('\n')+'\n');
 console.log(published.size+' páginas indexables · '+towns.length+' municipios · '+jobs.length+' trabajos documentados');

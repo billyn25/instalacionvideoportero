@@ -1,0 +1,41 @@
+.solicitud-form {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 52rem;
+}
+.solicitud-form > div { min-width: 0; }
+.solicitud-form .solicitud-wide { grid-column: 1 / -1; }
+.solicitud-form .solicitud-help {
+  margin: .4rem 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.solicitud-form > .solicitud-help:first-child { margin-top: 0; }
+.solicitud-form .solicitud-optional {
+  font-size: .85em;
+  font-weight: 400;
+  color: var(--muted);
+}
+.solicitud-form .solicitud-community {
+  min-width: 0;
+  margin: 0;
+  padding: .8rem;
+  border: 1px solid var(--line);
+  border-radius: .6rem;
+  background: var(--paper);
+}
+.solicitud-form .solicitud-community[hidden] { display: none; }
+.solicitud-form legend { padding-inline: .3rem; font-weight: 700; }
+.solicitud-form .solicitud-community-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: .8rem;
+}
+.solicitud-form textarea { resize: vertical; min-height: 8rem; }
+.solicitud-form :is(input, select, textarea) { min-height: 44px; }
+.solicitud-form .button { text-align: center; }
+@media (min-width: 600px) {
+  .solicitud-form,
+  .solicitud-form .solicitud-community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

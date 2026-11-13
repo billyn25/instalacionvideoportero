@@ -337,6 +337,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .guide-table { overflow-x: auto; margin-block: 1rem }
 .guide-table table { width: 100%; border-collapse: collapse; background: var(--white) }
 .guide-table :is(th, td) { padding: .8rem; border: 1px solid var(--line); vertical-align: top; text-align: left }
+.guide-table :is(th, td):first-child { min-width: 7rem; overflow-wrap: normal }
 .guide-table th { background: var(--pale) }
 .guide-article .job-cards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)) }
 .guide-article .job-img { object-fit: contain; background: #eef0f6 }

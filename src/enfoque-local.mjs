@@ -14,6 +14,8 @@ export const enfoquesLocales = {
       '¿Cuántos llaveros necesitáis y quién gestionará las altas y las bajas?',
     ],
     service: 'llaveros',
+    questionTitle: 'Cómo se utilizará el lector integrado',
+    guideIds: ['llaveros-portal', 'videoportero-dos-hilos-ip-wifi'],
   },
   '20069': {
     intro: 'En un portal de Navarra 20, en Donostia, reparamos el grupo fónico de una placa Golmar Nexa. El caso ayuda a preparar una consulta cuando falla la conversación entre el portal y las viviendas y se quiere valorar la reparación del equipo.',
@@ -28,6 +30,8 @@ export const enfoquesLocales = {
       '¿Puedes enviar una foto de la placa Golmar y del terminal interior?',
     ],
     service: 'reparacion',
+    questionTitle: 'Quién deja de oír en la conversación',
+    guideIds: ['portero-no-suena-no-se-oye', 'reparar-o-cambiar-portero'],
   },
   '20079': {
     intro: 'La fotografía de Zarautz muestra un videoportero comunitario con cámara y pulsadores identificados por vivienda. Sirve como referencia para preparar una consulta sobre el portal y concretar qué llamadas, terminales y accesos deben contemplarse al valorar una reparación o renovación.',
@@ -42,6 +46,8 @@ export const enfoquesLocales = {
       '¿Tenéis una relación actualizada de los pulsadores y las viviendas a las que llaman?',
     ],
     service: 'instalacion',
+    questionTitle: 'Relación de pulsadores y viviendas',
+    guideIds: ['cambiar-telefonillo-videoportero', 'videoportero-dos-hilos-ip-wifi'],
   },
   '31201': {
     intro: 'En Pamplona / Iruña está fotografiada una placa Tegui con cámara y dos módulos de pulsadores para las viviendas. Este ejemplo ayuda a preparar la renovación de una comunidad definiendo las llamadas necesarias, el espacio de montaje y los equipos interiores.',
@@ -56,6 +62,8 @@ export const enfoquesLocales = {
       '¿Hay varias escaleras, entradas o viviendas con más de un terminal?',
     ],
     service: 'instalacion',
+    questionTitle: 'Datos para dimensionar la nueva placa',
+    guideIds: ['videoportero-dos-hilos-ip-wifi', 'cambiar-telefonillo-videoportero'],
   },
   '31227': {
     intro: 'En una vivienda individual de Tafalla sustituimos un portero convencional Fermax por un videoportero Fermax DUOX con Wi-Fi. La placa exterior incorpora cámara y un pulsador. El caso permite plantear el paso del audio a la imagen y la atención desde el móvil.',
@@ -70,6 +78,8 @@ export const enfoquesLocales = {
       '¿Quieres ver y atender desde casa, desde el móvil o desde ambos?',
     ],
     service: 'wifi',
+    questionTitle: 'Lo que quieres atender desde el móvil',
+    guideIds: ['videoportero-wifi-movil', 'videoportero-dos-hilos-ip-wifi'],
   },
   '39012': {
     intro: 'En una comunidad de Cabezón de la Sal se renovó un portero de audio convencional y se instaló otro de audio a dos hilos. La placa Tegui fotografiada permite explicar una opción de renovación centrada en la llamada, la conversación y la apertura.',
@@ -84,6 +94,8 @@ export const enfoquesLocales = {
       '¿El problema actual afecta a la llamada, la conversación o la apertura?',
     ],
     service: 'instalacion',
+    questionTitle: 'Qué necesita conservar o añadir la comunidad',
+    guideIds: ['videoportero-dos-hilos-ip-wifi', 'reparar-o-cambiar-portero'],
   },
   '39087': {
     intro: 'La placa Tegui fotografiada en Torrelavega pertenece a una comunidad y dispone de cámara y pulsadores por vivienda. A partir de ese tipo de instalación, podemos orientar qué información preparar cuando se quiere sustituir un monitor o consultar un fallo de imagen.',
@@ -98,6 +110,8 @@ export const enfoquesLocales = {
       '¿Qué referencia aparece en el monitor y qué placa hay en el portal?',
     ],
     service: 'reparacion',
+    questionTitle: 'Identificar el monitor que debe sustituirse',
+    guideIds: ['reparar-o-cambiar-portero', 'videoportero-dos-hilos-ip-wifi'],
   },
   '40076': {
     intro: 'En una comunidad de El Espinar sustituimos un portero convencional de cinco hilos por un sistema de dos hilos. La placa exterior de audio fotografiada documenta el cambio y ayuda a explicar qué conviene revisar antes de renovar una instalación comunitaria.',
@@ -112,6 +126,8 @@ export const enfoquesLocales = {
       '¿Quién puede coordinar con los vecinos el acceso para la conexión y las pruebas?',
     ],
     service: 'instalacion',
+    questionTitle: 'Preparar el cambio de tecnología',
+    guideIds: ['videoportero-dos-hilos-ip-wifi', 'cambiar-telefonillo-videoportero'],
   },
   '48013': {
     intro: 'Acudimos de urgencia a una comunidad de Barakaldo porque los vecinos no oían la llamada del portal. La comunidad quería conservar el portero existente y reparamos el grupo fónico Tegui EGF1. El caso orienta cómo plantear una reparación del equipo común.',
@@ -126,6 +142,8 @@ export const enfoquesLocales = {
       '¿La comunidad prefiere conservar el portero y dispone de fotos de la placa y los terminales?',
     ],
     service: 'reparacion',
+    questionTitle: 'Funciones que debe recuperar el equipo',
+    guideIds: ['portero-no-suena-no-se-oye', 'reparar-o-cambiar-portero'],
   },
   '48020': {
     intro: 'En una comunidad de ocho viviendas de la calle Ledesma, en Bilbao, está prevista la reparación del grupo fónico de un Golmar Stadio. La comunidad también valora cambiar a videoportero. El caso permite preparar la comparación entre reparar y renovar el portal.',
@@ -140,6 +158,8 @@ export const enfoquesLocales = {
       '¿Podéis enviar fotos de la placa, los terminales y el espacio de montaje?',
     ],
     service: 'instalacion',
+    questionTitle: 'Dos presupuestos con un alcance comparable',
+    guideIds: ['reparar-o-cambiar-portero', 'cambiar-telefonillo-videoportero'],
   },
   '48078': {
     intro: 'En Portugalete está documentada una instalación nueva de videoportero Golmar Supra con lector de proximidad en dos accesos. La foto muestra una de las placas. Este caso ayuda a definir qué puerta debe abrir cada equipo y cómo organizar los permisos de entrada.',
@@ -154,6 +174,8 @@ export const enfoquesLocales = {
       '¿Desde qué viviendas o monitores se necesita atender y abrir cada acceso?',
     ],
     service: 'llaveros',
+    questionTitle: 'Permisos y apertura en cada acceso',
+    guideIds: ['llaveros-portal', 'videoportero-dos-hilos-ip-wifi'],
   },
   '48904': {
     intro: 'En Sondika hay dos intervenciones documentadas: un lector Fermax añadido junto a una placa Tegui existente y la reparación de un grupo fónico Fermax. Son ejemplos para valorar una mejora del acceso o resolver una avería manteniendo los elementos que resulten compatibles.',
@@ -168,6 +190,8 @@ export const enfoquesLocales = {
       '¿Cuántos llaveros necesita la comunidad y quién administrará los permisos?',
     ],
     service: 'llaveros',
+    questionTitle: 'Distinguir la mejora de acceso y la avería',
+    guideIds: ['llaveros-portal', 'reparar-o-cambiar-portero'],
   },
   '50297': {
     intro: 'En la calle Santa Nunila de Zaragoza reparamos el grupo fónico de un portero comunitario Tegui. La placa fotografiada tiene pulsadores identificados para los portales 25 y 27. Este ejemplo ayuda a ordenar la información de un aviso en una instalación compartida.',
@@ -182,6 +206,8 @@ export const enfoquesLocales = {
       '¿Puedes enviar una foto completa de la placa y de un terminal afectado?',
     ],
     service: 'reparacion',
+    questionTitle: 'Qué grupo de llamadas está afectado',
+    guideIds: ['portero-no-suena-no-se-oye', 'reparar-o-cambiar-portero'],
   },
   '09059': {
     intro: 'En Burgos centro reparamos el grupo fónico Fermax PVT9696 de un portero comunitario. También hay fotografías de placas, conexiones y una medición del equipo existente. Ese material ayuda a explicar qué información reunir para comparar una reparación con la renovación de la entrada.',
@@ -196,6 +222,8 @@ export const enfoquesLocales = {
       '¿La placa nueva tendría que aprovechar el hueco y el acabado del portal actual?',
     ],
     service: 'reparacion',
+    questionTitle: 'Referencia del grupo fónico y medidas disponibles',
+    guideIds: ['reparar-o-cambiar-portero', 'videoportero-dos-hilos-ip-wifi'],
   },
   '09410': {
     intro: 'En Valle de Mena está documentada la reparación de un videoportero Fermax. Las fotografías muestran el alimentador de referencia 4825 y el interior de la placa de la misma intervención. Ayudan a explicar por qué conviene revisar el conjunto antes de elegir un recambio.',
@@ -210,6 +238,8 @@ export const enfoquesLocales = {
       '¿Conoces la referencia del monitor y puedes fotografiar los equipos visibles sin desmontarlos?',
     ],
     service: 'reparacion',
+    questionTitle: 'Cuándo deja de responder el sistema',
+    guideIds: ['portero-no-suena-no-se-oye', 'reparar-o-cambiar-portero'],
   },
   '01031': {
     intro: 'En Laguardia instalamos un videoportero Fermax con cámara y un pulsador de llamada. Las fotos muestran la placa exterior y el monitor de la misma instalación, con la imagen de la entrada. El caso permite preparar una solución para controlar un acceso desde el interior.',
@@ -224,5 +254,7 @@ export const enfoquesLocales = {
       '¿La entrada recibe luz directa o queda poco iluminada cuando anochece?',
     ],
     service: 'instalacion',
+    questionTitle: 'Encuadre y ubicación del monitor',
+    guideIds: ['cambiar-telefonillo-videoportero', 'videoportero-dos-hilos-ip-wifi'],
   },
 };

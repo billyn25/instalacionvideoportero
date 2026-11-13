@@ -1,0 +1,87 @@
+{
+  "09059": {
+    "heading": "Burgos: barrio y entrada del portal",
+    "text": "Para ubicar el aviso en Burgos, indica barrio, calle y portal; si hay varias entradas, precisa desde cuál se realiza la llamada. El código postal de la finca ayuda a comprobar la dirección antes de concertar la visita.",
+    "zones": ["Gamonal", "G-9", "Capiscol", "San Cristóbal", "Villímar"],
+    "streets": ["Calle José María Codón"],
+    "postalCodes": ["09007"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Burgos: distritos y barrios",
+        "url": "https://cultura.aytoburgos.es/es/web/ayuntamiento-de-burgos/-/reglamento-de-organizaci%C3%B3n-y-funcionamiento-de-los-distritos-municipales-de-la-ciudad-de-burgos-"
+      },
+      {
+        "label": "Biblioteca municipal Gamonal Norte: calle y CP de referencia",
+        "url": "https://cultura.aytoburgos.es/bibliotecas-municipales/-/asset_publisher/f73ZJQF1x8Nv/content/biblioteca-del-centro-civico-gamonal-norte/38509"
+      }
+    ]
+  },
+  "33024": {
+    "heading": "Localizar la escalera en Gijón",
+    "text": "En Gijón, acompaña la dirección con el barrio y señala si el acceso que falla da a la calle principal o a una entrada distinta. Si la comunidad dispone de varias escaleras, identifica también la afectada.",
+    "zones": ["El Centro", "Cimavilla", "Laviada", "La Calzada", "El Natahoyo", "Tremañes"],
+    "streets": ["Calle Jovellanos"],
+    "postalCodes": ["33201"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Gijón: distritos y barrios",
+        "url": "https://www.gijon.es/es/participacion"
+      },
+      {
+        "label": "Centro de Cultura Antiguo Instituto: calle y CP de referencia",
+        "url": "https://drupal.gijon.es/es/centro-de-cultura-antiguo-instituto"
+      }
+    ]
+  },
+  "33044": {
+    "heading": "Oviedo: dirección de la vivienda o del local",
+    "text": "En Oviedo, señala barrio o núcleo junto con calle, portal y código postal de la finca. Si el telefonillo pertenece a un local con entrada independiente, acláralo al describir la avería para identificar qué acceso debe revisarse.",
+    "zones": ["Argañosa", "Buenavista", "La Florida", "Pumarín", "Vallobín", "Ventanielles"],
+    "streets": ["Calle Francisco Bances Candamo", "Carretera de La Corredoria"],
+    "postalCodes": ["33013", "33011"],
+    "sources": [
+      {
+        "label": "Centros Sociales de Oviedo: directorio del servicio municipal gestionado por Azvase",
+        "url": "https://centrosocialvirtualoviedo.es/quienes-somos"
+      }
+    ]
+  },
+  "40194": {
+    "heading": "La puerta de entrada en Segovia",
+    "text": "Para localizar la visita en Segovia, facilita la dirección de la puerta donde está la placa y una referencia del barrio. Si a la vivienda se accede desde otra calle, indícalo para relacionar ambos puntos del sistema.",
+    "zones": ["La Albuera", "San Lorenzo", "San Millán"],
+    "streets": ["Plaza Echegaray", "Calle del Taray"],
+    "postalCodes": ["40002", "40001"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Segovia: barrios de La Albuera y San Lorenzo",
+        "url": "https://segovia.es/index.php/portal/espacios-de-oportunidad-acueductos-de-biodiversidad/actualidad/noticias/el-ayuntamiento-crea"
+      },
+      {
+        "label": "Ayuntamiento de Segovia: barrio de San Millán",
+        "url": "https://www.segovia.es/area/urbanismo/actualidad/noticias/el-ayuntamiento-presenta-los-vecinos-de-san-millan-el-proyecto"
+      },
+      {
+        "label": "Ayuntamiento de Segovia: direcciones y CP de equipamientos municipales",
+        "url": "https://segovia.es/sites/default/files/Components/File_list/Files/Listado_Mesas_Electorales.pdf"
+      }
+    ]
+  },
+  "09410": {
+    "heading": "Precisar el núcleo en el Valle de Mena",
+    "text": "En el Valle de Mena, concreta el núcleo al solicitar la visita y añade la calle o la ubicación de la entrada junto con el código postal de esa dirección. Si hay varias puertas, señala cuál corresponde al equipo.",
+    "zones": ["Villasana de Mena", "Villasuso de Mena", "Siones", "Vallejo", "Lezana de Mena", "Vivanco de Mena"],
+    "streets": ["Calle Eladio Bustamante"],
+    "postalCodes": ["09580"],
+    "sources": [
+      {
+        "label": "Ayuntamiento del Valle de Mena: pedanías",
+        "url": "https://www.valledemena.es/pedanias"
+      },
+      {
+        "label": "Ayuntamiento del Valle de Mena: calle y CP de referencia en Villasana",
+        "url": "https://www.valledemena.es/aviso-legal"
+      }
+    ]
+  }
+}

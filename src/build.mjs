@@ -4,11 +4,36 @@ import { guias } from './guias.mjs';
 import { comunidades } from './comunidades.mjs';
 import { solicitudFormulario } from './solicitud.mjs';
 import { enfoquesLocales } from './enfoque-local.mjs';
+import { enfoquesBizkaiaAlava } from './enfoques-bizkaia-alava.mjs';
+import { enfoquesGipuzkoaNavarra } from './enfoques-gipuzkoa-navarra.mjs';
+import { enfoquesAsturiasBurgosSegovia } from './enfoques-asturias-burgos-segovia.mjs';
 import { asesoramientoServicios } from './asesoramiento.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
 const read = path => JSON.parse(readFileSync(file(path), 'utf8'));
+const focusEntries = [enfoquesLocales, enfoquesBizkaiaAlava, enfoquesGipuzkoaNavarra, enfoquesAsturiasBurgosSegovia].flatMap(Object.entries);
+const localFocus = Object.fromEntries(focusEntries);
+if (focusEntries.length !== Object.keys(localFocus).length) throw new Error('Hay enfoques locales duplicados');
+const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-segovia', 'otras']
+ .flatMap(group => Object.entries(read('data/referencias-'+group+'.json')));
+const localReferences = Object.fromEntries(referenceEntries);
+if (referenceEntries.length !== Object.keys(localReferences).length) throw new Error('Hay referencias locales duplicadas');
+for (const [code, focus] of focusEntries) {
+ if (!fichas[code] || !focus.intro || !focus.heading || !focus.questionTitle || focus.paragraphs?.length !== 2 || focus.questions?.length !== 3
+  || !['reparacion','instalacion','wifi','llaveros'].includes(focus.service)
+  || !focus.guideIds?.length || focus.guideIds.some(id => !guias.some(guide => guide.id === id))) {
+  throw new Error('Enfoque local incompleto o incorrecto: '+code);
+ }
+}
+for (const code of Object.keys(fichas)) if (!localFocus[code]) throw new Error('Falta el enfoque local de '+code);
+for (const [code, reference] of referenceEntries) {
+ if (!fichas[code] || !reference.heading || !reference.text || !Array.isArray(reference.zones) || !reference.streets?.length
+  || !reference.postalCodes?.length || reference.postalCodes.some(value => !/^\d{5}$/.test(value))
+  || !reference.sources?.length || reference.sources.some(source => !source.label || !/^https:\/\//.test(source.url))) {
+  throw new Error('Referencia local incompleta o incorrecta: '+code);
+ }
+}
 const site = process.env.SITE_URL || 'https://instalacionvideoportero.com';
 const preview = ['deploy-preview','branch-deploy'].includes(process.env.CONTEXT);
 const origin = site ? new URL(site).origin : '';
@@ -236,18 +261,32 @@ function localPreparation(town, focus, heading) {
  const questions = focus?.questions || questionsByService[service];
  return band(focus?.heading || 'Qué necesitamos saber para la visita',
   (focus ? focus.paragraphs.map(copy=>'<p class="readable">'+esc(copy)+'</p>').join('') : '')
-  +'<div class="visit-questions"><h3>Prepara la consulta</h3><ul>'+questions.map(question=>'<li>'+esc(question)+'</li>').join('')+'</ul>'
+  +'<div class="visit-questions"><h3>'+esc(focus?.questionTitle || 'Prepara la consulta')+'</h3><ul>'+questions.map(question=>'<li>'+esc(question)+'</li>').join('')+'</ul>'
   +'<p>'+link(requestPath(town.name)+'&servicio='+service,'Preparar consulta en '+town.name+' →')+'</p></div>'
-  +'<p class="readable">La foto de la placa y del terminal ayuda a identificar el sistema. La compatibilidad y el alcance del trabajo se confirman al revisar la instalación.</p>',
+  +(focus ? '' : '<p class="readable">La foto de la placa y del terminal ayuda a identificar el sistema. La compatibilidad y el alcance del trabajo se confirman al revisar la instalación.</p>'),
   'preparar-visita');
+}
+
+function localLocation(town) {
+ const reference = localReferences[town.code];
+ if (!reference) return '';
+ const row = (label, values) => '<div><dt>'+esc(label)+'</dt><dd>'+values.map(esc).join(' · ')+'</dd></div>';
+ return band(reference.heading,
+  '<div class="local-location"><p class="readable">'+esc(reference.text)+'</p><dl class="local-reference-grid">'
+  +(reference.zones.length ? row(reference.zoneLabel || 'Barrios y núcleos de referencia',reference.zones) : '')
+  +row('Calles de referencia',reference.streets)+row('Códigos postales de referencia',reference.postalCodes)
+  +'</dl><p class="local-location-note">Estos códigos son referencias del municipio. Facilita el código de tu dirección junto con la calle, el número y el acceso al portal.</p>'
+  +'<details><summary>Consultar las referencias de la zona</summary><ul>'+reference.sources.map(source=>'<li>'+link(source.url,source.label)+'</li>').join('')+'</ul></details>'
+  +'<p>'+link(requestPath(town.name),'Preparar una visita en '+town.name+' →')+'</p></div>',
+  'ubicacion');
 }
 
 const guideCards = selection => '<div class="guide-cards">' + selection.map(guide =>
  '<article><h3>'+link('/guias/'+guide.id+'/',guide.title)+'</h3><p>'+esc(guide.description)+'</p></article>'
 ).join('')+'</div>';
-function relatedGuides(topic, localJobs = []) {
+function relatedGuides(topic, localJobs = [], preferredIds = []) {
  const jobTopics = localJobs.map(job => job.titulo).join(' ');
- const selected = [...new Set([
+ const selected = preferredIds.length ? preferredIds.map(id => guias.find(guide => guide.id === id)) : [...new Set([
   ...guias.filter(guide => localJobs.some(job => guide.photos.includes(job.foto))),
   ...guias.filter(guide => guide.match.test(jobTopics)),
   ...guias.filter(guide => guide.match.test(topic)),
@@ -372,7 +411,7 @@ for (const area of areaList) {
   const [,heading,advice,seo={}]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town));
   const localJobs=jobsAt(town.name);
-  const focus=enfoquesLocales[town.code];
+  const focus=localFocus[town.code];
   const localCases=caseReferences(town.name);
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
@@ -385,7 +424,8 @@ for (const area of areaList) {
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
-   +relatedGuides(focus?.heading || heading,localJobs)
+   +localLocation(town)
+   +relatedGuides(focus?.heading || heading,localJobs,focus?.guideIds)
    +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,
      '<article class="case-reference"><h3>'+esc(localVisit[0])+'</h3><p>'+visitDispatch(localVisit)+esc(localVisit[1])+'</p></article>',
      'visita-valoracion') : '')

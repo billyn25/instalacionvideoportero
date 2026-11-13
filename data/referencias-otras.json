@@ -1,0 +1,101 @@
+{
+  "48044": {
+    "heading": "Distinguir la zona y el portal en Getxo",
+    "text": "Al pedir una revisión en Getxo, indica si la entrada está en Algorta, Las Arenas u otro barrio y facilita la dirección completa. Si la placa que falla da a una calle distinta de la dirección de la vivienda, necesitamos localizar ese acceso.",
+    "zones": ["Algorta", "Las Arenas", "Romo", "Neguri", "Andra Mari"],
+    "streets": ["Calle Torrene", "Calle Las Mercedes"],
+    "postalCodes": ["48991", "48930", "48992"],
+    "sources": [
+      {"label": "Ayuntamiento de Getxo: direcciones y códigos postales de referencia", "url": "https://www.getxo.eus/es/ayuntamiento/organizacion-municipal/oficinas-municipales-getxo"},
+      {"label": "Sede de Getxo: referencia postal de Fueros", "url": "https://www.getxo.eus/es/servicios/detalle-tramite-sede/73"},
+      {"label": "Gobierno Vasco: barrios de Getxo en el documento ambiental de Neguri", "url": "https://www.euskadi.eus/contenidos/informacion/eaes_302_estdetalle_neguri/es_def/adjuntos/DAE.pdf"}
+    ]
+  },
+  "48020": {
+    "heading": "Calle, distrito y acceso para una visita en Bilbao",
+    "text": "La consulta de Ledesma publicada en esta ficha corresponde a una reparación prevista y a la valoración de una renovación. Para otra comunidad de Bilbao, facilita su calle, número y acceso: la dirección concreta permite preparar el desplazamiento y distinguir placas de un mismo edificio.",
+    "zoneLabel": "Distritos de referencia",
+    "zones": ["Deusto", "Uribarri", "Otxarkoaga / Txurdinaga", "Begoña", "Ibaiondo", "Abando", "Rekalde", "Basurto / Zorroza"],
+    "streets": ["Calle Ledesma", "Calle Barrainkua"],
+    "postalCodes": ["48001", "48009"],
+    "sources": [
+      {"label": "Ayuntamiento de Bilbao: distritos", "url": "https://www.bilbao.eus/cs/Satellite?cid=3000017134&language=es&pagename=Bilbaonet%2FPage%2FBIO_contenidoFinal"},
+      {"label": "Bilbao Turismo: referencia postal en Ledesma", "url": "https://www.bilbaoturismo.net/BilbaoTurismo/es/buscador-de-pintxos/ledesma"},
+      {"label": "Ayuntamiento de Bilbao: referencia postal de Barrainkua", "url": "https://www.bilbao.eus/cs/Satellite?c=Page&cid=3000045204&language=es&pageid=3000045204&pagename=Bilbaonet%2FPage%2FBIO_contenidoFinal"}
+    ]
+  },
+  "39087": {
+    "heading": "Situar la vivienda y la entrada en Torrelavega",
+    "text": "Añade el barrio o núcleo de Torrelavega a la dirección del portal, especialmente si consultas por una vivienda fuera del centro. Para un fallo de monitor, indica también el piso afectado y qué placa exterior utiliza.",
+    "zones": ["La Inmobiliaria", "Barrio Covadonga", "Tanos", "Viérnoles", "Campuzano", "La Montaña"],
+    "streets": ["Bulevar Luciano Demetrio Herrero"],
+    "postalCodes": ["39300"],
+    "sources": [
+      {"label": "Ayuntamiento de Torrelavega: barrios y núcleos", "url": "https://torrelavega.es/noticia/torrelavega-pone-en-marcha-encuentros-participativos-para-reactivar-el-tejido-asociativo-del-municipio/"},
+      {"label": "Sede municipal: dirección y código postal de referencia", "url": "https://sede.torrelavega.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=PTS2_TITULARSEDE"}
+    ]
+  },
+  "40076": {
+    "heading": "El Espinar, San Rafael y los demás núcleos",
+    "text": "Para concertar la visita, concreta el núcleo: El Espinar, San Rafael, La Estación de El Espinar o Los Ángeles de San Rafael. No todos utilizan el mismo código postal; facilita el de tu dirección y señala la puerta que debe atender el portero.",
+    "zones": ["El Espinar", "San Rafael", "La Estación de El Espinar", "Los Ángeles de San Rafael"],
+    "streets": ["Paseo de las Peñitas", "Calle Gil Becerril", "Calle Río Tajo"],
+    "postalCodes": ["40400", "40410", "40424"],
+    "sources": [
+      {"label": "Ayuntamiento de El Espinar: centros culturales y referencias postales", "url": "https://elespinar.es/centros-culturales/"},
+      {"label": "Ayuntamiento de El Espinar: dependencias de los distintos núcleos", "url": "https://elespinar.es/dependencias-municipales/"}
+    ]
+  },
+  "50297": {
+    "heading": "La referencia de Santa Nunila en Zaragoza",
+    "text": "El caso de reparación publicado corresponde a la calle Santa Nunila. Si consultas por otro portal de Zaragoza, indica su barrio, calle y número, y aclara si la placa agrupa llamadas de varios accesos como sucede en el ejemplo documentado.",
+    "zones": ["Santa Isabel"],
+    "streets": ["Calle Santa Nunila"],
+    "postalCodes": ["50016"],
+    "sources": [
+      {"label": "Ayuntamiento de Zaragoza: callejero de 2026 y código postal de Santa Nunila", "url": "https://www.zaragoza.es/contenidos/normativa/ordenanzas-fiscales/2026/Callejero_fiscal_2026.pdf"}
+    ]
+  },
+  "39012": {
+    "heading": "Preparar la dirección en Cabezón de la Sal",
+    "text": "Para revisar un portero en Cabezón de la Sal, facilita la calle y el número, además del barrio o núcleo si ayuda a situar la entrada. Indica si el equipo atiende una casa o una comunidad y desde qué acceso se realiza la llamada.",
+    "zones": ["Cabezón de la Sal", "La Losa"],
+    "streets": ["Plaza Virgen del Campo"],
+    "postalCodes": ["39500"],
+    "sources": [
+      {"label": "Ayuntamiento de Cabezón de la Sal: dirección y código postal", "url": "https://www.cabezondelasal.net/informacion-municipal-2/"},
+      {"label": "Ayuntamiento de Cabezón de la Sal: barrio de La Losa", "url": "https://www.cabezondelasal.net/2026/08/25/santos-martires-en-el-barrio-de-la-losa/"}
+    ]
+  },
+  "01031": {
+    "heading": "Localizar la puerta que se quiere ver en Laguardia",
+    "text": "En una consulta para incorporar cámara en Laguardia, la dirección de la entrada debe quedar clara junto a la ubicación del futuro monitor. Si el acceso da a una vía distinta de la vivienda, facilita ambas referencias y una foto del lugar donde se coloca quien llama.",
+    "zones": [],
+    "streets": ["Calle Mayor", "Plaza Mayor", "Paseo Sancho Abarca"],
+    "postalCodes": ["01300"],
+    "sources": [
+      {"label": "Ayuntamiento de Laguardia: dirección de la oficina de turismo", "url": "https://www.laguardia-alava.com/index.php/es/oficina-de-turismo-de-laguardia"},
+      {"label": "Ayuntamiento de Laguardia: vías y direcciones municipales", "url": "https://laguardia-alava.com/es/ayuntamiento"}
+    ]
+  },
+  "20079": {
+    "heading": "Identificar portal y viviendas en Zarautz",
+    "text": "Para una comunidad de Zarautz, comunica la dirección del portal y la escalera, además de la relación de viviendas que utilizan la placa. Si hay dos entradas, indica desde cuál se ha probado la llamada para asociar el aviso con el equipo correcto.",
+    "zones": [],
+    "streets": ["Kale Nagusia"],
+    "postalCodes": ["20800"],
+    "sources": [
+      {"label": "Turismo Euskadi: calle y código postal de referencia en Zarautz", "url": "https://turismo.euskadi.eus/es/oficinas-de-turismo/oficina-de-turismo-de-zarautz/webtur00-content/es/"}
+    ]
+  },
+  "31227": {
+    "heading": "La ubicación del acceso en Tafalla",
+    "text": "Para estudiar un videoportero con llamada al móvil en Tafalla, facilita la dirección y aclara si la placa estará en la puerta de la casa o en otro acceso. La foto del recorrido entre entrada y vivienda ayuda a preparar la valoración del montaje.",
+    "zones": [],
+    "streets": ["Plaza Francisco de Navarra"],
+    "postalCodes": ["31300"],
+    "sources": [
+      {"label": "Ayuntamiento de Tafalla: plaza y código postal de referencia", "url": "https://www.tafalla.es/transparencia/informacion-institucional-organizativa-y-de-planificacion/"}
+    ]
+  }
+}

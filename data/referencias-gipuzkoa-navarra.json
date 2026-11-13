@@ -1,0 +1,57 @@
+{
+  "20069": {
+    "heading": "Localizar la entrada de tu comunidad en Donostia",
+    "text": "Indica el barrio, la calle y el número del portal al preparar la visita. Si la comunidad tiene una segunda entrada, aclara en cuál está la placa que debemos revisar.",
+    "zones": ["Gros", "Egia", "Antiguo-Ondarreta", "Amara Berri", "Intxaurrondo", "Altza", "Aiete"],
+    "streets": ["Avenida Navarra", "Calle Baztan"],
+    "postalCodes": ["20013", "20012"],
+    "sources": [
+      {"label": "Barrios del Ayuntamiento de Donostia", "url": "https://www.donostia.eus/es/como-es-ciudad/barrios?ReadForm=&id=&idioma=cas"},
+      {"label": "Referencias de calles y códigos postales de Donostia Kultura", "url": "https://www.donostiakultura.eus/es/bibliotecas/ven-conocenos/direcciones-horarios"}
+    ]
+  },
+  "31201": {
+    "heading": "Precisar barrio, portal y escalera en Pamplona",
+    "text": "Para coordinar un aviso, facilita la dirección completa y la escalera afectada, además del barrio. Si varias placas comparten el mismo edificio, una foto de la que falla ayuda a distinguir el acceso.",
+    "zones": ["Casco Viejo / Alde Zaharra", "Iturrama", "Rochapea / Arrotxapea", "San Juan / Donibane", "San Jorge / Sanduzelai", "Txantrea", "Mendillorri", "Lezkairu"],
+    "streets": ["Calle Mayor", "Calle Esquíroz"],
+    "postalCodes": ["31001", "31007"],
+    "sources": [
+      {"label": "Listado municipal de barrios de Pamplona", "url": "https://www.pamplona.es/ayuntamiento/varios/listado-de-barrios-de-pamplona"},
+      {"label": "Direcciones y códigos postales de los centros Civivox", "url": "https://www.pamplona.es/temas/cultura/civivox"}
+    ]
+  },
+  "20045": {
+    "heading": "Identificar la placa que falla en Irun",
+    "text": "Añade el barrio a la dirección del aviso y explica desde qué entrada habéis probado la llamada. Si el fallo de audio afecta a un piso, indica también su identificación en la botonera.",
+    "zones": ["Anaka", "Arbes", "Artía", "Behobia", "Belaskoenea", "Dunboa", "San Miguel", "Ventas"],
+    "streets": ["Calle Fueros", "Calle Pikoketa"],
+    "postalCodes": ["20302", "20304"],
+    "sources": [
+      {"label": "Zonas municipales de Irun", "url": "https://www.irun.org/es/turismo-ciudad/demografia-estadistica/poblacion-hoy/analisis-habitantes-zonas"},
+      {"label": "Referencia postal de la calle Fueros", "url": "https://www.irun.org/es/gazteartean/contacto"},
+      {"label": "Referencia postal de la calle Pikoketa", "url": "https://www.irun.org/archivo/home.asp"}
+    ]
+  },
+  "20067": {
+    "heading": "Ubicar el aviso dentro de Errenteria",
+    "text": "Comunica el barrio y el portal exactos, junto con la vivienda que no recibe la llamada. Si la entrada se realiza por otra fachada, señala la calle desde la que se accede a la placa del edificio.",
+    "zones": ["Beraun", "Iztieta", "Galtzaraborda", "Alaberga", "Gaztaño", "Kaputxinos"],
+    "streets": ["Herriko Plaza"],
+    "postalCodes": ["20100"],
+    "sources": [
+      {"label": "Barrios descritos en el plan municipal de movilidad", "url": "https://static.errenteria.eus/web/eu/udala/planak/PMUS-HMJP/4.1_PMUS_Errenteria_Memoria_161123.pdf"},
+      {"label": "Referencia postal municipal de Herriko Plaza", "url": "https://static.errenteria.eus/gardentasuna/kudeaketatxostenak/Herritarrak/2025/2025-10-URRIA-Kudeaketa-Txostena.pdf"}
+    ]
+  },
+  "20019": {
+    "heading": "Indicar el núcleo y el acceso en Beasain",
+    "text": "Al solicitar el desplazamiento, añade el barrio o núcleo al nombre de Beasain y concreta la dirección. Si la placa no se ve desde la vía de llegada, una referencia del acceso facilita preparar la visita.",
+    "zones": ["Beasainmendi", "Arriaran", "Garin", "Astigarreta", "Matxinbenta", "Altamira", "Salbatore"],
+    "streets": ["Loinazko San Martin Plaza"],
+    "postalCodes": ["20200"],
+    "sources": [
+      {"label": "Núcleos y referencia postal del Ayuntamiento de Beasain", "url": "https://www.beasain.eus/es/beasain-es/movilidad/auzo-taxi"}
+    ]
+  }
+}

@@ -351,6 +351,21 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .visit-questions { max-width: 48rem; margin-top: 1.3rem; padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent); background: var(--white); border-radius: .3rem }
 .visit-questions ul { padding-left: 1.3rem }
 .visit-questions li + li { margin-top: .45rem }
+.local-location { padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid var(--line); border-radius: .8rem; background: var(--white) }
+.local-location > p:first-child { margin-top: 0 }
+.local-reference-grid { display: grid; gap: 1rem; margin-block: 1.5rem }
+.local-reference-grid > div { display: grid; grid-template-columns: minmax(9rem, 1fr) minmax(0, 2.2fr); gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--line) }
+.local-reference-grid dt { font-weight: 700; color: var(--dark) }
+.local-reference-grid dd { margin: 0; color: var(--muted); overflow-wrap: anywhere }
+.local-location-note { max-width: 70ch; color: var(--muted); font-size: .9rem }
+.local-location details { margin-top: 1.25rem; font-size: .9rem }
+.local-location summary { cursor: pointer; font-weight: 600; padding-block: .4rem }
+.local-location summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px }
+.local-location details ul { padding-left: 1.3rem; overflow-wrap: anywhere }
+.local-location details li + li { margin-top: .6rem }
+@media (max-width: 650px) {
+ .local-reference-grid > div { grid-template-columns: minmax(0, 1fr); gap: .35rem }
+}
 .work-state { display: inline-block; padding: .15rem .5rem; border-radius: .3rem; background: var(--pale); color: var(--dark); font-size: .78rem; font-weight: 700 }
 .contact-identity { max-width: 48rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line) }
 .contact-identity h2 { font-size: 1.8rem }

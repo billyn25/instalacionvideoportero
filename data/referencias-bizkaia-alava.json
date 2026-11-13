@@ -1,0 +1,87 @@
+{
+  "48013": {
+    "heading": "Localizar el portal en Barakaldo",
+    "text": "Indica el barrio, la calle y el número del portal al comunicar la avería. Si el edificio tiene varias entradas, aclara en cuál está la placa que necesita revisión.",
+    "zones": ["Cruces", "San Vicente"],
+    "streets": ["Balejo", "Gernikako Arbola", "Herriko Plaza"],
+    "postalCodes": ["48901", "48902", "48903"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Barakaldo: referencias de Cruces, San Vicente y centro",
+        "url": "https://www.barakaldo.eus/portal/es/web/el-ayuntamiento/sac/atencion-presencial"
+      }
+    ]
+  },
+  "48078": {
+    "heading": "Identificar la entrada de la comunidad en Portugalete",
+    "text": "Facilita la dirección exacta y el barrio o zona para situar el aviso. Si hay una entrada principal y otra secundaria, explica desde cuál se realiza la llamada y qué puerta debe abrirse.",
+    "zones": ["Casco Histórico", "Buenavista", "Repélega"],
+    "streets": ["Casilda Iturrizar", "Paseo de la Canilla"],
+    "postalCodes": ["48920"],
+    "sources": [
+      {
+        "label": "Diputación Foral de Bizkaia: ubicaciones de Portugalete en Bizkaibizi",
+        "url": "https://www.bizkaia.eus/home2/Archivos/DPTO6/Noticias/PDF/629321954_202310161230363670923_25560.pdf"
+      },
+      {
+        "label": "Ayuntamiento de Portugalete: Centro Cultural Santa Clara",
+        "url": "https://sarrerak.portugalete.org/centro-cultural-santa-clara/"
+      },
+      {
+        "label": "Turismo Euskadi: Oficina Municipal de Turismo de Portugalete",
+        "url": "https://turismo.euskadi.eus/es/oficinas-turismo/oficina-de-turismo-de-portugalete/webtur00-content/es/"
+      }
+    ]
+  },
+  "48904": {
+    "heading": "Indicar el núcleo y el acceso en Sondika",
+    "text": "Añade el núcleo o barrio a la calle y al número de la dirección. Si la entrada que hay que revisar queda separada del acceso principal, indícalo al preparar la visita.",
+    "zones": ["Basozabal", "Izartza", "Landa", "Zangroiz"],
+    "streets": ["Goiri-Erdikoa plaza"],
+    "postalCodes": ["48150"],
+    "sources": [
+      {
+        "label": "Turismo Euskadi: barrios y núcleos de Sondika",
+        "url": "https://turismoa.euskadi.eus/eu/herriak/sondika/webtur00-content/eu/"
+      },
+      {
+        "label": "Gobierno Vasco: Biblioteca Municipal de Sondika",
+        "url": "https://www.euskadi.eus/biblioteca/sondika-biblioteca-municipal/web01-ejeduki/es/"
+      }
+    ]
+  },
+  "01059": {
+    "heading": "Situar el edificio y los pisos afectados en Vitoria-Gasteiz",
+    "text": "Indica barrio, calle, número y, cuando corresponda, portal o escalera. Para una avería compartida, añade qué viviendas pertenecen a cada entrada y dónde sigue funcionando el portero.",
+    "zones": ["Salburua", "Zabalgana", "Lakua"],
+    "streets": ["Avenida Bratislava", "Plaza España"],
+    "postalCodes": ["01003", "01001"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Vitoria-Gasteiz: barrios en la memoria del PGOU",
+        "url": "https://www.vitoria-gasteiz.org/http/wb021/contenidosEstaticos/especial/pgou/2025/Definitivo/Textos/01_PGOU_TOMO_I_Memoria_AD.pdf"
+      },
+      {
+        "label": "Ayuntamiento de Vitoria-Gasteiz: direcciones de Salburua y contacto municipal",
+        "url": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_6bdaa209_14d4b7baf2f__7ff8"
+      }
+    ]
+  },
+  "01036": {
+    "heading": "Precisar la puerta que necesita revisión en Llodio / Laudio",
+    "text": "Comunica el barrio y la dirección completa, incluyendo el acceso si el edificio tiene más de uno. Explica si la dificultad aparece al liberar la puerta o al volver a cerrarla para preparar la comprobación del portero y del cierre.",
+    "zones": ["Areta", "Gardea", "Latiorro", "Ugarte", "Zona centro"],
+    "streets": ["Herriko Plaza", "Areta", "Goikogane", "Ugarte"],
+    "postalCodes": ["01400"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Laudio: barrios del municipio y referencia postal",
+        "url": "https://laudio.eus/es/transparencia/nuestro-valle"
+      },
+      {
+        "label": "Ayuntamiento de Laudio: referencias de calles por barrios",
+        "url": "https://laudio.eus/es/areas/servicio-de-recogida-de-residuos"
+      }
+    ]
+  }
+}

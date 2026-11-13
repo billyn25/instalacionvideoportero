@@ -17,6 +17,26 @@ export const comunidades = {
         <p><a href="/contacto/?tipo=comunidad">Preparar la consulta de la comunidad</a>.</p>`,
     },
     {
+      id: 'uso-diario',
+      title: 'Un portero que resulte cómodo a los vecinos',
+      body: `
+        <p>Antes de elegir la placa y los terminales, comentad si algún vecino tiene dificultades para identificar el pulsador, percibir la llamada o utilizar el telefonillo. Incorporar esas necesidades al encargo permite valorar los mandos y las funciones de cada equipo antes de cerrar el presupuesto.</p>
+        <ul>
+          <li>Identificación legible de viviendas y botones fáciles de localizar y alcanzar.</li>
+          <li>Avisos de llamada que el usuario pueda reconocer.</li>
+          <li>Conversación comprensible y manejo cómodo, incluido manos libres si se necesita.</li>
+          <li>Apertura sencilla y una indicación clara de qué puerta se está accionando.</li>
+        </ul>
+        <p>Las opciones de aviso o apoyo adicionales deben comprobarse en el modelo concreto. Explicad también quién utilizará el monitor para preparar las instrucciones de uso.</p>`,
+    },
+    {
+      id: 'elegir-sistema',
+      title: 'Elegir el sistema antes que la pantalla',
+      body: `
+        <p>Para comparar dos hilos e IP, conviene partir del cableado disponible, las viviendas y los accesos que debe atender el conjunto. La posibilidad de recibir llamadas en el móvil es otra función que hay que concretar: la etiqueta Wi-Fi no explica por sí sola cómo se conecta todo el edificio.</p>
+        <p>La <a href="/guias/videoportero-dos-hilos-ip-wifi/">comparación de videoporteros de dos hilos, IP y Wi-Fi</a> reúne las preguntas para preparar esa elección.</p>`,
+    },
+    {
       id: 'alcance-presupuesto',
       title: 'Comparar presupuestos para el mismo portal',
       body: `
@@ -61,6 +81,13 @@ export const comunidades = {
       body: `
         <p>La comprobación debe corresponder al encargo: llamada a las viviendas intervenidas, conversación en ambos sentidos y apertura desde los terminales. En una renovación con cámara se verifica también la imagen; si existen varias entradas, se prueba cada una.</p>
         <p>Pedid las referencias de los equipos, instrucciones de uso y condiciones de la intervención. Si se instalan llaveros, acordad quién gestiona las altas y bajas. La <a href="/guias/llaveros-portal/">guía de acceso con llaveros</a> explica qué preparar para esa entrega.</p>`,
+    },
+    {
+      id: 'revision-incidencias',
+      title: 'Cuando una avería vuelve a aparecer',
+      body: `
+        <p>Si el portero falla de forma intermitente, preparad un registro sencillo: cuándo ocurrió, qué función se perdió, cuántos vecinos lo notaron y si coincidió con lluvia, con una llamada o al pulsar para abrir. Anotad también si volvió a funcionar solo. Estos datos ayudan a preparar la revisión aunque el fallo no aparezca al llegar el técnico.</p>
+        <p>Reunid las referencias del equipo y la información de reparaciones anteriores. El técnico puede contrastar los síntomas con la placa, la alimentación, los terminales y el cableado; después se concretan las comprobaciones y el alcance de la intervención. Consulta <a href="/servicios/reparacion/#fallos-repetidos">qué revisar ante fallos repetidos del portero</a>.</p>`,
     },
     {
       id: 'dudas-comunidad',

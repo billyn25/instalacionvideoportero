@@ -4,6 +4,7 @@ import { guias } from './guias.mjs';
 import { comunidades } from './comunidades.mjs';
 import { solicitudFormulario } from './solicitud.mjs';
 import { enfoquesLocales } from './enfoque-local.mjs';
+import { asesoramientoServicios } from './asesoramiento.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -274,7 +275,7 @@ for (const guide of guias) {
   '<article class="wrap guide-article"><div class="guide-heading"><p class="eyebrow">Guía de Videoporteros Fuentes</p><h1>'+esc(guide.title)+'</h1><p class="lede">'+esc(guide.description)+'</p></div>'
   +'<nav class="guide-toc" aria-label="Contenido de la guía"><h2>En esta guía</h2><ul>'+guide.sections.map(section => '<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>'
   +guide.sections.map(section => '<section id="'+section.id+'"><h2>'+esc(section.title)+'</h2>'+section.body+'</section>').join('')
-  +'<section><h2>Trabajos relacionados con esta guía</h2>'+jobCards(examples,true)+'<ul class="guide-local-links">'+localLinks+'</ul></section>'
+  +(examples.length ? '<section><h2>Trabajos relacionados con esta guía</h2>'+jobCards(examples,true)+'<ul class="guide-local-links">'+localLinks+'</ul></section>' : '')
   +'<section><h2>Consulta sobre tu instalación</h2><p>Envía el municipio, una foto del equipo y lo que necesitas reparar o mejorar.</p><p>'+link('/servicios/'+guide.service+'/','Consultar el servicio relacionado')+' · '+link('/guias/','Ver otras guías')+'</p>'+contact()+'</section></article>',
   {trail:[['/guias/','Guías'],['',guide.title]]});
 }
@@ -324,7 +325,8 @@ for (const [id,name,copy,detail] of servicios) {
    + '<p>'+link('/trabajos/','Ver fotos de equipos y trabajos reales')+'</p>')
    + band('Presupuesto de reparación o sustitución',repairQuote)
   : '';
- page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>')+repairDetails+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id)))+'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]],service:name});
+ const advice = asesoramientoServicios[id] || [];
+ page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)+band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>'+(advice.length ? '<nav class="guide-toc" aria-label="Temas de este servicio"><ul>'+advice.map(section=>'<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>' : ''))+repairDetails+advice.map(section=>band(section.title,section.body,section.id)).join('')+(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')+band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id || guide.id === 'videoportero-dos-hilos-ip-wifi' && id === 'wifi')))+'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),{trail:[['/servicios/','Servicios'],['',name]],service:name});
 }
 page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'.')

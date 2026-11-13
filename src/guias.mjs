@@ -64,7 +64,7 @@ export const guias = [
         <p>Una foto del frontal permite reconocer parte del equipo. La referencia exacta y la revisión de la instalación sirven para confirmar qué componentes pueden trabajar juntos.</p>` },
       { id: 'cableado', title: 'Cuándo se puede aprovechar el cableado', body: `
         <p>Los sistemas de dos hilos ofrecen opciones de renovación, sujetas a las condiciones de cada instalación. El técnico debe valorar el tipo y estado del cable, la distancia hasta las viviendas, las derivaciones y el número de equipos. Las distancias admitidas dependen del sistema y de su configuración.</p>
-        <p>La guía técnica de Tegui contiene los criterios de instalación y las tablas para comprobar esas condiciones. El presupuesto puede indicar qué tramos se conservan y cuáles necesitan sustitución. <a href="https://www.tegui.es/documentacion/manuales-tecnicos/guia-tecnica-2-hilos">Guía técnica de dos hilos de Tegui</a>.</p>` },
+        <p>El catálogo de Tegui identifica los equipos y las configuraciones de su sistema de dos hilos. Sus prestaciones deben comprobarse para el cable y la combinación propuestos. El presupuesto puede indicar qué tramos se conservan y cuáles necesitan sustitución. <a href="https://assets.legrand.com/webf/es/website/Tarifa%200526/Catalogo%20Tarifa%20TEGUI%202026_web_2606.pdf">Catálogo oficial Tegui 2026 (PDF)</a>.</p>` },
       { id: 'presupuesto', title: 'Datos que necesita el presupuesto', body: `
         <ul><li>Número de viviendas y de terminales que se quieren instalar.</li><li>Número de placas exteriores, escaleras y puertas que deben abrirse.</li><li>Medidas del hueco de la placa y estado de la canalización.</li><li>Elección de audio, cámara, atención desde el móvil o llaveros.</li><li>Disponibilidad de los vecinos para acceder a sus viviendas durante el montaje.</li></ul>
         <p>Solicita referencias de los equipos y detalle de los trabajos incluidos. Si se cambia el tamaño de la placa, conviene prever el marco y el acabado de la entrada.</p>` },
@@ -124,6 +124,39 @@ export const guias = [
       { id: 'ejemplos', title: 'Qué muestran los trabajos publicados', body: `
         <p>En Tafalla sustituimos un portero convencional Fermax por un videoportero DUOX con Wi-Fi en una vivienda de la avenida de la Baja Navarra. En Laguardia está documentado un monitor Fermax mostrando la cámara de la entrada. En este último caso, la foto permite ver la función de vídeo local y la ficha describe ese trabajo.</p>
         <p>Para estudiar tu instalación, envía fotos de la placa y del terminal e indica si quieres atender desde una vivienda o desde varios móviles.</p>` },
+    ],
+  },
+  {
+    id: 'videoportero-dos-hilos-ip-wifi',
+    title: 'Videoportero de dos hilos, IP o Wi-Fi: cómo elegir',
+    description: 'Diferencias entre cableado de dos hilos, comunicación IP y conexión Wi-Fi. Qué revisar en el portal y qué preguntar antes de elegir un videoportero.',
+    match: /\bIP\b|ethernet|\bPoE\b|dos hilos|tecnolog[ií]a/i,
+    service: 'instalacion',
+    photos: [],
+    sections: [
+      { id: 'entender-opciones', title: 'Empieza por lo que necesita el edificio', body: `
+        <p>Al comparar videoporteros aparecen términos como dos hilos, IP, Wi-Fi o PoE. Conviene aclarar qué describe cada uno antes de elegir un equipo: el cableado entre dispositivos, su forma de comunicarse, cómo reciben alimentación y la conexión necesaria para atender desde el móvil.</p>
+        <p>Un portal que quiere conservar su instalación y una vivienda en reforma pueden partir de condiciones diferentes. Anota las puertas, viviendas y funciones necesarias; después se estudia qué combinación resulta adecuada para ese recorrido y esos usuarios.</p>` },
+      { id: 'diferencias', title: 'Dos hilos, IP y Wi-Fi pueden combinarse', body: `
+        <div class="guide-table" role="region" aria-label="Diferencias entre dos hilos, IP y Wi-Fi" tabindex="0"><table><thead><tr><th scope="col">Término</th><th scope="col">Qué hay que aclarar en la propuesta</th></tr></thead><tbody>
+        <tr><td>Dos hilos</td><td>Qué sistema utiliza ese par de conductores y qué placa, terminales y distribución admite.</td></tr>
+        <tr><td>IP</td><td>Cómo se comunican los equipos en red y qué infraestructura necesita la instalación concreta.</td></tr>
+        <tr><td>Wi-Fi</td><td>Qué dispositivo se conecta de forma inalámbrica y para qué función, por ejemplo recibir llamadas en una app.</td></tr>
+        </tbody></table></div>
+        <p>Por ejemplo, el <a href="https://fermax.com/spain/productos/videoportero-2-hilos/monitores/monitor-veo-wifi/f09446-monitor-veo-wifi-4-3-duox-plus/">monitor Fermax VEO Wi-Fi DUOX PLUS</a> funciona sobre dos hilos e incorpora Wi-Fi para desviar llamadas al móvil. Hikvision también documenta un <a href="https://assets.hikvision.com/prd/public/all/doc/m000044160/DS-KIS702Y-P_Video-Intercom-Two-Wire-Bundle_Datasheet_20240311.pdf">kit IP sobre dos hilos, DS-KIS702Y-P (PDF)</a>. La referencia concreta permite saber qué se está comparando.</p>` },
+      { id: 'revisar-cableado', title: 'Conservar el cable requiere comprobarlo', body: `
+        <p>Para valorar una renovación revisamos el tipo de cable, su estado, las distancias, las derivaciones y los equipos que quedarán conectados. Que existan dos conductores no confirma por sí solo que sirvan para cualquier sistema.</p>
+        <p>La propuesta debe identificar los tramos reutilizados, los que necesitan renovación y los elementos de distribución y alimentación. También interesa comprobar el hueco de la placa y el paso hacia los terminales: así el presupuesto contempla los remates que necesita el portal.</p>
+        <p>Si la duda principal es pasar de audio a cámara, consulta la <a href="/guias/cambiar-telefonillo-videoportero/">guía para cambiar de telefonillo a videoportero</a>.</p>` },
+      { id: 'red-alimentacion', title: 'Qué preguntar cuando se propone una instalación IP', body: `
+        <p>Pide que se explique cómo se conectan placa y monitores, dónde quedan los equipos de red y cómo se alimentan. En una solución Ethernet con PoE, los dispositivos compatibles pueden recibir datos y alimentación por el cable de red. El presupuesto debe concretar el switch o alimentador y su compatibilidad; otros equipos requieren una alimentación diferente.</p>
+        <p>Las <a href="https://www.hikvision.com/content/dam/hikvision/eu/support/brochures/product-brochure/2nd-Generation-IP-Video-Intercom-System-New-Aug.-2022.pdf">soluciones IP de Hikvision (PDF)</a> muestran configuraciones con red y variantes de dos hilos. Esa diversidad hace necesario revisar el esquema del modelo propuesto, especialmente si hay varias entradas o se quieren ampliar terminales.</p>` },
+      { id: 'internet-cuentas', title: 'Separa el uso en casa de la atención desde el móvil', body: `
+        <p>Pide que quede explicado qué funciones siguen disponibles si falla Internet y cuáles dependen de la app o de un servicio remoto. La respuesta debe corresponder al sistema elegido. También conviene definir qué conexión utilizará cada vivienda y dónde se comprobará su cobertura.</p>
+        <p>Acordad quién conserva la cuenta principal, cómo se autorizan otros móviles y qué ocurre al cambiar de usuario o router. Pregunta por las condiciones y posibles costes del servicio conectado. La <a href="/guias/videoportero-wifi-movil/">guía de videoporteros Wi-Fi</a> desarrolla estas comprobaciones.</p>` },
+      { id: 'preguntas-presupuesto', title: 'Cinco preguntas para decidir con el presupuesto delante', body: `
+        <ol><li>¿Qué referencias de placa y terminales se incluyen, y qué funciones tendrá cada vivienda?</li><li>¿Qué cable se conserva y qué comprobaciones permiten aprovecharlo?</li><li>¿Qué alimentación, distribuidores o equipos de red necesita el conjunto?</li><li>¿Qué conexión y cuentas hacen falta para las llamadas al móvil?</li><li>¿Cómo se probarán las llamadas, imagen y apertura de cada acceso?</li></ol>
+        <p>Para preparar la consulta, envía fotos exteriores de la placa y de los terminales e indica viviendas y puertas. Si hay planos o referencias del sistema, ayudan a revisar la propuesta. No hace falta desmontar el equipo para reunir esa información.</p>` },
     ],
   },
 ];

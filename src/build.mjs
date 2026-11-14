@@ -159,10 +159,11 @@ const routeTable = '<div class="route-table-wrap"><table class="route-table"><ca
   +'<td><strong>≈ '+approximateKm(route)+' km</strong><span class="route-time">'+(drivingTime(route) ? '≈ '+drivingTime(route)+' de conducción' : 'Duración según la dirección')+'</span></td>'
   +'<td class="route-access">'+(route.accessRoads.length ? '<strong>'+route.accessRoads.map(esc).join(' · ')+'</strong><span>'+esc(route.accessNote)+'</span>' : '<span>Consulta el recorrido para la dirección concreta.</span>')+'</td>'
   +'<td>'+link(mapRoute(route),'Ver ruta ↗')+'</td></tr>').join('')+'</tbody></table></div>';
+const routeDate = new Intl.DateTimeFormat('es-ES', {dateStyle:'long',timeZone:'UTC'});
 const routeReferences = '<details class="route-sources"><summary>Fuentes y criterio de estas referencias</summary>'
- +'<p>Consulta realizada el 13 de noviembre de 2026. Los kilómetros y tiempos proceden de las rutas de Rome2Rio entre Bilbao y cada destino indicado. Se redondean a 5 km; las duraciones, a 5 minutos en trayectos cortos y a 15 minutos desde una hora. No son datos de tráfico en directo.</p>'
+ +'<p>Las fechas de consulta figuran junto a cada destino. Los kilómetros y tiempos proceden de las rutas de Rome2Rio entre Bilbao y cada destino indicado. Se redondean a 5 km; las duraciones, a 5 minutos en trayectos cortos y a 15 minutos desde una hora. No son datos de tráfico en directo.</p>'
  +'<p>Las carreteras se contrastan por separado con información de accesos. Pueden describir alternativas o solo el tramo final; no determinan necesariamente el itinerario utilizado por el planificador. El enlace de Google Maps permite consultar un recorrido actualizado.</p><ul>'
- +[...travelRoutes].sort((a,b)=>a.destination.localeCompare(b.destination,'es')).map(route=>'<li><strong>'+esc(route.destination)+':</strong> '+routeSourceLinks(route)+'</li>').join('')+'</ul></details>';
+ +[...travelRoutes].sort((a,b)=>a.destination.localeCompare(b.destination,'es')).map(route=>'<li><strong>'+esc(route.destination)+':</strong> consulta del <time datetime="'+esc(route.checkedAt)+'">'+esc(routeDate.format(new Date(route.checkedAt+'T12:00:00Z')))+'</time>. '+routeSourceLinks(route)+'</li>').join('')+'</ul></details>';
 const antennaHubs = towns.filter(town => antenas[town.code]);
 const antennaNearby = new Map(Object.entries(antenasCercanos).flatMap(([code,nearby]) =>
  nearby.map(id => [id, townsByCode.get(code).path+'#antena-municipio-'+id])));

@@ -1,5 +1,21 @@
 [
   {
+    "code": "48096",
+    "destination": "Zalla",
+    "sourceRoadKm": 28.1,
+    "sourceDrivingMinutes": 32,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Zalla",
+    "accessRoads": ["BI-636"],
+    "accessNote": "La BI-636 es la carretera de referencia para llegar a Zalla desde Bilbao. El acceso final se concreta según el barrio y la dirección de la visita.",
+    "accessSources": [
+      {
+        "label": "Diputación Foral de Bizkaia: BI-636 y municipios por los que pasa",
+        "url": "https://www.bizkaia.eus/es/listado-de-carreteras"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
     "code": "48044",
     "destination": "Getxo",
     "sourceRoadKm": 14.8,

@@ -1,5 +1,25 @@
 [
   {
+    "code": "33034",
+    "destination": "Luarca (Valdés)",
+    "sourceRoadKm": 347.7,
+    "sourceDrivingMinutes": 211,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Luarca",
+    "accessRoads": ["A-8"],
+    "accessNote": "La A-8 es una vía de acceso al concejo de Valdés. La distancia toma Luarca como referencia; el recorrido final cambia según la localidad y la dirección del aviso.",
+    "accessSources": [
+      {
+        "label": "Valdés Turismo: cómo llegar al concejo",
+        "url": "https://www.turismoluarcavaldes.es/transporte/"
+      },
+      {
+        "label": "Valdés Turismo: Luarca, capital del concejo",
+        "url": "https://www.turismoluarcavaldes.es/luarca/"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
     "code": "31201",
     "destination": "Pamplona / Iruña",
     "sourceRoadKm": 157,

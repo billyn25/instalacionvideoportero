@@ -44,10 +44,33 @@ export function solicitudFormulario(action, municipio = '') {
           <label for="consulta-viviendas">Número de viviendas</label>
           <input id="consulta-viviendas" type="number" min="1" max="1000" step="1" inputmode="numeric">
         </div>
-        <div>
+        <div data-intercom-accesses>
           <label for="consulta-accesos">Número de accesos</label>
           <input id="consulta-accesos" type="number" min="1" max="100" step="1" inputmode="numeric" aria-describedby="consulta-accesos-ayuda">
           <p class="solicitud-help" id="consulta-accesos-ayuda">Entradas que tienen placa de llamada.</p>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="solicitud-wide solicitud-community" data-antenna-fields hidden disabled>
+      <legend>Datos de televisión <span class="solicitud-optional">(opcionales)</span></legend>
+      <div class="solicitud-community-grid">
+        <div>
+          <label for="consulta-senal">Tipo de señal</label>
+          <select id="consulta-senal">
+            <option value="">Selecciona si lo sabes</option>
+            <option value="tdt">TDT por antena terrestre</option>
+            <option value="satelite">Satélite / parabólica</option>
+            <option value="ambas">TDT y satélite</option>
+            <option value="desconocida">No lo sé</option>
+          </select>
+        </div>
+        <div>
+          <label for="consulta-puntos">Televisores o tomas afectados</label>
+          <input id="consulta-puntos" maxlength="160" placeholder="Por ejemplo, solo el salón o todas las tomas">
+        </div>
+        <div class="solicitud-wide">
+          <label for="consulta-canales">Canales afectados o mensaje en pantalla</label>
+          <input id="consulta-canales" maxlength="200" placeholder="Por ejemplo, imagen pixelada o «sin señal»">
         </div>
       </div>
     </fieldset>

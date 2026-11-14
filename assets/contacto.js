@@ -17,6 +17,12 @@
     todo: 'A toda la instalación',
     desconocido: 'No lo sé'
   };
+  const signals = {
+    tdt: 'TDT por antena terrestre',
+    satelite: 'Satélite / parabólica',
+    ambas: 'TDT y satélite',
+    desconocida: 'No lo sé'
+  };
   const hasOption = (options, value) => Object.prototype.hasOwnProperty.call(options, value);
   const params = new URLSearchParams(window.location.search);
 
@@ -24,11 +30,26 @@
     const field = name => form.querySelector('#consulta-' + name);
     const value = name => field(name)?.value.trim() || '';
     const community = form.querySelector('[data-community-fields]');
-    const toggleCommunity = () => {
-      if (!community) return;
-      const visible = value('tipo') === 'comunidad';
-      community.hidden = !visible;
-      community.disabled = !visible;
+    const antennaFields = form.querySelector('[data-antenna-fields]');
+    const accessFields = form.querySelector('[data-intercom-accesses]');
+    const photoHelp = form.querySelector('#consulta-fotos');
+    const toggleFields = () => {
+      const isAntenna = value('servicio') === 'antena';
+      const isCommunity = value('tipo') === 'comunidad';
+      if (community) {
+        community.hidden = !isCommunity;
+        community.disabled = !isCommunity;
+      }
+      if (antennaFields) {
+        antennaFields.hidden = !isAntenna;
+        antennaFields.disabled = !isAntenna;
+      }
+      if (accessFields) accessFields.hidden = isAntenna;
+      if (field('accesos')) field('accesos').disabled = isAntenna || !isCommunity;
+      if (field('marca')) field('marca').placeholder = isAntenna ? 'Marca del televisor, receptor o equipo visible' : 'Por ejemplo, Tegui o Fermax';
+      if (photoHelp) photoHelp.textContent = isAntenna
+        ? 'Después puedes adjuntar en WhatsApp una foto del mensaje en pantalla, del receptor y de la toma visible. No hace falta subir a la cubierta ni desmontar la instalación.'
+        : 'Después puedes adjuntar en WhatsApp fotos de la placa y del telefonillo o monitor. No hace falta abrir ni desmontar el equipo.';
     };
 
     const municipio = params.get('municipio');
@@ -38,10 +59,11 @@
     const tipo = params.get('tipo');
     if (hasOption(types, tipo) && field('tipo')) field('tipo').value = tipo;
     const requestedService = params.get('servicio');
-    const servicio = ['llaveros', 'wifi'].includes(requestedService) ? 'accesos' : requestedService;
+    const servicio = ['llaveros', 'wifi'].includes(requestedService) ? 'accesos' : requestedService === 'antenas' ? 'antena' : requestedService;
     if (hasOption(services, servicio) && field('servicio')) field('servicio').value = servicio;
-    field('tipo')?.addEventListener('change', toggleCommunity);
-    toggleCommunity();
+    field('tipo')?.addEventListener('change', toggleFields);
+    field('servicio')?.addEventListener('change', toggleFields);
+    toggleFields();
 
     form.querySelectorAll('input, select, textarea').forEach(input => {
       input.addEventListener('input', () => input.setCustomValidity(''));
@@ -61,7 +83,10 @@
         const valid = hasOption(options, input.value) || (name !== 'servicio' && input.value === '');
         input.setCustomValidity(valid ? '' : 'Selecciona una de las opciones de la lista.');
       });
-      toggleCommunity();
+      toggleFields();
+      if (value('servicio') === 'antena') {
+        field('senal').setCustomValidity(value('senal') === '' || hasOption(signals, value('senal')) ? '' : 'Selecciona una de las opciones de la lista.');
+      }
       if (!form.reportValidity()) return;
 
       const lines = [
@@ -73,10 +98,15 @@
       if (value('tipo')) lines.push('Tipo de edificio: ' + types[value('tipo')]);
       if (value('tipo') === 'comunidad') {
         if (value('viviendas')) lines.push('Viviendas: ' + value('viviendas'));
-        if (value('accesos')) lines.push('Accesos con placa: ' + value('accesos'));
+        if (value('servicio') !== 'antena' && value('accesos')) lines.push('Accesos con placa: ' + value('accesos'));
       }
       if (value('marca')) lines.push('Marca o modelo: ' + value('marca'));
       if (value('alcance')) lines.push('Alcance de la avería: ' + scopes[value('alcance')]);
+      if (value('servicio') === 'antena') {
+        if (value('senal')) lines.push('Señal: ' + signals[value('senal')]);
+        if (value('puntos')) lines.push('Televisores o tomas afectados: ' + value('puntos'));
+        if (value('canales')) lines.push('Canales o mensaje en pantalla: ' + value('canales'));
+      }
       lines.push('Detalle: ' + value('detalle'));
       lines.push('Antes de concertar la visita, indicadme la disponibilidad y el coste del desplazamiento desde Bilbao.');
 

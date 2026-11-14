@@ -1,0 +1,308 @@
+[
+  {
+    "code": "09018",
+    "destination": "Aranda de Duero",
+    "sourceRoadKm": 236.4,
+    "sourceDrivingMinutes": 141,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Aranda-de-Duero",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09056",
+    "destination": "Briviesca",
+    "sourceRoadKm": 117.7,
+    "sourceDrivingMinutes": 73,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Briviesca",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09194",
+    "destination": "Lerma",
+    "sourceRoadKm": 192.6,
+    "sourceDrivingMinutes": 116,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Lerma-Castilla-y-Le%C3%B3n-Espa%C3%B1a",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09209",
+    "destination": "Medina de Pomar",
+    "sourceRoadKm": 77.2,
+    "sourceDrivingMinutes": 73,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Medina-de-Pomar",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09211",
+    "destination": "Melgar de Fernamental",
+    "sourceRoadKm": 203.9,
+    "sourceDrivingMinutes": 121,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Melgar-de-Fernamental",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09219",
+    "destination": "Miranda de Ebro",
+    "sourceRoadKm": 81.6,
+    "sourceDrivingMinutes": 53,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Miranda-de-Ebro",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09321",
+    "destination": "Roa de Duero (Roa)",
+    "sourceRoadKm": 238.2,
+    "sourceDrivingMinutes": 148,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Roa-de-Duero-Espa%C3%B1a",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09330",
+    "destination": "Salas de los Infantes",
+    "sourceRoadKm": 210.3,
+    "sourceDrivingMinutes": 134,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Salas-de-los-Infantes",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "09903",
+    "destination": "Villarcayo",
+    "sourceRoadKm": 78.8,
+    "sourceDrivingMinutes": 76,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Villarcayo",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33004",
+    "destination": "Avilés",
+    "sourceRoadKm": 289.7,
+    "sourceDrivingMinutes": 181,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Avil%C3%A9s",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33011",
+    "destination": "Cangas del Narcea",
+    "sourceRoadKm": 372.3,
+    "sourceDrivingMinutes": 246,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Cangas-del-Narcea",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33016",
+    "destination": "Piedras Blancas (Castrillón)",
+    "sourceRoadKm": 294.6,
+    "sourceDrivingMinutes": 184,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Piedras-Blancas",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33024",
+    "destination": "Gijón",
+    "sourceRoadKm": 264.8,
+    "sourceDrivingMinutes": 165,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Gij%C3%B3n",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33031",
+    "destination": "Sama (Langreo)",
+    "sourceRoadKm": 278.1,
+    "sourceDrivingMinutes": 177,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Sama",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33036",
+    "destination": "Llanes",
+    "sourceRoadKm": 181.1,
+    "sourceDrivingMinutes": 118,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Llanes",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33037",
+    "destination": "Mieres",
+    "sourceRoadKm": 288.1,
+    "sourceDrivingMinutes": 180,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Mieres",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33041",
+    "destination": "Navia",
+    "sourceRoadKm": 363.4,
+    "sourceDrivingMinutes": 222,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Navia-Asturias-Espa%C3%B1a",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33066",
+    "destination": "Pola de Siero (Siero)",
+    "sourceRoadKm": 263.3,
+    "sourceDrivingMinutes": 164,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Pola-de-Siero",
+    "accessRoads": [
+      "A-8",
+      "A-64",
+      "N-634"
+    ],
+    "accessNote": "La referencia municipal describe el acceso desde la A-8, pasando Villaviciosa, por la A-64 y el tramo final de la N-634 hasta Pola de Siero. Es un acceso de referencia; el itinerario y la dirección concretos pueden variar.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento de Siero: acceso a Pola de Siero desde la A-8 y la A-64",
+        "url": "https://www.ayto-siero.es/localizacion-y-accesos/"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "33076",
+    "destination": "Villaviciosa",
+    "sourceRoadKm": 240.2,
+    "sourceDrivingMinutes": 148,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Villaviciosa",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40032",
+    "destination": "Boceguillas",
+    "sourceRoadKm": 278.2,
+    "sourceDrivingMinutes": 161,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Boceguillas",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40040",
+    "destination": "Cantalejo",
+    "sourceRoadKm": 291.4,
+    "sourceDrivingMinutes": 186,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Cantalejo",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40057",
+    "destination": "Coca",
+    "sourceRoadKm": 320.4,
+    "sourceDrivingMinutes": 227,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Coca",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40063",
+    "destination": "Cuéllar",
+    "sourceRoadKm": 289.8,
+    "sourceDrivingMinutes": 192,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Cu%C3%A9llar",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40112",
+    "destination": "La Lastrilla",
+    "sourceRoadKm": 337,
+    "sourceDrivingMinutes": 225,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/La-Lastrilla",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40155",
+    "destination": "Palazuelos de Eresma",
+    "sourceRoadKm": 336,
+    "sourceDrivingMinutes": 234,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Palazuelos-de-Eresma",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40170",
+    "destination": "Riaza",
+    "sourceRoadKm": 296.5,
+    "sourceDrivingMinutes": 178,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Riaza",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "40181",
+    "destination": "La Granja de San Ildefonso (Real Sitio de San Ildefonso)",
+    "sourceRoadKm": 337.5,
+    "sourceDrivingMinutes": 237,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/San-Ildefonso-Castilla-y-Le%C3%B3n-Espa%C3%B1a",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  }
+]

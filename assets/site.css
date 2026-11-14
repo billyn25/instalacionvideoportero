@@ -375,6 +375,9 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .coverage-steps h3 { margin-top: .55rem }
 .coverage-steps p { margin-bottom: 0; color: var(--muted) }
 .route-table-wrap { margin-top: 1.5rem }
+.route-filter { padding: 1rem; background: var(--pale); border-radius: .7rem }
+.route-filter p { color: var(--muted); font-size: .9rem }
+.route-filter[hidden], .route-table tr[hidden] { display: none }
 .route-table { width: 100%; border-collapse: collapse; background: var(--white); font-size: .94rem }
 .route-table caption { padding: .8rem 0; text-align: left; font-weight: 650; color: var(--muted) }
 .route-table :is(th,td) { padding: 1rem; border: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere }

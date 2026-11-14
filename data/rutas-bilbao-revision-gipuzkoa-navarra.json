@@ -1,0 +1,248 @@
+[
+  {
+    "code": "20009",
+    "destination": "Andoain",
+    "sourceRoadKm": 101.8,
+    "sourceDrivingMinutes": 68,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Andoain",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20017",
+    "destination": "Azkoitia",
+    "sourceRoadKm": 64.9,
+    "sourceDrivingMinutes": 49,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Azkoitia",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20030",
+    "destination": "Eibar",
+    "sourceRoadKm": 45.5,
+    "sourceDrivingMinutes": 33,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Eibar",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20032",
+    "destination": "Elgoibar",
+    "sourceRoadKm": 52.4,
+    "sourceDrivingMinutes": 37,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Elgoibar",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20036",
+    "destination": "Hondarribia",
+    "sourceRoadKm": 118.6,
+    "sourceDrivingMinutes": 80,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Hondarribia",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20040",
+    "destination": "Hernani",
+    "sourceRoadKm": 98.6,
+    "sourceDrivingMinutes": 66,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Hernani",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20055",
+    "destination": "Arrasate / Mondragón",
+    "sourceRoadKm": 54.4,
+    "sourceDrivingMinutes": 46,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Arrasate-Mondrag%C3%B3n",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20067",
+    "destination": "Errenteria",
+    "sourceRoadKm": 105.9,
+    "sourceDrivingMinutes": 72,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Errenteria",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20071",
+    "destination": "Tolosa",
+    "sourceRoadKm": 92.3,
+    "sourceDrivingMinutes": 79,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Tolosa-Basque-Country-Spain",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20074",
+    "destination": "Bergara",
+    "sourceRoadKm": 59.3,
+    "sourceDrivingMinutes": 43,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Bergara",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "20079",
+    "destination": "Zarautz",
+    "sourceRoadKm": 83,
+    "sourceDrivingMinutes": 55,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Zarauz",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31010",
+    "destination": "Altsasu / Alsasua",
+    "sourceRoadKm": 102.4,
+    "sourceDrivingMinutes": 73,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Altsasu",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31050",
+    "destination": "Elizondo (Baztan)",
+    "sourceRoadKm": 159.8,
+    "sourceDrivingMinutes": 112,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Elizondo",
+    "accessRoads": ["N-121-B"],
+    "accessNote": "La referencia de distancia y tiempo es Elizondo. El Ayuntamiento de Baztan señala la N-121-B como acceso a este núcleo; el recorrido final cambia para otros lugares del valle.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento de Baztan: Elizondo y acceso por la N-121-B",
+        "url": "https://www.baztan.eus/es/lugar-y-gentes/geografia/historia/lugares/elizondo/"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31060",
+    "destination": "Burlada / Burlata",
+    "sourceRoadKm": 158.6,
+    "sourceDrivingMinutes": 98,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Burlada",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31086",
+    "destination": "Sarriguren (Valle de Egüés / Eguesibar)",
+    "sourceRoadKm": 160.5,
+    "sourceDrivingMinutes": 103,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Sarriguren",
+    "accessRoads": [],
+    "accessNote": "La referencia de distancia y tiempo es Sarriguren. El recorrido hasta otros concejos y lugares del Valle de Egüés se concreta con la dirección del aviso.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento del Valle de Egüés: Sarriguren",
+        "url": "https://www.valledeegues.com/municipio/concejos-y-lugares/sarriguren/"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31097",
+    "destination": "Estella-Lizarra",
+    "sourceRoadKm": 134.5,
+    "sourceDrivingMinutes": 101,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Estella-Lizarra",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31216",
+    "destination": "Sangüesa / Zangoza",
+    "sourceRoadKm": 201.9,
+    "sourceDrivingMinutes": 129,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Sang%C3%BCesa-Zangoza",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31227",
+    "destination": "Tafalla",
+    "sourceRoadKm": 166.7,
+    "sourceDrivingMinutes": 132,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Tafalla",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31232",
+    "destination": "Tudela",
+    "sourceRoadKm": 224.3,
+    "sourceDrivingMinutes": 141,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Tudela",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31901",
+    "destination": "Barañáin / Barañain",
+    "sourceRoadKm": 156.4,
+    "sourceDrivingMinutes": 97,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Bara%C3%B1%C3%A1in",
+    "accessRoads": ["A-15"],
+    "accessNote": "El Ayuntamiento señala la A-15 como vía de acceso exterior a Barañáin. Esta referencia describe la entrada al municipio; la dirección concreta determina el último tramo urbano.",
+    "accessSources": [
+      {
+        "label": "Ayuntamiento de Barañáin: cómo llegar desde la A-15",
+        "url": "https://www.baranain.es/turismo/como-llegar/"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
+    "code": "31907",
+    "destination": "Zizur Mayor / Zizur Nagusia",
+    "sourceRoadKm": 159.5,
+    "sourceDrivingMinutes": 97,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Zizur-Mayor",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-14"
+  }
+]

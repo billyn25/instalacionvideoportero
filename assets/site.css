@@ -390,7 +390,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .route-sources summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px }
 .route-sources li + li { margin-top: .75rem }
 .route-sources p { max-width: 85ch; color: var(--muted) }
-.site-footer .footer-grid > div > a { display: block; margin-top: .65rem }
+.site-footer .footer-grid > div > a:not(.brand) { display: block; margin-top: .65rem }
 @media (max-width: 650px) {
  .travel-notice { display: grid; gap: 1rem }
  .travel-metric { border-left: 0; border-top: 1px solid #c6cdea; padding: 1rem 0 0 }

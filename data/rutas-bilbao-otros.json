@@ -1,5 +1,25 @@
 [
   {
+    "code": "40195",
+    "destination": "Sepúlveda",
+    "sourceRoadKm": 289.6,
+    "sourceDrivingMinutes": 172,
+    "sourceUrl": "https://www.rome2rio.com/es/s/Bilbao/Sep%C3%BAlveda",
+    "accessRoads": ["A-1", "SG-232"],
+    "accessNote": "La referencia de acceso desde la A-1 pasa por el entorno de Boceguillas y continúa por la SG-232 hacia Sepúlveda. El recorrido final se concreta según la dirección de la visita.",
+    "accessSources": [
+      {
+        "label": "Turismo de Sepúlveda: acceso desde Burgos por la A-1 y Boceguillas",
+        "url": "https://www.turismosepulveda.es/sepulveda/como-llegar"
+      },
+      {
+        "label": "Cortes de Castilla y León: SG-232 desde Boceguillas y conexión en Sepúlveda",
+        "url": "https://www.ccyl.es/Publicaciones/TextoEntradaBOCCL?Fichero=%5C%5CSIRDOCfiles%5Csirdoc%24%5CXML%5CEBOCCL%5C10L%5CBOCCL1000105%5CBOCCL-10-006481.xml"
+      }
+    ],
+    "checkedAt": "2026-11-14"
+  },
+  {
     "code": "33034",
     "destination": "Luarca (Valdés)",
     "sourceRoadKm": 347.7,

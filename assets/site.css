@@ -91,6 +91,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
   html { --contact-clearance: calc(80px + env(safe-area-inset-bottom, 0px)); scroll-padding-bottom: var(--contact-clearance) }
   body { padding-bottom: var(--contact-clearance) }
   .wrap { width: calc(100% - 32px) }
+  .hero-local h1 { font-size: clamp(1.95rem, 7.6vw, 2.3rem); line-height: 1.14; max-width: none }
   .top { flex-wrap: wrap; gap: .4rem; padding-block: .65rem }
   header .top { position: relative; min-height: 68px; align-items: center; flex-direction: row; flex-wrap: nowrap; gap: .65rem; padding-block: .65rem }
   header .brand { font-size: .8rem }

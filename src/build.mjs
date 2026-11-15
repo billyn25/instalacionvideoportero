@@ -136,7 +136,7 @@ const requestPath = (place = '', community = false, service = '') => {
 const contact = (place, service = 'un portero o videoportero') => '<div class="contact"><a class="button" href="' + tel + '">Llamar al 641 49 05 36</a><a class="button secondary" href="' + esc(wa(place, service)) + '">WhatsApp</a></div>';
 const logo = '<a href="/" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2738c7"/><rect x="12" y="7" width="16" height="26" rx="3" fill="none" stroke="#fff" stroke-width="1.75"/><circle cx="20" cy="14.5" r="2.75" fill="#d9e2ff"/><path d="M17 23h6m-6 4h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Videoporteros<strong>Fuentes</strong></span></a>';
 const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
-const hero = (label,title,description,place='',service='un portero o videoportero') => '<section class="hero"><div class="wrap hero-inner"><p class="eyebrow">'
+const hero = (label,title,description,place='',service='un portero o videoportero',variant='') => '<section class="hero'+(variant ? ' '+esc(variant) : '')+'"><div class="wrap hero-inner"><p class="eyebrow">'
  + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place,service) + '</div></section>';
 const band = (title,body,id='') => '<section class="wrap section"' + (id ? ' id="'+esc(id)+'"' : '') + '><h2>' + esc(title) + '</h2>' + body + '</section>';
 const townsByCode = new Map(towns.map(town => [town.code,town]));
@@ -502,10 +502,10 @@ for (const area of areaList) {
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  const title = seo.title || 'Porteros y videoporteros en '+town.name;
-  const description = seo.description || 'Reparación e instalación de porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
+  const title = 'Instalación y reparación de porteros y videoporteros en '+town.name;
+  const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
   page(town.path,title,description,
-   hero(area.name,seo.title || 'Porteros y videoporteros en '+town.name,focus?.intro || advice,town.name)
+   hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos')
      : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
@@ -534,7 +534,7 @@ for (const area of areaList) {
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }))) : '')
    +travelNotice(town.name,town.code)
-   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:'Instalación y reparación de porteros y videoporteros en '+town.name,image:localJobs[0]?.path});
+   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:title,image:localJobs[0]?.path});
  }
 }
 const documentedWork = serviceTypes.map(tipo => {

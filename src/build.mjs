@@ -12,6 +12,7 @@ import { enfoquesAsturiasBurgosSegovia } from './enfoques-asturias-burgos-segovi
 import { enfoquesBizkaiaCantabria } from './enfoques-bizkaia-cantabria.mjs';
 import { asesoramientoServicios } from './asesoramiento.mjs';
 import { antenasServicio, guiasAntenasPorMunicipio } from './antenas-servicio.mjs';
+import { renderFooter } from './footer.mjs';
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -219,6 +220,7 @@ const antennaLinks = '<div class="antenna-areas">'+antennaAreas.map(area => {
    +list(nearby.map(town => '<li>'+link(antennaNearby.get(town.code),town.name)+'</li>'))+'</details>' : '')
   +'</article>';
 }).join('')+'</div>';
+const footerMarkup = renderFooter({logo, phone, tel, areas:areaList, map:read('data/footer-map.json')});
 
 function page(path, title, description, body, {place='',trail=[],index=true,service='',serviceArea=null,contactService='un portero o videoportero',image='assets/fotos-servicio/placa-portada-comunidad.webp',styles=[]}={}) {
  const indexable = index && !preview;
@@ -265,11 +267,7 @@ ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">
 <script type="application/ld+json">${JSON.stringify(structured)}</script></head><body><a class="skip" href="#contenido">Saltar al contenido</a>
 <header><div class="wrap top">${logo}<nav class="desktop-nav" aria-label="Principal">${primaryLinks}</nav>
 <details class="mobile-menu" name="mobile-tools" data-mobile-panel><summary><svg viewBox="0 0 24 24" aria-hidden="true"><path class="menu-bars" d="M4 6h16M4 12h16M4 18h16"/><path class="menu-close" d="m6 6 12 12M6 18 18 6"/></svg>Menú</summary><nav aria-label="Menú principal">${primaryLinks}</nav></details></div></header>
-<main id="contenido">${crumb}${body}</main><footer class="site-footer"><div class="wrap footer-grid">
-<div>${logo}<p>Instalación y reparación de porteros automáticos, videoporteros y antenas. Desplazamientos desde Bilbao con visita concertada y coste acordado previamente.</p>${link('/contacto/','Pedir presupuesto →')}${link('/zonas/#visitas-desplazamiento','Cobertura y desplazamiento')}</div>
-<nav aria-label="Servicios del pie"><h2>Servicios</h2>${link('/servicios/reparacion/','Reparar un portero')}${link('/servicios/instalacion/','Instalar un videoportero')}${link('/servicios/comunidades/','Comunidades de vecinos')}${link('/servicios/antenas/','Servicio de antenista')}${link('/trabajos/','Ver trabajos y fotos')}${link('/guias/','Guías de porteros y antenas')}</nav>
-<nav aria-label="Zonas del pie"><h2>Zonas de servicio</h2>${areaList.map(area=>link('/'+area.slug+'/',area.name)).join('')}${link('/zonas/','Buscar municipio →')}</nav>
-</div><div class="wrap footer-bottom"><span>Videoporteros Fuentes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div></footer>
+<main id="contenido">${crumb}${body}</main>${footerMarkup}
 <details class="mobile" name="mobile-tools" data-mobile-panel>
 <summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Contactar<svg class="contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></summary>
 <nav aria-label="Contacto rápido"><a class="contact-call" href="${tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>Llamar</a>

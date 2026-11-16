@@ -1,0 +1,75 @@
+{
+  "48090": {
+    "heading": "Situar el portal que se va a revisar en Balmaseda",
+    "text": "Facilita la calle, el número y la entrada de la comunidad. Si se estudia cambiar la placa, acompaña la dirección con una fotografía del frontal y concreta quién puede facilitar el acceso a las viviendas.",
+    "zones": [],
+    "streets": ["Plaza San Severino"],
+    "postalCodes": ["48800"],
+    "sources": [
+      {
+        "label": "Gobierno Vasco: Balmaseda, vía y código postal de referencia",
+        "url": "https://www.euskadi.eus/entidad-local/balmaseda/web01-a2tokiad/es/"
+      }
+    ]
+  },
+  "48042": {
+    "heading": "Indicar el núcleo y la entrada en Gordexola",
+    "text": "Añade el barrio o núcleo a la dirección y señala si debemos llegar al portal, a la puerta de la casa o a una cancela. En una entrada separada, una referencia de acceso ayuda a concertar el punto de encuentro.",
+    "zones": ["Molinar", "Sandamendi", "Urarte / El Pontón"],
+    "streets": ["Plaza Molinar"],
+    "postalCodes": ["48192"],
+    "sources": [
+      {
+        "label": "Gobierno Vasco: Gordexola, vía y código postal de referencia",
+        "url": "https://www.euskadi.eus/entidad-local/gordexola/web01-a2tokiad/es/"
+      },
+      {
+        "label": "Diputación Foral de Bizkaia: núcleos de Gordexola",
+        "url": "https://www.bizkaia.eus/es/web/rutas-del-colesterol/ruta/-/ficha/137"
+      }
+    ]
+  },
+  "48047": {
+    "heading": "Localizar la instalación en Gizaburuaga, Bizkaia",
+    "text": "Para la visita a Gizaburuaga, facilita la dirección completa y el acceso que utiliza el portero. Si quieres añadir otro terminal, indica también dónde está el equipo actual y en qué estancia necesitas atender la llamada.",
+    "zones": [],
+    "streets": ["Elizaldea"],
+    "postalCodes": ["48289"],
+    "sources": [
+      {
+        "label": "Gobierno Vasco: Gizaburuaga en Bizkaia, vía y código postal",
+        "url": "https://www.euskadi.eus/entidad-local/gizaburuaga/web01-a2tokiad/es/"
+      }
+    ]
+  },
+  "48057": {
+    "heading": "Identificar la placa y el portal en Lekeitio",
+    "text": "Indica la calle y el número del portal, también si el acceso está en el casco antiguo. Para una avería de imagen, concreta qué entrada muestra el monitor y si hay otra placa en el mismo edificio con la que se pueda comparar.",
+    "zones": ["Casco antiguo"],
+    "streets": ["Gamarra kalea", "Arranegi", "Ezpeleta"],
+    "postalCodes": ["48280"],
+    "sources": [
+      {
+        "label": "Gobierno Vasco: Lekeitio, vía y código postal de referencia",
+        "url": "https://www.euskadi.eus/entidad-local/lekeitio/web01-a2tokiad/es/"
+      },
+      {
+        "label": "Turismo Euskadi: casco antiguo y calles de Lekeitio",
+        "url": "https://www.euskadi.eus/gobierno-vasco/-/es/patrimonio-cultural/casco-antiguo-de-lekeitio/"
+      }
+    ]
+  },
+  "39059": {
+    "heading": "Preparar la dirección de la visita en Reinosa",
+    "text": "Facilita calle, número y escalera, junto con la persona que abrirá el portal. Si el abrepuertas falla en varias viviendas, indica cuáles se podrán comprobar durante la visita para organizar el desplazamiento y la revisión.",
+    "zones": [],
+    "streets": ["Plaza de España", "Avenida Puente de Carlos III"],
+    "postalCodes": ["39200"],
+    "sources": [
+      {
+        "label": "Ayuntamiento de Reinosa: vías y código postal de referencia",
+        "url": "https://www.aytoreinosa.es/cpt_services/oficina-de-turismo/"
+      }
+    ]
+  }
+}

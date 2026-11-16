@@ -9,6 +9,7 @@ import { enfoquesLocales } from './enfoque-local.mjs';
 import { enfoquesBizkaiaAlava } from './enfoques-bizkaia-alava.mjs';
 import { enfoquesGipuzkoaNavarra } from './enfoques-gipuzkoa-navarra.mjs';
 import { enfoquesAsturiasBurgosSegovia } from './enfoques-asturias-burgos-segovia.mjs';
+import { enfoquesBizkaiaCantabria } from './enfoques-bizkaia-cantabria.mjs';
 import { asesoramientoServicios } from './asesoramiento.mjs';
 import { antenasServicio, guiasAntenasPorMunicipio } from './antenas-servicio.mjs';
 
@@ -21,14 +22,14 @@ for (const code of Object.keys(antenas)) {
  if (!guiasAntenasPorMunicipio[code]?.length || guiasAntenasPorMunicipio[code].some(id=>!guiasAntenas.some(guide=>guide.id===id))) throw new Error('Falta una guía de antenas para '+code);
 }
 const antennaGuidesAt = code => guiasAntenasPorMunicipio[code].map(id=>guiasAntenas.find(guide=>guide.id===id));
-const focusEntries = [enfoquesLocales, enfoquesBizkaiaAlava, enfoquesGipuzkoaNavarra, enfoquesAsturiasBurgosSegovia].flatMap(Object.entries);
+const focusEntries = [enfoquesLocales, enfoquesBizkaiaAlava, enfoquesGipuzkoaNavarra, enfoquesAsturiasBurgosSegovia, enfoquesBizkaiaCantabria].flatMap(Object.entries);
 const localFocus = Object.fromEntries(focusEntries);
 if (focusEntries.length !== Object.keys(localFocus).length) throw new Error('Hay enfoques locales duplicados');
-const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-segovia', 'otras']
+const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-segovia', 'otras', 'bizkaia-cantabria']
  .flatMap(group => Object.entries(read('data/referencias-'+group+'.json')));
 const localReferences = Object.fromEntries(referenceEntries);
 if (referenceEntries.length !== Object.keys(localReferences).length) throw new Error('Hay referencias locales duplicadas');
-const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia'].flatMap(group => read('data/rutas-bilbao-'+group+'.json'));
+const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json'));
 const routesByTown = new Map(travelRoutes.map(route => [route.code,route]));
 if (routesByTown.size !== travelRoutes.length) throw new Error('Hay rutas de desplazamiento duplicadas');
 for (const route of travelRoutes) {
@@ -71,7 +72,7 @@ const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/3464
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug = name => name.toLowerCase().normalize('NFD').replace(/\p{Mark}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const areas = {
- '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros y videoporteros en Torrelavega y Cabezón de la Sal. Consulta el desplazamiento para otras localidades.'},
+ '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros y videoporteros en Torrelavega, Cabezón de la Sal y Reinosa. Organizamos visitas desde Bilbao con el coste del desplazamiento acordado previamente.'},
  '50': {name:'Zaragoza', slug:'zaragoza', intro:'Instalación y reparación de porteros y videoporteros en Zaragoza capital. Atendemos viviendas y portales de comunidades.'},
  '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
  '20': {name:'Gipuzkoa', slug:'gipuzkoa', intro:'Atendemos instalaciones y reparaciones en Donostia, el Bidasoa y los municipios del interior. Podemos revisar un sistema existente o preparar una renovación con cámara, móvil y llaveros.'},
@@ -92,6 +93,14 @@ const towns = read('data/municipios.json').map(([code, official, population, lat
 });
 const ordered = list => [...list].sort((a,b) => a.name.localeCompare(b.name,'es'));
 const distance = (a,b) => (a.lat-b.lat)**2 + ((a.lon-b.lon)*Math.cos(a.lat*Math.PI/180))**2;
+// Conserva los enlaces con fragmento anteriores al alta de estas nuevas fichas.
+// El destino se calcula con la cobertura actual para no duplicar el contenido.
+const previousNearby = {
+ '48096': ['48008','48022','48042','48051','48087','48090'],
+ '48046': ['48004','48007','48028','48047','48049','48057','48063','48070','48909'],
+ '48034': ['48018','48060','48073'],
+ '48011': ['48074'],
+};
 for (const area of areaList) {
  area.towns = towns.filter(t => t.area === area);
  area.main = area.towns.filter(t => t.entry).sort((a,b) => b.population-a.population);
@@ -495,7 +504,7 @@ for (const area of areaList) {
   +callout(area.name),{place:area.name,trail:[['/zonas/','Zonas'],['',area.name]],service:'Instalación y reparación de porteros y videoporteros en '+area.name,image:areaJobs[0]?.path});
  for (const town of area.main) {
   const [,heading,advice,seo={}]=town.entry;
-  const nearby=ordered(area.towns.filter(t=>t.center===town));
+  const nearby=ordered(area.towns.filter(t=>t.center===town || previousNearby[town.code]?.includes(t.code)));
   const localJobs=jobsAt(town.name);
   const focus=localFocus[town.code];
   const localCases=caseReferences(town.name);
@@ -529,7 +538,9 @@ for (const area of areaList) {
      '<p>'+link(antennaNearby.get(town.code),'Consultar cobertura de TDT y parabólicas en '+town.name)+'</p>') : '')
    +(nearby.length ? band('También atendemos localidades cercanas','<p class="readable">Nos desplazamos desde Bilbao a estas localidades, con visita concertada y coste del desplazamiento acordado previamente.</p>'+list(nearby.map(t => {
     const visit = visitasUrgentes[t.code];
-    return '<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+link(wa(t.name),'Consultar servicio en '+t.name)
+    return '<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+(t.center===town
+     ? link(wa(t.name),'Consultar servicio en '+t.name)
+     : link(t.path,'Ver servicio en '+t.name))
      +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }))) : '')

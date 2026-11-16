@@ -1,0 +1,77 @@
+[
+  {
+    "code": "48090",
+    "destination": "Balmaseda",
+    "sourceRoadKm": 32.2,
+    "sourceDrivingMinutes": 32,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Balmaseda",
+    "accessRoads": ["BI-636"],
+    "accessNote": "Turismo de Balmaseda indica el corredor del Cadagua, BI-636, como acceso desde Bilbao. El tramo final se concreta con la dirección de la visita.",
+    "accessSources": [
+      {
+        "label": "Turismo Balmaseda: llegar por carretera desde Bilbao",
+        "url": "https://turismo.balmaseda.eus/informacion-util/llegar-y-aparcar/"
+      }
+    ],
+    "checkedAt": "2026-11-16"
+  },
+  {
+    "code": "48042",
+    "destination": "Gordexola",
+    "sourceRoadKm": 19.2,
+    "sourceDrivingMinutes": 18,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Gordexola",
+    "accessRoads": ["BI-636"],
+    "accessNote": "La BI-636 pasa por Bilbao y Gordexola. Es una referencia de acceso; el tramo final depende del barrio y de la dirección de la instalación.",
+    "accessSources": [
+      {
+        "label": "Diputación Foral de Bizkaia: BI-636 y municipios por los que pasa",
+        "url": "https://www.bizkaia.eus/es/listado-de-carreteras"
+      }
+    ],
+    "checkedAt": "2026-11-16"
+  },
+  {
+    "code": "39059",
+    "destination": "Reinosa",
+    "sourceRoadKm": 127.6,
+    "sourceDrivingMinutes": 128,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Reinosa",
+    "accessRoads": [],
+    "accessNote": "",
+    "accessSources": [],
+    "checkedAt": "2026-11-16"
+  },
+  {
+    "code": "48047",
+    "destination": "Gizaburuaga",
+    "sourceRoadKm": 49.8,
+    "sourceDrivingMinutes": 51,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Gizaburuaga",
+    "accessRoads": ["BI-3447"],
+    "accessNote": "La BI-3447 pasa por Gizaburuaga y sirve como referencia del tramo local. El recorrido completo desde Bilbao se consulta según la dirección de destino.",
+    "accessSources": [
+      {
+        "label": "Diputación Foral de Bizkaia: BI-3447 y municipios por los que pasa",
+        "url": "https://www.bizkaia.eus/es/listado-de-carreteras"
+      }
+    ],
+    "checkedAt": "2026-11-16"
+  },
+  {
+    "code": "48057",
+    "destination": "Lekeitio",
+    "sourceRoadKm": 54.8,
+    "sourceDrivingMinutes": 55,
+    "sourceUrl": "https://www.rome2rio.com/s/Bilbao/Lekeitio",
+    "accessRoads": ["BI-2405"],
+    "accessNote": "La BI-2405 conecta el entorno de Markina-Xemein con Lekeitio. Es una referencia del tramo de acceso; el itinerario completo desde Bilbao depende de la ruta elegida y de la dirección final.",
+    "accessSources": [
+      {
+        "label": "Diputación Foral de Bizkaia: BI-2405 y municipios por los que pasa",
+        "url": "https://www.bizkaia.eus/es/listado-de-carreteras"
+      }
+    ],
+    "checkedAt": "2026-11-16"
+  }
+]

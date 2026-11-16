@@ -209,8 +209,8 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .legend-limited { background: repeating-linear-gradient(125deg, #849bff 0 2px, #28385f 2px 5px) }
 .footer-zones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 1rem; width: 100%; padding: 0; margin: .8rem 0 0; list-style: none }
 .footer-zones li { display: flex; align-items: center; gap: .3rem; border-bottom: 1px solid #425078; min-width: 0 }
-.footer-zones a { display: flex; align-items: center; flex: 1; min-height: 48px; padding-block: .55rem; font-size: .9rem; font-weight: 650; line-height: 1.35 }
-.footer-zones li > span { color: #aabbff; font-size: .9rem }
+.footer-zones a { display: flex; align-items: center; justify-content: space-between; gap: .3rem; flex: 1; min-height: 48px; padding-block: .55rem; font-size: .9rem; font-weight: 650; line-height: 1.35 }
+.footer-zone-arrow { width: .9rem; height: .9rem; flex: none; color: #aabbff; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
 .footer-scope { margin-top: 1rem; color: #c2cdeb; font-size: .8rem; line-height: 1.5 }
 .footer-directory-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: .25rem; color: #e2e8ff; font-weight: 700; font-size: .9rem; text-decoration: none }
 .footer-directory-link:hover { text-decoration: underline }

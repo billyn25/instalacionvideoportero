@@ -38,7 +38,7 @@ export function renderFooter({logo, phone, tel, areas, map}) {
     const area = areas.find(area => area.slug === slug);
     if (!area) throw new Error('Falta provincia del pie: ' + slug);
     const label = slug === 'zaragoza' ? 'Zaragoza capital' : area.name;
-    return `<li>${link('/' + slug + '/', label)}<span aria-hidden="true">↗</span></li>`;
+    return `<li><a href="/${esc(slug)}/"><span>${esc(label)}</span><svg class="footer-zone-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a></li>`;
   }).join('');
   const services = [
     ['/servicios/reparacion/', 'Reparación de porteros'],

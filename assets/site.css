@@ -494,8 +494,6 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
  .local-reference-grid > div { grid-template-columns: minmax(0, 1fr); gap: .35rem }
 }
 .work-state { display: inline-block; padding: .15rem .5rem; border-radius: .3rem; background: var(--pale); color: var(--dark); font-size: .78rem; font-weight: 700 }
-.contact-identity { max-width: 48rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line) }
-.contact-identity h2 { font-size: 1.8rem }
 .community-page details { margin-block: .8rem; padding: 1rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--white) }
 .community-page summary { cursor: pointer; font-weight: 700; line-height: 1.35 }
 .community-page summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px }

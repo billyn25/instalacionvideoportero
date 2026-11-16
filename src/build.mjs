@@ -110,7 +110,6 @@ for (const area of areaList) {
   town.path = town.center.path + '#municipio-' + town.code;
  }
 }
-const confirmedWorkPlaces = new Set(['aranda-de-duero','lerma','avila','derio','gernika-lumo','laredo']);
 const destinations = ['Boñar','Vega de Pas','Lekeitio','Aguilar de Campoo','Zamora','Bilbao','Suances','Santillana del Mar','Boceguillas','Valladolid','Llanes','Getxo','Barakaldo','Aranda de Duero','Lerma','Ávila','Derio','Gernika-Lumo','Laredo','León','Comillas'];
 const serviceTypes = ['porteros','antenas'];
 const jobs = read('data/trabajos.json').flatMap(job => {
@@ -315,8 +314,6 @@ const serviceExamples = {
  instalacion: ['videoportero-golmar-exterior','videoportero-tegui-comunidad','monitor-y-auricular'],
  llaveros: ['teclado-de-acceso'],
 };
-const referencePhotos = () => '<p class="readable">Hemos realizado trabajos en esta localidad. Estas fotos ilustran los tipos de equipos con los que trabajamos.</p>'
- +servicePhotos(['placa-comunitaria','tdt-y-parabolicas']);
 const casesAt = place => casos.filter(item => item.ubicaciones.some(name => slug(name) === slug(place)));
 const caseReferences = place => casesAt(place).map(item =>
  '<article class="case-reference"><p class="eyebrow">'+esc(item.estado)+'</p><h3>'+esc(item.titulo)+'</h3><p>'+esc(item.resumen)+'</p><p>'+
@@ -335,8 +332,7 @@ const destinationSection = band('Otros destinos y desplazamientos',
  +destinations.filter(place => !towns.some(t => slug(t.name) === slug(place))).map(place => {
   const localJobs = jobsAt(place);
   const references = caseReferences(place);
-  return (localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs)
-   : confirmedWorkPlaces.has(slug(place)) ? '<h3>Trabajos en '+esc(place)+'</h3>'+referencePhotos() : '')
+  return (localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs) : '')
    +(references ? '<h3>Casos en '+esc(place)+'</h3>'+references : '');
  }).join(''),'desplazamientos');
 const callout = (place='',service='') => '<div class="wrap section"><section class="callout"><h2>'+(place ? 'Prepara tu consulta en '+esc(place) : 'Cuéntanos qué falla o qué quieres instalar')+'</h2><p>'+(service==='antena' ? 'Indica el municipio, si falla la TDT o la parabólica, los canales y cuántas tomas o viviendas están afectadas. ' : 'Indica el municipio, el tipo de edificio y qué equipo tienes. ')+'Nos desplazamos desde Bilbao: antes de concertar la visita confirmamos la disponibilidad y acordamos el coste del desplazamiento para tu dirección.</p><p>'+link(requestPath(place,false,service),'Preparar la consulta de presupuesto →')+' · '+link('/zonas/#visitas-desplazamiento','Condiciones de desplazamiento')+'</p>' + contact(place,service==='antena' ? 'una antena' : 'un portero o videoportero') + '</section></div>';
@@ -489,7 +485,7 @@ page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o repara
  '<section class="wrap section"><p class="eyebrow">Contacto y presupuesto</p><h1>Cuéntanos qué necesita tu instalación</h1><p class="readable">Prepara la consulta de tu vivienda o comunidad. Nos desplazamos desde Bilbao a los municipios publicados en esta web. Antes de concertar la visita, confirmamos la disponibilidad y acordamos contigo el coste del desplazamiento para tu dirección.</p>'
  +solicitudFormulario(wa('','una instalación de portero, videoportero o antena'))
  +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p>'
- +'<section class="contact-identity"><h2>Quién atiende tu consulta</h2><p>Videoporteros Fuentes presta servicios de instalación, reparación y control de acceso para viviendas y comunidades. Organizamos las visitas desde Bilbao. El titular de esta web es '+esc(owner)+', cuyos datos y domicilio a efectos legales figuran en el aviso legal.</p><p>Las fichas municipales describen las zonas atendidas por desplazamiento. Al contactar concretamos la visita para tu ubicación y el alcance de la revisión.</p><p>'+link('/zonas/#visitas-desplazamiento','Consultar cobertura y desplazamiento')+' · '+link('/trabajos/','Ver trabajos documentados')+' · '+link('/aviso-legal/','Datos del titular')+'</p></section></section>',
+ +'</section>',
  {trail:[['','Contacto']],contactService:'una instalación de portero, videoportero o antena',styles:['/assets/solicitud.css']});
 
 const communityJobs = comunidades.photos.map(photo=>jobs.find(job=>job.foto===photo));
@@ -559,8 +555,7 @@ for (const area of areaList) {
   const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
   page(town.path,title,description,
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
-   +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos')
-     : confirmedWorkPlaces.has(slug(town.name)) ? band('Ejemplos de equipos',referencePhotos()) : '')
+   +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
    +localLocation(town)

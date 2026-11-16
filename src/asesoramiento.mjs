@@ -59,4 +59,56 @@ export const asesoramientoServicios = {
         <p class="readable">En la entrega se explica el uso de los mandos habituales y se comprueban las funciones contratadas. La <a href="/servicios/comunidades/#uso-diario">preparación con los vecinos</a> ayuda a recoger estas necesidades desde el principio.</p>`,
     },
   ],
+  wifi: [
+    {
+      id: 'conexion-videoportero',
+      title: 'Qué equipo necesita conexión para llamar al móvil',
+      body: `
+        <p class="readable">Identificamos la placa y el monitor antes de proponer atención desde una app. Según el sistema, la conexión puede estar en el terminal de casa, en la placa o en una pasarela. La propuesta debe concretar qué equipo aporta esa función y qué elementos del portero se conservan.</p>
+        <ul class="readable"><li>Foto de la placa y referencia del terminal actual.</li><li>Ubicación del router y del equipo que utilizará la red.</li><li>Número de móviles que recibirán las llamadas.</li><li>Funciones necesarias: ver, conversar y abrir la puerta.</li></ul>
+        <p><a href="/guias/videoportero-dos-hilos-ip-wifi/">Cómo se combinan dos hilos, IP y Wi-Fi →</a></p>`,
+    },
+    {
+      id: 'llamadas-app',
+      title: 'Cuando la llamada funciona en casa y falla en la app',
+      body: `
+        <p class="readable">Prueba una llamada desde la calle y anota qué sucede en el monitor y en el móvil. Si el terminal de casa funciona, interesa conservar el mensaje exacto de la aplicación y comprobar si afecta a todos los usuarios. Si ambos fallan, comunica también qué ocurre con el audio, la imagen y la apertura.</p>
+        <p class="readable">Indica si el problema empezó después de cambiar el router, la contraseña de la red o el teléfono. Estos datos ayudan a preparar la revisión de conectividad según el modelo, sin atribuir todo fallo de la app a la cámara del portal.</p>
+        <p><a href="/guias/videoportero-wifi-movil/#fallos">Preparar un aviso de llamadas al móvil →</a></p>`,
+    },
+    {
+      id: 'cuentas-y-pruebas',
+      title: 'Cuentas y pruebas al entregar el videoportero',
+      body: `
+        <ul class="readable"><li>Definir quién administra la vivienda y cómo autorizará otros móviles.</li><li>Probar llamada, imagen, conversación y apertura en los dispositivos acordados.</li><li>Explicar qué funciones dependen de Internet y cómo se utiliza el terminal interior.</li><li>Entregar las referencias, instrucciones y condiciones del servicio conectado, incluidos sus costes si los tiene.</li></ul>
+        <p class="readable">La configuración debe quedar accesible a quien utilizará el equipo. Si cambian los ocupantes o los móviles autorizados, conviene conocer el procedimiento para actualizar los accesos.</p>
+        <p><a class="button" href="/contacto/?servicio=wifi">Consultar un videoportero con llamada al móvil</a></p>`,
+    },
+  ],
+  llaveros: [
+    {
+      id: 'integrar-lector',
+      title: 'Añadir un lector al portero que ya tiene la comunidad',
+      body: `
+        <p class="readable">Revisamos el espacio junto a la placa, la alimentación y el cerradero. El lector puede integrarse en el conjunto o montarse separado, según el equipo y la entrada. También se comprueba que siga funcionando la apertura desde los telefonillos o monitores que se conservarán.</p>
+        <p class="readable">En Sondika se añadió un lector Fermax junto a una placa Tegui existente. Es un ejemplo de ampliación del acceso: para otro portal hay que verificar sus componentes y concretar la solución compatible.</p>
+        <p><a href="/guias/llaveros-portal/#conservar">Qué revisar antes de incorporar llaveros →</a></p>`,
+    },
+    {
+      id: 'permisos-y-bajas',
+      title: 'Organizar permisos, altas y llaveros perdidos',
+      body: `
+        <p class="readable">La comunidad debe decidir qué puertas abre cada usuario y quién autoriza nuevas credenciales. Antes de elegir el sistema, conviene comprobar cómo se da de baja un llavero perdido y si permite retirarlo individualmente. El procedimiento depende del lector y de su controlador.</p>
+        <ul class="readable"><li>Relacionar viviendas, usuarios y puertas autorizadas.</li><li>Acordar quién conserva el registro y las credenciales de administración.</li><li>Definir cómo solicitar reposiciones y comunicar pérdidas.</li><li>Confirmar la tecnología compatible antes de comprar llaveros adicionales.</li></ul>
+        <p><a href="/guias/llaveros-portal/#gestion">Preparar la gestión de accesos de la comunidad →</a></p>`,
+    },
+    {
+      id: 'presupuesto-accesos',
+      title: 'Qué debe incluir la propuesta y cómo se comprueba',
+      body: `
+        <p class="readable">El presupuesto debe identificar lectores, controladores y alimentación, el número inicial de llaveros y las puertas atendidas. Si se conserva el portero, se concreta su conexión con la apertura. En entradas con código, interesa acordar quién lo gestiona y cuándo se cambia.</p>
+        <p class="readable">Al terminar se prueban las credenciales en las puertas asignadas, la apertura desde las viviendas y el cierre normal del acceso. La entrega incluye las instrucciones de altas y bajas y la forma de solicitar nuevos llaveros.</p>
+        <p><a class="button" href="/contacto/?tipo=comunidad&amp;servicio=llaveros">Consultar un lector para la comunidad</a></p>`,
+    },
+  ],
 };

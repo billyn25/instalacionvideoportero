@@ -445,6 +445,10 @@ for (const guide of guias) {
   {trail:[['/guias/','Guías'],['',guide.title]],contactService:guide.service==='antenas' ? 'una antena' : 'un portero o videoportero',image:guide.service==='antenas' ? 'assets/fotos-servicio/tdt-y-parabolicas.webp' : undefined});
 }
 
+const brands = [['tegui','Tegui'], ['fermax','Fermax'], ['legrand','Legrand'], ['bticino','BTicino'], ['auta','Auta'], ['golmar','Golmar']];
+const brandSection = band('Marcas de porteros y videoporteros',
+ '<p class="readable">Para consultar una reparación o cambiar el telefonillo, envíanos una foto de la placa y la referencia del terminal. Así podemos comprobar qué recambios admite tu instalación.</p>'
+ + '<ul class="brand-logos">' + brands.map(([file,name]) => '<li><img src="/assets/marcas/'+file+'.webp" alt="'+name+'" loading="lazy" width="150" height="56"></li>').join('') + '</ul>', 'marcas');
 const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portada">
   <div class="home-copy">
     <p class="eyebrow">Comunidades de vecinos y viviendas</p>
@@ -472,6 +476,7 @@ page('/','Instalación y reparación de porteros y videoporteros','Porteros auto
     '<p class="readable">Fotos de nuestros técnicos en portales de comunidades. Consulta la placa de cada edificio y los detalles de la intervención.</p>'
     +jobCards(featuredJobs,true)+'<p>'+link('/trabajos/','Ver todos los trabajos y fotografías →')+'</p>','trabajos-destacados') : '')
  + '<div class="service-strip">'+band('¿Qué necesita tu entrada?',serviceCards+'<p>'+link('/trabajos/#casos','Ver casos de comunidades →')+'</p>')+'</div>'
+ + brandSection
  + band('Guías para viviendas y comunidades',guideCards(guiasBase)+'<p>'+link('/guias/','Consultar todas las guías →')+'</p>','guias')
  + band('Antes de cambiarlo, comprobamos si se puede reparar',illustratedText(repairQuote+'<p>Para orientar el diagnóstico, dinos si el fallo afecta a una vivienda o a todo el portal: si no llega la llamada, si se pierde el audio, si la pantalla queda sin imagen o si no abre la puerta. Son síntomas distintos y no siempre requieren cambiar el equipo completo.</p><p>'+link('/servicios/reparacion/','Consultar reparación de porteros y videoporteros →')+'</p>','cableado-de-placa'))
  + band('Renovar el portero de una comunidad',illustratedText('<p>Partimos de la instalación existente: número de viviendas, accesos al edificio, modelo de placa, terminales interiores y estado del cableado. También medimos el hueco de la placa para valorar el montaje y los remates que necesita la entrada.</p><h3>Del audio convencional a un sistema de dos hilos</h3><p>La elección depende de la compatibilidad del conjunto y de las condiciones del cable. Revisamos si se puede aprovechar la línea existente o si hay que renovarla. El presupuesto debe concretar qué equipos se sustituyen y qué elementos se conservan.</p><p>La renovación de audio en Cabezón de la Sal forma parte de nuestros trabajos fotografiados. También puedes consultar valoraciones de renovación de comunidades, identificadas como propuestas cuando todavía no corresponden a una instalación terminada.</p><p>'+link('/trabajos/#casos','Ver trabajos y valoraciones de comunidades →')+'</p>','videoportero-tegui-comunidad'))
@@ -593,6 +598,7 @@ for (const area of areaList) {
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
+   +brandSection
    +localLocation(town)
    +relatedGuides(focus?.heading || heading,localJobs,focus?.guideIds,focus?.service)
    +(localVisit ? band((urgentVisit ? 'Aviso urgente en ' : 'Visita de valoración en ')+town.name,

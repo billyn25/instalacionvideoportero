@@ -1,6 +1,7 @@
 // Contenido de servicio. No atribuye averías, instalaciones ni fotografías a trabajos no documentados.
 // Los códigos se contrastan con el directorio municipal antes de generar las fichas.
 import { fichasMadrid } from './ampliacion-madrid.mjs';
+import { fichasCantabria } from './ampliacion-cantabria.mjs';
 const records = [
  ['48084','Sestao','reparacion','Recuperar la llamada sin renovar todo el portal',
   'En Sestao reparamos porteros automáticos y videoporteros de viviendas y comunidades. Antes de cambiar la placa, comprobamos si la falta de llamada afecta a un piso, a varios pulsadores o a todo el edificio.',
@@ -130,12 +131,13 @@ const questions = {
  wifi:['¿Desde qué estancias o dispositivos quieres atender?','¿Qué marca y modelo tiene el sistema actual?','¿Dónde hay conexión a Internet para el equipo propuesto?'],
 };
 export function registerExpansion(items) {
- for(const [code,name,service,heading,intro,first,second,antenna] of items) {
+ for(const [code,name,service,heading,intro,first,second,antenna,localQuestions,localGuides] of items) {
   if(nuevasFichas[code]) throw new Error('Ficha nueva duplicada: '+code);
   nuevasFichas[code]=[name,heading,intro];
-  enfoquesAmpliacion[code]={intro,heading,paragraphs:[first,second],questions:questions[service],questionTitle:'Datos para preparar la visita en '+name,service,guideIds:guides[service]};
+  enfoquesAmpliacion[code]={intro,heading,paragraphs:[first,second],questions:localQuestions || questions[service],questionTitle:'Datos para preparar la visita en '+name,service,guideIds:localGuides || guides[service]};
   antenasAmpliacion[code]=antenna;
  }
 }
 registerExpansion(records);
 registerExpansion(fichasMadrid);
+registerExpansion(fichasCantabria);

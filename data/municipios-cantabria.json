@@ -1,0 +1,33 @@
+{
+  "source": "https://www.ign.es/resources/ane/Informacion_Geografica_Destacada/IGN_INFOGEO_MUNICIPIOS.json",
+  "sourceName": "Instituto Geográfico Nacional · NGMEP",
+  "checkedAt": "2026-11-18",
+  "municipalities": 102,
+  "newPages": [
+    "39075",
+    "39020",
+    "39016",
+    "39052",
+    "39073",
+    "39008",
+    "39035",
+    "39079",
+    "39025",
+    "39074",
+    "39085",
+    "39023",
+    "39060",
+    "39042",
+    "39080",
+    "39024",
+    "39076",
+    "39047",
+    "39002",
+    "39057"
+  ],
+  "existingPages": [
+    "39012",
+    "39059",
+    "39087"
+  ]
+}

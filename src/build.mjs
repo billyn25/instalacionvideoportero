@@ -15,13 +15,15 @@ import { antenasServicio, guiasAntenasPorMunicipio } from './antenas-servicio.mj
 import { renderFooter } from './footer.mjs';
 import { nuevasFichas, enfoquesAmpliacion, antenasAmpliacion } from './ampliacion-local.mjs';
 import { antenasPaisVasco } from './antenas-pais-vasco.mjs';
+import { antenasCantabriaExistentes, guiasAntenasCantabria, orientacionCantabria } from './ampliacion-cantabria.mjs';
 
 for (const code of Object.keys(nuevasFichas)) if (fichas[code]) throw new Error('Ya existe la ficha '+code);
 Object.assign(fichas,nuevasFichas);
-Object.assign(antenas,antenasPaisVasco,antenasAmpliacion);
-for (const code of [...Object.keys(antenasPaisVasco),...Object.keys(antenasAmpliacion)]) {
+Object.assign(antenas,antenasPaisVasco,antenasAmpliacion,antenasCantabriaExistentes);
+for (const code of [...Object.keys(antenasPaisVasco),...Object.keys(antenasAmpliacion),...Object.keys(antenasCantabriaExistentes)]) {
  guiasAntenasPorMunicipio[code]=['tdt-pixelada-pierde-canales','averia-television-comunidad'];
 }
+Object.assign(guiasAntenasPorMunicipio,guiasAntenasCantabria);
 servicioProvincial.madrid=['Porteros, videoporteros y antenas con salida desde San Sebastián de los Reyes','Para una comunidad de Madrid, revisamos la placa, el número de viviendas, los accesos y el cableado antes de comparar reparación y renovación. En una vivienda individual se concreta dónde atender y qué puerta abrir. Si también falla la televisión, indica si afecta a una toma o a varias viviendas para preparar la revisión de antena y distribución.','placa-comunitaria'];
 
 const root = new URL('../', import.meta.url);
@@ -40,7 +42,7 @@ const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-
  .flatMap(group => Object.entries(read('data/referencias-'+group+'.json')));
 const localReferences = Object.fromEntries(referenceEntries);
 if (referenceEntries.length !== Object.keys(localReferences).length) throw new Error('Hay referencias locales duplicadas');
-const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json')).concat(read('data/rutas-ampliacion.json'));
+const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json')).concat(read('data/rutas-ampliacion.json'),read('data/rutas-cantabria.json'));
 const routesByTown = new Map(travelRoutes.map(route => [route.code,route]));
 if (routesByTown.size !== travelRoutes.length) throw new Error('Hay rutas de desplazamiento duplicadas');
 for (const route of travelRoutes) {
@@ -93,7 +95,7 @@ const originFor = place => place ? contactFor(place).origin : 'Bilbao y, para Ma
 const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/'+contactFor(place).mobile+'?text=' + encodeURIComponent('Hola, necesito ayuda con ' + service + (place ? ' en ' + place : '') + '. Quiero consultar la disponibilidad y el coste del desplazamiento desde '+originFor(place)+' antes de concertar la visita.');
 const areas = {
  '28': {name:'Madrid',slug:'madrid',intro:'Instalación y reparación de porteros automáticos, videoporteros y antenas en Madrid capital y sus municipios. Salimos desde San Sebastián de los Reyes y concertamos cada visita con el desplazamiento acordado. Teléfono de Madrid: 614 78 99 45.'},
- '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros y videoporteros en Torrelavega, Cabezón de la Sal y Reinosa. Organizamos visitas desde Bilbao con el coste del desplazamiento acordado previamente.'},
+ '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros automáticos, videoporteros y antenas en Santander, Torrelavega, Castro Urdiales y otros municipios de Cantabria. Atendemos viviendas y comunidades con visita concertada desde Bilbao.'},
  '50': {name:'Zaragoza', slug:'zaragoza', intro:'Instalación y reparación de porteros y videoporteros en Zaragoza capital. Atendemos viviendas y portales de comunidades.'},
  '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
  '20': {name:'Gipuzkoa', slug:'gipuzkoa', intro:'Atendemos instalaciones y reparaciones en Donostia, el Bidasoa y los municipios del interior. Podemos revisar un sistema existente o preparar una renovación con cámara, móvil y llaveros.'},
@@ -565,6 +567,7 @@ for (const area of areaList) {
   hero('Cobertura provincial',provinceTitle,area.intro,area.name,'un portero o videoportero','hero-local')
   +'<nav class="wrap province-nav" aria-label="Servicios y municipios de '+esc(area.name)+'">'+link('#municipios','Buscar municipio')+link('#servicio-provincial','Qué revisamos')+(areaJobs.length ? link('#trabajos','Trabajos de la zona') : '')+(provinceAntennas.length ? link('#antenas','Antenas y televisión') : '')+link('/zonas/?'+new URLSearchParams({provincia:area.name})+'#rutas-desde-bilbao','Consultar kilómetros')+'</nav>'
   +municipalDirectory(area)
+  +(area.slug==='cantabria' ? orientacionCantabria : '')
   +band(serviceHeading,illustratedText('<p class="readable">'+esc(serviceText)+'</p>'
    +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
    +'<p>'+link('/servicios/reparacion/','Ver cómo revisamos una avería')+' · '+link('#municipios','Consultar mi municipio')+'</p>',photo),'servicio-provincial')

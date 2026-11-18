@@ -10,7 +10,7 @@ function coverageMap(map) {
     throw new Error('El mapa del pie debe incluir todas las provincias de cobertura');
   }
   const provinces = map.provinces.map(province => {
-    const limited = ['cantabria', 'zaragoza'].includes(province.slug);
+    const limited = province.slug === 'zaragoza';
     return `<path class="coverage-province${limited ? ' coverage-province-limited' : ''}" d="${esc(province.path)}"/>`;
   }).join('');
   const labels = map.provinces.map(province => {
@@ -74,12 +74,12 @@ export function renderFooter({logo, phone, tel, areas, map, dispatch = 'Bilbao'}
           <figcaption class="map-legend"><span><i class="legend-province" aria-hidden="true"></i>Cobertura concertada</span><span><i class="legend-limited" aria-hidden="true"></i>Municipios indicados</span></figcaption>
         </figure>
         <nav aria-label="Provincias de cobertura"><ul class="footer-zones">${zoneLinks}</ul></nav>
-        <p class="footer-scope">En Cantabria: Torrelavega, Cabezón de la Sal y Reinosa. En Zaragoza: capital.</p>
+        <p class="footer-scope">En Zaragoza: capital.</p>
         ${link('/zonas/', 'Buscar mi municipio y consultar kilómetros →', 'footer-directory-link')}
       </section>
       <div class="footer-resources">
         <nav class="footer-services" aria-label="Servicios y ayuda del pie"><h2>Servicios y ayuda</h2>${services.map(([url,label]) => link(url,label)).join('')}</nav>
-        <div class="footer-antennas"><h3>También, antenas y televisión</h3><p>Servicio de antenista en País Vasco y Madrid, además de los municipios publicados de Navarra, Asturias y Segovia.</p>${link('/servicios/antenas/', 'Ver cobertura de antenas →')}</div>
+        <div class="footer-antennas"><h3>También, antenas y televisión</h3><p>Servicio de antenista en País Vasco, Cantabria y Madrid, además de los municipios publicados de Navarra, Asturias y Segovia.</p>${link('/servicios/antenas/', 'Ver cobertura de antenas →')}</div>
       </div>
     </div>
     <div class="wrap footer-bottom"><span>Videoporteros Fuentes · Norte desde Bilbao · Madrid desde San Sebastián de los Reyes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div>

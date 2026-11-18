@@ -1,6 +1,6 @@
 # Videoporteros Fuentes
 
-Web de reparación e instalación de porteros automáticos, videoporteros y control de acceso en Bizkaia, Gipuzkoa, Álava, Navarra, Burgos, Asturias y Segovia.
+Web de reparación e instalación de porteros automáticos, videoporteros, control de acceso y antenas en País Vasco, Cantabria, Madrid y las restantes zonas publicadas.
 
 - Compilar y verificar con `node src/build.mjs && node scripts/check-site.mjs`. Netlify ejecuta ambos pasos y publica `dist/` solo si la revisión pasa.
 - El dominio principal es `https://instalacionvideoportero.com`. Configúralo en Netlify. Las canónicas y el sitemap usan ese dominio y el validador evita publicar otro origen por error.
@@ -27,3 +27,11 @@ La verificación técnica no confirma la indexación en Google. Para investigar 
 - `data/rutas-ampliacion.json`: distancias y duraciones de conducción calculadas con el servicio Table de OSRM sobre OpenStreetMap, consulta del 18-11-2026. Cada registro conserva origen, destino, coordenadas y URL del cálculo. No son tráfico en directo. Referencias desde el núcleo municipal; la dirección final se acuerda al concertar la visita. Las páginas no solicitan rutas a terceros al cargarse.
 - [OpenStreetMap](https://www.openstreetmap.org/copyright) aporta los datos viarios; las geometrías del mapa proceden de Natural Earth (dominio público). Madrid se incorpora al mapa con un segundo punto de salida.
 - `data/enlaces-municipales-anteriores.json` conserva los destinos con fragmento de las fichas anteriores para que los enlaces existentes sigan funcionando al añadir municipios.
+
+## Ampliación de Cantabria (18-11-2026)
+
+- `src/ampliacion-cantabria.mjs`: 20 fichas nuevas con orientación propia, preguntas específicas y texto de antenas. Se conserva el contenido y las fotos documentadas de las tres fichas anteriores, que también incorporan el servicio de antenista. La página provincial añade una ayuda para averías, renovación de comunidades y televisión.
+- El directorio reúne los 102 municipios cántabros, con 23 fichas independientes y los restantes enlazados a cobertura cercana. Nombres, capitales, población y coordenadas de referencia: [Instituto Geográfico Nacional · NGMEP](https://www.ign.es/resources/ane/Informacion_Geografica_Destacada/IGN_INFOGEO_MUNICIPIOS_ES-CB.html), consultado el 18-11-2026. Metadatos en `data/municipios-cantabria.json`.
+- `data/rutas-cantabria.json`: 20 recorridos reales de referencia calculados con OSRM/OpenStreetMap desde Bilbao, con URL de consulta y coordenadas. Distancias y conducción orientativas redondeadas en pantalla; no son promesas de llegada ni rutas desde un domicilio del cliente. Se conservan las tres rutas anteriores.
+- Teléfono Norte: 641 49 05 36 para llamadas, WhatsApp y consultas de Cantabria. El contacto independiente de Madrid sigue en 614 78 99 45.
+- La ampliación no crea trabajos ni fotografías ficticias. Cada caso y foto existente mantiene su localidad y estado.

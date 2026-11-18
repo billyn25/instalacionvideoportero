@@ -303,7 +303,7 @@ ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">
 <summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Contactar<svg class="contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></summary>
 <nav aria-label="Contacto rápido"><a class="contact-call" data-zone-call href="${pageContact.tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>${place ? 'Llamar' : 'Llamar Norte'}</a>
 <a class="contact-whatsapp" data-zone-whatsapp href="${esc(wa(place,contactService))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>${place ? 'WhatsApp' : 'WhatsApp Norte'}</a>
-${!place ? '<a class="contact-call" href="'+contacts.madrid.tel+'">Llamar Madrid · 614 78 99 45</a>' : ''}</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
+${!place && path!='/contacto/' ? '<a class="contact-call" href="'+contacts.madrid.tel+'">Llamar Madrid</a><a class="contact-whatsapp" href="'+esc(wa('Madrid',contactService))+'">WhatsApp Madrid</a>' : ''}</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
  if (rendered.has(path)) throw new Error('Ruta duplicada: ' + path);
  rendered.add(path);
  if (indexable) published.add(path);

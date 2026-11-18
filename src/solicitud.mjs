@@ -2,9 +2,14 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[character]));
 
-export function solicitudFormulario(action, municipio = '') {
-  return `<form id="consulta-formulario" class="contact-form solicitud-form" data-contact-form action="${esc(action)}" aria-describedby="consulta-ayuda consulta-privacidad">
-    <p class="solicitud-wide solicitud-help" id="consulta-ayuda">Cuéntanos qué ocurre y dónde está la instalación. Confirmaremos la disponibilidad y el coste del desplazamiento desde Bilbao antes de concertar la visita. El presupuesto del trabajo se concreta después de comprobar el equipo y su alcance.</p>
+export function solicitudFormulario(action, municipio = '', madridMunicipios = [], norteMunicipios = []) {
+  return `<form id="consulta-formulario" class="contact-form solicitud-form" data-contact-form data-madrid-municipios="${esc(JSON.stringify(madridMunicipios))}" data-norte-municipios="${esc(JSON.stringify(norteMunicipios))}" action="${esc(action)}" aria-describedby="consulta-ayuda consulta-privacidad">
+    <p class="solicitud-wide solicitud-help" id="consulta-ayuda">Cuéntanos qué ocurre y dónde está la instalación. Confirmaremos la disponibilidad y el coste del desplazamiento antes de concertar la visita. El presupuesto del trabajo se concreta después de comprobar el equipo y su alcance.</p>
+    <div class="solicitud-wide">
+      <label for="consulta-zona">Zona de servicio</label>
+      <select id="consulta-zona"><option value="norte">Norte · salida desde Bilbao · 641 49 05 36</option><option value="madrid">Madrid · salida desde San Sebastián de los Reyes · 614 78 99 45</option></select>
+      <p class="solicitud-help" data-zone-contact role="status" aria-live="polite"></p>
+    </div>
     <div>
       <label for="consulta-municipio">Municipio <span class="solicitud-optional">(obligatorio)</span></label>
       <input id="consulta-municipio" required maxlength="90" autocomplete="address-level2" value="${esc(String(municipio).trim().slice(0, 90))}">

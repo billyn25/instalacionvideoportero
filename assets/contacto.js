@@ -29,6 +29,23 @@
   document.querySelectorAll('[data-contact-form]').forEach(form => {
     const field = name => form.querySelector('#consulta-' + name);
     const value = name => field(name)?.value.trim() || '';
+    const normalize = text => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+    const madridMunicipios = new Set(JSON.parse(form.dataset.madridMunicipios || '[]').map(normalize));
+    const norteMunicipios = new Set(JSON.parse(form.dataset.norteMunicipios || '[]').map(normalize));
+    const channels = {
+      norte:{phone:'641 49 05 36',mobile:'34641490536',origin:'Bilbao'},
+      madrid:{phone:'614 78 99 45',mobile:'34614789945',origin:'San Sebastián de los Reyes'}
+    };
+    const updateZone = () => {
+      const channel=channels[value('zona')] || channels.norte;
+      form.action='https://wa.me/'+channel.mobile;
+      document.querySelectorAll('[data-zone-call]').forEach(link=>{link.href='tel:+'+channel.mobile;link.textContent='Llamar '+channel.phone;});
+      document.querySelectorAll('[data-zone-whatsapp]').forEach(link=>{link.href='https://wa.me/'+channel.mobile+'?text='+encodeURIComponent('Hola, necesito ayuda con una instalación en '+(value('municipio') || (value('zona')==='madrid'?'Madrid':'la zona norte'))+'.');link.textContent='WhatsApp '+(value('zona')==='madrid'?'Madrid':'Norte');});
+      document.querySelectorAll('[data-footer-dispatch]').forEach(node=>{node.textContent='Desde '+channel.origin+', a tu portal.';});
+      document.querySelectorAll('.footer-button').forEach(link=>{link.href='/contacto/?zona='+value('zona');});
+      const status=form.querySelector('[data-zone-contact]');
+      if(status) status.textContent='WhatsApp '+channel.phone+' · Salida desde '+channel.origin+'.';
+    };
     const community = form.querySelector('[data-community-fields]');
     const antennaFields = form.querySelector('[data-antenna-fields]');
     const accessFields = form.querySelector('[data-intercom-accesses]');
@@ -56,6 +73,14 @@
     if (municipio && field('municipio')) {
       field('municipio').value = municipio.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 90);
     }
+    if (params.get('zona')==='madrid' || madridMunicipios.has(normalize(value('municipio')))) field('zona').value='madrid';
+    field('zona')?.addEventListener('change',updateZone);
+    field('municipio')?.addEventListener('change',()=>{
+      if(madridMunicipios.has(normalize(value('municipio')))) field('zona').value='madrid';
+      else if(norteMunicipios.has(normalize(value('municipio')))) field('zona').value='norte';
+      updateZone();
+    });
+    updateZone();
     const tipo = params.get('tipo');
     if (hasOption(types, tipo) && field('tipo')) field('tipo').value = tipo;
     const requestedService = params.get('servicio');
@@ -108,7 +133,7 @@
         if (value('canales')) lines.push('Canales o mensaje en pantalla: ' + value('canales'));
       }
       lines.push('Detalle: ' + value('detalle'));
-      lines.push('Antes de concertar la visita, indicadme la disponibilidad y el coste del desplazamiento desde Bilbao.');
+      lines.push('Antes de concertar la visita, indicadme la disponibilidad y el coste del desplazamiento desde '+(channels[value('zona')] || channels.norte).origin+'.');
 
       const destination = new URL(form.action);
       destination.searchParams.set('text', lines.join('\n'));

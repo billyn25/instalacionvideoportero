@@ -13,6 +13,16 @@ import { enfoquesBizkaiaCantabria } from './enfoques-bizkaia-cantabria.mjs';
 import { asesoramientoServicios } from './asesoramiento.mjs';
 import { antenasServicio, guiasAntenasPorMunicipio } from './antenas-servicio.mjs';
 import { renderFooter } from './footer.mjs';
+import { nuevasFichas, enfoquesAmpliacion, antenasAmpliacion } from './ampliacion-local.mjs';
+import { antenasPaisVasco } from './antenas-pais-vasco.mjs';
+
+for (const code of Object.keys(nuevasFichas)) if (fichas[code]) throw new Error('Ya existe la ficha '+code);
+Object.assign(fichas,nuevasFichas);
+Object.assign(antenas,antenasPaisVasco,antenasAmpliacion);
+for (const code of [...Object.keys(antenasPaisVasco),...Object.keys(antenasAmpliacion)]) {
+ guiasAntenasPorMunicipio[code]=['tdt-pixelada-pierde-canales','averia-television-comunidad'];
+}
+servicioProvincial.madrid=['Porteros, videoporteros y antenas con salida desde San Sebastián de los Reyes','Para una comunidad de Madrid, revisamos la placa, el número de viviendas, los accesos y el cableado antes de comparar reparación y renovación. En una vivienda individual se concreta dónde atender y qué puerta abrir. Si también falla la televisión, indica si afecta a una toma o a varias viviendas para preparar la revisión de antena y distribución.','placa-comunitaria'];
 
 const root = new URL('../', import.meta.url);
 const file = path => new URL(path, root);
@@ -23,14 +33,14 @@ for (const code of Object.keys(antenas)) {
  if (!guiasAntenasPorMunicipio[code]?.length || guiasAntenasPorMunicipio[code].some(id=>!guiasAntenas.some(guide=>guide.id===id))) throw new Error('Falta una guía de antenas para '+code);
 }
 const antennaGuidesAt = code => guiasAntenasPorMunicipio[code].map(id=>guiasAntenas.find(guide=>guide.id===id));
-const focusEntries = [enfoquesLocales, enfoquesBizkaiaAlava, enfoquesGipuzkoaNavarra, enfoquesAsturiasBurgosSegovia, enfoquesBizkaiaCantabria].flatMap(Object.entries);
+const focusEntries = [enfoquesLocales, enfoquesBizkaiaAlava, enfoquesGipuzkoaNavarra, enfoquesAsturiasBurgosSegovia, enfoquesBizkaiaCantabria, enfoquesAmpliacion].flatMap(Object.entries);
 const localFocus = Object.fromEntries(focusEntries);
 if (focusEntries.length !== Object.keys(localFocus).length) throw new Error('Hay enfoques locales duplicados');
 const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-segovia', 'otras', 'bizkaia-cantabria']
  .flatMap(group => Object.entries(read('data/referencias-'+group+'.json')));
 const localReferences = Object.fromEntries(referenceEntries);
 if (referenceEntries.length !== Object.keys(localReferences).length) throw new Error('Hay referencias locales duplicadas');
-const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json'));
+const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json')).concat(read('data/rutas-ampliacion.json'));
 const routesByTown = new Map(travelRoutes.map(route => [route.code,route]));
 if (routesByTown.size !== travelRoutes.length) throw new Error('Hay rutas de desplazamiento duplicadas');
 for (const route of travelRoutes) {
@@ -44,7 +54,7 @@ for (const route of travelRoutes) {
   throw new Error('Ruta de desplazamiento incompleta o incorrecta: '+route.code);
  }
 }
-for (const code of Object.keys(fichas)) if (code !== '48020' && !routesByTown.has(code)) throw new Error('Falta la ruta de desplazamiento de '+code);
+for (const code of Object.keys(fichas)) if (!['48020','28134'].includes(code) && !routesByTown.has(code)) throw new Error('Falta la ruta de desplazamiento de '+code);
 for (const [code, focus] of focusEntries) {
  if (!fichas[code] || !focus.intro || !focus.heading || !focus.questionTitle || focus.paragraphs?.length !== 2 || focus.questions?.length !== 3
   || !['reparacion','instalacion','wifi','llaveros'].includes(focus.service)
@@ -69,10 +79,20 @@ const owner = 'David Corregidor Gonzalo';
 const legalAddress = 'Calle La Fragua s/n, Madrid';
 const phone = '+34 641 49 05 36';
 const tel = 'tel:+34641490536';
-const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/34641490536?text=' + encodeURIComponent('Hola, necesito ayuda con ' + service + (place ? ' en ' + place : '') + '. Quiero consultar la disponibilidad y el coste del desplazamiento desde Bilbao antes de concertar la visita.');
+const contacts = {
+ norte:{key:'norte',phone,tel,mobile:'34641490536',origin:'Bilbao'},
+ madrid:{key:'madrid',phone:'+34 614 78 99 45',tel:'tel:+34614789945',mobile:'34614789945',origin:'San Sebastián de los Reyes'},
+};
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug = name => name.toLowerCase().normalize('NFD').replace(/\p{Mark}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const municipalityData = read('data/municipios.json');
+const madridNames = municipalityData.filter(row=>row[0].startsWith('28')).map(row=>row[1]);
+const madridKeys = new Set(madridNames.map(slug));
+const contactFor = place => madridKeys.has(slug(place || '')) ? contacts.madrid : contacts.norte;
+const originFor = place => place ? contactFor(place).origin : 'Bilbao y, para Madrid, San Sebastián de los Reyes';
+const wa = (place, service = 'un portero o videoportero') => 'https://wa.me/'+contactFor(place).mobile+'?text=' + encodeURIComponent('Hola, necesito ayuda con ' + service + (place ? ' en ' + place : '') + '. Quiero consultar la disponibilidad y el coste del desplazamiento desde '+originFor(place)+' antes de concertar la visita.');
 const areas = {
+ '28': {name:'Madrid',slug:'madrid',intro:'Instalación y reparación de porteros automáticos, videoporteros y antenas en Madrid capital y sus municipios. Salimos desde San Sebastián de los Reyes y concertamos cada visita con el desplazamiento acordado. Teléfono de Madrid: 614 78 99 45.'},
  '39': {name:'Cantabria', slug:'cantabria', intro:'Instalación y reparación de porteros y videoporteros en Torrelavega, Cabezón de la Sal y Reinosa. Organizamos visitas desde Bilbao con el coste del desplazamiento acordado previamente.'},
  '50': {name:'Zaragoza', slug:'zaragoza', intro:'Instalación y reparación de porteros y videoporteros en Zaragoza capital. Atendemos viviendas y portales de comunidades.'},
  '48': {name:'Bizkaia', slug:'bizkaia', intro:'Reparamos telefonillos y videoporteros en Bilbao, la margen izquierda, Uribe Kosta y otras localidades. Atendemos tanto incidencias de un piso como averías en la placa de toda la comunidad.'},
@@ -83,10 +103,10 @@ const areas = {
  '09': {name:'Burgos', slug:'burgos', intro:'Atendemos Burgos capital, Miranda de Ebro, Aranda de Duero, las Merindades y otros municipios. Revisamos la instalación antes de decidir si conviene reparar un terminal o renovar la placa.'},
  '33': {name:'Asturias', slug:'asturias', intro:'Trabajamos en el área central, el oriente y municipios del occidente. En viviendas con la cancela separada, comprobamos la distancia, el cableado y el tipo de cierre antes de instalar el videoportero.'},
 };
-const areaList = ['48','20','01','31','09','33','40','39','50'].map(code => areas[code]);
+const areaList = ['48','20','01','28','31','09','33','40','39','50'].map(code => areas[code]);
 const areaNames = areaList.map(area => area.name);
 const coverage = new Intl.ListFormat('es').format(areaNames);
-const towns = read('data/municipios.json').map(([code, official, population, lat, lon]) => {
+const towns = municipalityData.map(([code, official, population, lat, lon]) => {
  const entry = fichas[code];
  const name = entry?.[0] || official.replaceAll('/', ' / ');
  const area = areas[code.slice(0,2)];
@@ -97,11 +117,13 @@ const distance = (a,b) => (a.lat-b.lat)**2 + ((a.lon-b.lon)*Math.cos(a.lat*Math.
 // Conserva los enlaces con fragmento anteriores al alta de estas nuevas fichas.
 // El destino se calcula con la cobertura actual para no duplicar el contenido.
 const previousNearby = {
+ ...read('data/enlaces-municipales-anteriores.json'),
  '48096': ['48008','48022','48042','48051','48087','48090'],
  '48046': ['48004','48007','48028','48047','48049','48057','48063','48070','48909'],
  '48034': ['48018','48060','48073'],
  '48011': ['48074'],
 };
+for (const [code, ids] of Object.entries(read('data/enlaces-municipales-anteriores.json'))) previousNearby[code]=[...new Set([...ids,...(previousNearby[code] || [])])];
 for (const area of areaList) {
  area.towns = towns.filter(t => t.area === area);
  area.main = area.towns.filter(t => t.entry).sort((a,b) => b.population-a.population);
@@ -138,11 +160,15 @@ const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
 const requestPath = (place = '', community = false, service = '') => {
  const params = new URLSearchParams();
  if (place) params.set('municipio', place);
+ if (contactFor(place).key === 'madrid') params.set('zona','madrid');
  if (community) params.set('tipo', 'comunidad');
  if (service) params.set('servicio', service);
  return '/contacto/' + (params.size ? '?' + params : '');
 };
-const contact = (place, service = 'un portero o videoportero') => '<div class="contact"><a class="button" href="' + tel + '">Llamar al 641 49 05 36</a><a class="button secondary" href="' + esc(wa(place, service)) + '">WhatsApp</a></div>';
+const contact = (place, service = 'un portero o videoportero') => {
+ const channel = item => '<div class="contact"><a class="button" href="'+item.tel+'">Llamar al '+item.phone.replace('+34 ','')+'</a><a class="button secondary" href="'+esc(wa(item.key==='madrid' ? (place || 'Madrid') : place,service))+'">WhatsApp</a></div>';
+ return place ? channel(contactFor(place)) : '<div class="contact-regions"><div><p><strong>Norte · salida desde Bilbao</strong></p>'+channel(contacts.norte)+'</div><div><p><strong>Madrid · salida desde San Sebastián de los Reyes</strong></p>'+channel(contacts.madrid)+'</div></div>';
+};
 const logo = '<a href="/" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2738c7"/><rect x="12" y="7" width="16" height="26" rx="3" fill="none" stroke="#fff" stroke-width="1.75"/><circle cx="20" cy="14.5" r="2.75" fill="#d9e2ff"/><path d="M17 23h6m-6 4h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Videoporteros<strong>Fuentes</strong></span></a>';
 const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
 const hero = (label,title,description,place='',service='un portero o videoportero',variant='') => '<section class="hero'+(variant ? ' '+esc(variant) : '')+'"><div class="wrap hero-inner"><p class="eyebrow">'
@@ -159,7 +185,7 @@ const municipalDirectory = (area = null) => {
    +(others.length ? '<details class="directory-group" data-group><summary>Ver otros '+others.length+' municipios de '+esc(area.name)+'</summary>'+directoryItems(others)+'</details>' : '')
   : '<div class="directory-grid">'+areaList.map(a=>'<details class="directory-group" data-group><summary>'+esc(a.name)+' · '+a.towns.length+' '+(a.towns.length===1?'municipio':'municipios')+'</summary><p>'+link('/'+a.slug+'/','Ver servicios en '+a.name+' →')+'</p>'+directoryItems(a.towns)+'</details>').join('')+'</div>';
  return '<section class="wrap section directory-section" id="municipios" data-directory><h2>'+(area ? 'Busca tu municipio en '+esc(area.name) : 'Busca el municipio de tu instalación')+'</h2>'
-  +'<p class="readable">'+(area ? 'Abre la ficha de tu localidad o busca entre los municipios cercanos.' : 'Escribe el municipio o abre su provincia para consultar el servicio.')+' Concertamos la visita y el coste del desplazamiento desde Bilbao para tu dirección.</p>'
+  +'<p class="readable">'+(area ? 'Abre la ficha de tu localidad o busca entre los municipios cercanos.' : 'Escribe el municipio o abre su provincia para consultar el servicio.')+' Concertamos la visita y el coste del desplazamiento desde '+esc(originFor(area?.name || ''))+' para tu dirección.</p>'
   +'<div class="directory-tools"><label for="'+inputId+'">'+(area ? 'Municipio en '+esc(area.name) : 'Municipio o provincia')+'</label><input id="'+inputId+'" type="search" autocomplete="off" placeholder="'+(area ? 'Escribe el nombre de tu pueblo' : 'Por ejemplo, Lekeitio o Burgos')+'" aria-describedby="'+inputId+'-resultados"><p id="'+inputId+'-resultados" data-count role="status" aria-live="polite">'+entries.length+' '+(entries.length===1?'municipio':'municipios')+' en el directorio.</p></div>'
   +'<p class="directory-empty" data-directory-empty hidden>No encontramos ese nombre. Prueba con otro nombre de la localidad o '+link(requestPath(area?.name || ''),'consulta el servicio para tu dirección')+'.</p>'+groups+'</section>';
 };
@@ -175,36 +201,36 @@ const drivingTime = route => {
  return (hours ? hours+' h' : '')+(hours && rest ? ' ' : '')+(rest ? rest+' min' : '');
 };
 const mapRoute = route => 'https://www.google.com/maps/dir/?'+new URLSearchParams({
- api:'1',origin:'Bilbao, Bizkaia, España',destination:route.destination+', '+townsByCode.get(route.code).area.name+', España',travelmode:'driving'
+ api:'1',origin:(route.origin || 'Bilbao')+', España',destination:route.destination+', '+townsByCode.get(route.code).area.name+', España',travelmode:'driving'
 });
 const travelNotice = (place, code = '', province = '') => {
  const route = routesByTown.get(code);
+ const dispatch = originFor(place);
+ const localBase = ['48020','28134'].includes(code);
  return '<aside class="wrap travel-notice" aria-label="Cobertura y desplazamiento"><div class="travel-copy">'
-  +'<p class="eyebrow">'+(route ? 'Bilbao → '+esc(route.destination) : 'Visita concertada')+'</p>'
-  +'<p class="travel-title">'+(code === '48020' ? 'Atención en Bilbao' : 'Desplazamiento desde Bilbao')+'</p>'
+  +'<p class="eyebrow">'+(route ? esc(dispatch)+' → '+esc(route.destination) : 'Visita concertada')+'</p>'
+  +'<p class="travel-title">'+(localBase ? 'Atención en '+esc(dispatch) : 'Desplazamiento desde '+esc(dispatch))+'</p>'
   +'<p>Servicio en '+esc(place)+'. El desplazamiento se cobra: antes de concertar la visita, confirmamos la disponibilidad y acordamos el coste para tu dirección.</p>'
-  +(code === '48020' ? '<p>Dentro de Bilbao concretamos el recorrido según el barrio, la calle y el acceso al edificio. Indica dónde está la instalación para acordar el desplazamiento urbano y la hora de visita.</p>' : '')
+  +(localBase ? '<p>Dentro de '+esc(dispatch)+' concretamos el recorrido según el barrio, la calle y el acceso al edificio. Indica dónde está la instalación para acordar el desplazamiento urbano y la hora de visita.</p>' : '')
   +(route?.accessRoads.length ? '<p class="travel-access"><strong>Accesos de referencia:</strong> '+route.accessRoads.map(esc).join(' · ')+'.</p>' : '')
   +'<p>'+link('/zonas/#visitas-desplazamiento','Cómo organizamos la visita')+(route ? ' · '+link('/zonas/#ruta-'+code,'Recorrido y referencias') : province ? ' · '+link('/zonas/?'+new URLSearchParams({provincia:province})+'#rutas-desde-bilbao','Kilómetros hasta los municipios de '+province) : '')+'</p></div>'
   +(route ? '<div class="travel-metric"><strong>≈ '+approximateKm(route)+' km</strong>'
     +(drivingTime(route) ? '<span>≈ '+drivingTime(route)+' de conducción</span>' : '')
-    +'<small>Referencia de ida hasta '+esc(route.destination)+'. El recorrido depende de la dirección y del tráfico.</small>'
+    +'<small>Por carretera, solo ida hasta '+esc(route.destination)+'. El recorrido depende de la dirección y del tráfico.</small>'
     +link(mapRoute(route),'Consultar ruta en Google Maps ↗')+'</div>' : '')+'</aside>';
 };
-const routeSourceLinks = route => link(route.sourceUrl,'Rome2Rio: '+(route.sourceMode === 'taxi' ? 'trayecto por carretera en taxi' : 'distancia'+(route.sourceDrivingMinutes !== null ? ' y conducción en coche' : ' por carretera')))
+const routeSourceLinks = route => route.sourceProvider ? link(route.sourceUrl,'Cálculo de ruta: '+route.sourceProvider) : link(route.sourceUrl,'Rome2Rio: '+(route.sourceMode === 'taxi' ? 'trayecto por carretera en taxi' : 'distancia'+(route.sourceDrivingMinutes !== null ? ' y conducción en coche' : ' por carretera')))
  +route.accessSources.map(source=>' · '+link(source.url,source.label)).join('');
-const routeTable = '<div class="route-table-wrap" data-route-directory><div class="route-filter" data-route-filter hidden><label for="buscar-ruta">Busca un destino o una provincia</label><input id="buscar-ruta" type="search" placeholder="Por ejemplo, Valdés, Sepúlveda o Asturias" aria-describedby="rutas-encontradas"><p id="rutas-encontradas" data-route-count role="status">'+travelRoutes.length+' destinos con referencia de carretera.</p></div><table class="route-table"><caption>Desde Bilbao: referencias por carretera, solo ida</caption><thead><tr><th scope="col">Destino</th><th scope="col">Trayecto aproximado</th><th scope="col">Carreteras de referencia</th><th scope="col">Consultar</th></tr></thead><tbody>'
+const routeTable = '<div class="route-table-wrap" data-route-directory><div class="route-filter" data-route-filter hidden><label for="buscar-ruta">Busca un destino o una provincia</label><input id="buscar-ruta" type="search" placeholder="Por ejemplo, Valdés, Sepúlveda o Asturias" aria-describedby="rutas-encontradas"><p id="rutas-encontradas" data-route-count role="status">'+travelRoutes.length+' destinos con referencia de carretera.</p></div><table class="route-table"><caption>Recorridos por carretera desde Bilbao o San Sebastián de los Reyes, según la zona</caption><thead><tr><th scope="col">Destino</th><th scope="col">Trayecto aproximado</th><th scope="col">Carreteras de referencia</th><th scope="col">Consultar</th></tr></thead><tbody>'
  +[...travelRoutes].sort((a,b)=>a.sourceRoadKm-b.sourceRoadKm).map(route=>'<tr id="ruta-'+route.code+'" data-route-name="'+esc(route.destination+' '+townsByCode.get(route.code).name+' '+townsByCode.get(route.code).area.name)+'"><th scope="row">'+link(townsByCode.get(route.code).path,route.destination)+'<span class="route-time">'+esc(townsByCode.get(route.code).area.name)+'</span></th>'
-  +'<td><strong>≈ '+approximateKm(route)+' km</strong><span class="route-time">'+(drivingTime(route) ? '≈ '+drivingTime(route)+' de conducción' : 'Duración según la dirección')+'</span></td>'
+  +'<td><span class="route-time">Desde '+esc(route.origin || 'Bilbao')+'</span><strong>≈ '+approximateKm(route)+' km</strong><span class="route-time">'+(drivingTime(route) ? '≈ '+drivingTime(route)+' de conducción' : 'Duración según la dirección')+'</span></td>'
   +'<td class="route-access">'+(route.accessRoads.length ? '<strong>'+route.accessRoads.map(esc).join(' · ')+'</strong><span>'+esc(route.accessNote)+'</span>' : '<span>Consulta el recorrido para la dirección concreta.</span>')+'</td>'
   +'<td>'+link(mapRoute(route),'Ver ruta ↗')+'</td></tr>').join('')+'</tbody></table></div>';
 const routeDate = new Intl.DateTimeFormat('es-ES', {dateStyle:'long',timeZone:'UTC'});
-const routeReferences = '<details class="route-sources"><summary>Fuentes y criterio de estas referencias</summary>'
- +'<p>Las fechas de consulta figuran junto a cada destino. Los kilómetros y tiempos proceden de las rutas de Rome2Rio entre Bilbao y cada destino indicado. Las distancias inferiores a 20 km se redondean al kilómetro; las demás, a 5 km. Las duraciones se redondean a 5 minutos en trayectos cortos y a 15 minutos desde una hora. No son datos de tráfico en directo.</p>'
- +'<p>Se utiliza la opción de coche cuando está disponible. En seis destinos cercanos —Arrigorriaga, Barakaldo, Basauri, Etxebarri, Derio y Sondika— la fuente ofrece el trayecto vial como taxi; está identificado en su enlace. Estas referencias describen el recorrido, no el precio del desplazamiento ni una hora de llegada.</p>'
- +'<p>Las carreteras se contrastan por separado con información de accesos. Pueden describir alternativas o solo el tramo final; no determinan necesariamente el itinerario utilizado por el planificador. El enlace de Google Maps permite consultar un recorrido actualizado.</p><ul>'
- +[...travelRoutes].sort((a,b)=>a.destination.localeCompare(b.destination,'es')).map(route=>'<li><strong>'+esc(route.destination)+':</strong> consulta del <time datetime="'+esc(route.checkedAt)+'">'+esc(routeDate.format(new Date(route.checkedAt+'T12:00:00Z')))+'</time>. '+routeSourceLinks(route)+'</li>').join('')+'</ul></details>';
-const routeExplorer = '<details class="route-details"><summary>Consultar '+travelRoutes.length+' destinos desde Bilbao</summary>'+routeTable+routeReferences+'</details>';
+const routeReferences = '<details class="route-sources"><summary>Consultar fuentes de los recorridos</summary>'
+ +'<p>Distancias y conducción aproximadas por carretera, en un solo sentido. La dirección y el tráfico pueden cambiar el trayecto. Datos de Rome2Rio y OSRM sobre '+link('https://www.openstreetmap.org/copyright','OpenStreetMap')+'.</p><ul>'
+ +[...travelRoutes].sort((a,b)=>a.destination.localeCompare(b.destination,'es')).map(route=>'<li><strong>'+esc(route.origin || 'Bilbao')+' → '+esc(route.destination)+':</strong> '+routeSourceLinks(route)+'</li>').join('')+'</ul></details>';
+const routeExplorer = '<details class="route-details"><summary>Consultar '+travelRoutes.length+' trayectos por zona</summary>'+routeTable+routeReferences+'</details>';
 const antennaHubs = towns.filter(town => antenas[town.code]);
 const antennaNearby = new Map(Object.entries(antenasCercanos).flatMap(([code,nearby]) =>
  nearby.map(id => [id, townsByCode.get(code).path+'#antena-municipio-'+id])));
@@ -219,19 +245,21 @@ const antennaLinks = '<div class="antenna-areas">'+antennaAreas.map(area => {
    +list(nearby.map(town => '<li>'+link(antennaNearby.get(town.code),town.name)+'</li>'))+'</details>' : '')
   +'</article>';
 }).join('')+'</div>';
-const footerMarkup = renderFooter({logo, phone, tel, areas:areaList, map:read('data/footer-map.json')});
+const footerMap = read('data/footer-map.json');
 
 function page(path, title, description, body, {place='',trail=[],index=true,service='',serviceArea=null,contactService='un portero o videoportero',image='assets/fotos-servicio/placa-portada-comunidad.webp',styles=[]}={}) {
  const indexable = index && !preview;
+ const pageContact=contactFor(place);
+ const footerMarkup=renderFooter({logo,phone:pageContact.phone,tel:pageContact.tel,areas:areaList,map:footerMap,dispatch:pageContact.origin});
  const canonical = origin ? origin + path : '';
  const documentTitle = title.length <= 42 ? title + ' | ' + brand : title;
  const organizationId = origin + '/#organizacion';
  const structured = [{
   '@context':'https://schema.org','@type':'Organization','@id':organizationId,
-  name:brand,url:origin,telephone:phone,
-  description:'Instalación y reparación de porteros y videoporteros con desplazamiento desde Bilbao a los municipios publicados. Visitas concertadas y coste del desplazamiento acordado previamente.',
+  name:brand,url:origin,telephone:[contacts.norte.phone,contacts.madrid.phone],
+  description:'Instalación y reparación de porteros, videoporteros y antenas. Salida desde Bilbao para el norte y desde San Sebastián de los Reyes para Madrid. Visitas concertadas.',
   areaServed:[...areaNames,...destinations.filter(name=>!towns.some(town=>slug(town.name)===slug(name)))],
-  contactPoint:{'@type':'ContactPoint',telephone:phone,contactType:'Consultas de instalación y reparación',availableLanguage:'es'},
+  contactPoint:Object.values(contacts).map(item=>({'@type':'ContactPoint',telephone:item.phone,contactType:'Instalación y reparación',areaServed:item.key==='madrid' ? 'Madrid' : areaNames.filter(name=>name!=='Madrid'),availableLanguage:'es'})),
  },{
   '@context':'https://schema.org','@type':'WebSite','@id':origin+'/#sitio',
   name:brand,url:origin+'/',inLanguage:'es',publisher:{'@id':organizationId},
@@ -242,10 +270,12 @@ function page(path, title, description, body, {place='',trail=[],index=true,serv
  }];
  if (service) structured.push({
   '@context':'https://schema.org','@type':'Service','@id':canonical+'#servicio',
-  name:service,url:canonical,description,provider:{'@id':organizationId},
+  name:service,url:canonical,description,availableChannel:{'@type':'ServiceChannel',servicePhone:{'@type':'ContactPoint',telephone:pageContact.phone},serviceUrl:canonical},provider:{'@id':organizationId},
   areaServed:serviceArea || place || areaNames,mainEntityOfPage:{'@id':canonical+'#pagina'},
   termsOfService:origin+'/zonas/#visitas-desplazamiento',
  });
+ const antennaTown = towns.find(t=>t.path===path && t.entry && antenas[t.code]);
+ if (antennaTown) structured.push({'@context':'https://schema.org','@type':'Service','@id':canonical+'#servicio-antenas',name:'Instalación y reparación de antenas TDT y parabólicas en '+antennaTown.name,url:canonical+'#antenas',description:antenas[antennaTown.code],areaServed:antennaTown.name,availableChannel:{'@type':'ServiceChannel',servicePhone:{'@type':'ContactPoint',telephone:pageContact.phone},serviceUrl:canonical+'#antenas'},provider:{'@id':organizationId}});
  if (origin && trail.length && indexable) structured.push({
   '@context':'https://schema.org', '@type':'BreadcrumbList',
   itemListElement: [['/','Inicio'],...trail].map(([url,name],i) => ({
@@ -269,9 +299,9 @@ ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">
 <main id="contenido">${crumb}${body}</main>${footerMarkup}
 <details class="mobile" name="mobile-tools" data-mobile-panel>
 <summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Contactar<svg class="contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></summary>
-<nav aria-label="Contacto rápido"><a class="contact-call" href="${tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>Llamar</a>
-<a class="contact-whatsapp" href="${esc(wa(place,contactService))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>WhatsApp</a>
-</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
+<nav aria-label="Contacto rápido"><a class="contact-call" data-zone-call href="${pageContact.tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>${place ? 'Llamar' : 'Llamar Norte'}</a>
+<a class="contact-whatsapp" data-zone-whatsapp href="${esc(wa(place,contactService))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>${place ? 'WhatsApp' : 'WhatsApp Norte'}</a>
+${!place ? '<a class="contact-call" href="'+contacts.madrid.tel+'">Llamar Madrid · 614 78 99 45</a>' : ''}</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
  if (rendered.has(path)) throw new Error('Ruta duplicada: ' + path);
  rendered.add(path);
  if (indexable) published.add(path);
@@ -335,7 +365,7 @@ const destinationSection = band('Otros destinos y desplazamientos',
   return (localJobs.length ? '<h3>Trabajos documentados en '+esc(place)+'</h3>'+jobCards(localJobs) : '')
    +(references ? '<h3>Casos en '+esc(place)+'</h3>'+references : '');
  }).join(''),'desplazamientos');
-const callout = (place='',service='') => '<div class="wrap section"><section class="callout"><h2>'+(place ? 'Prepara tu consulta en '+esc(place) : 'Cuéntanos qué falla o qué quieres instalar')+'</h2><p>'+(service==='antena' ? 'Indica el municipio, si falla la TDT o la parabólica, los canales y cuántas tomas o viviendas están afectadas. ' : 'Indica el municipio, el tipo de edificio y qué equipo tienes. ')+'Nos desplazamos desde Bilbao: antes de concertar la visita confirmamos la disponibilidad y acordamos el coste del desplazamiento para tu dirección.</p><p>'+link(requestPath(place,false,service),'Preparar la consulta de presupuesto →')+' · '+link('/zonas/#visitas-desplazamiento','Condiciones de desplazamiento')+'</p>' + contact(place,service==='antena' ? 'una antena' : 'un portero o videoportero') + '</section></div>';
+const callout = (place='',service='') => '<div class="wrap section"><section class="callout"><h2>'+(place ? 'Prepara tu consulta en '+esc(place) : 'Cuéntanos qué falla o qué quieres instalar')+'</h2><p>'+(service==='antena' ? 'Indica el municipio, si falla la TDT o la parabólica, los canales y cuántas tomas o viviendas están afectadas. ' : 'Indica el municipio, el tipo de edificio y qué equipo tienes. ')+'Nos desplazamos desde '+esc(originFor(place))+': antes de concertar la visita confirmamos la disponibilidad y acordamos el coste del desplazamiento para tu dirección.</p><p>'+link(requestPath(place,false,service),'Preparar la consulta de presupuesto →')+' · '+link('/zonas/#visitas-desplazamiento','Condiciones de desplazamiento')+'</p>' + contact(place,service==='antena' ? 'una antena' : 'un portero o videoportero') + '</section></div>';
 const communityLink = place => '<aside class="community-link"><div><p class="eyebrow">Presidentes y administradores</p><h2>El portero de tu comunidad</h2><p>Prepara la reparación o renovación por viviendas y accesos. Consulta qué comparar en el presupuesto y cómo coordinar las pruebas con los vecinos.</p></div><div>'+link('/servicios/comunidades/','Ver servicio para comunidades →')+link(requestPath(place,true),'Consultar por nuestra comunidad →')+'</div></aside>';
 
 const questionsByService = {
@@ -418,7 +448,7 @@ const homeHero = `<section class="wrap home-hero" aria-labelledby="titulo-portad
     <p class="eyebrow">Comunidades de vecinos y viviendas</p>
     <h1 id="titulo-portada">Instalación y reparación de <span>porteros y videoporteros.</span></h1>
     <p class="lede">Reparamos porteros automáticos y telefonillos. Valoramos la instalación de cámara, atención desde el móvil o llaveros a partir del equipo que ya tiene tu portal.</p>
-    <p class="home-coverage"><strong>Salimos desde Bilbao.</strong> Visitas concertadas con el coste del desplazamiento acordado previamente. <a href="/zonas/#visitas-desplazamiento">Ver cobertura y condiciones →</a></p>
+    <p class="home-coverage"><strong>Salimos desde Bilbao y, en Madrid, desde San Sebastián de los Reyes.</strong> Visitas concertadas con el coste del desplazamiento acordado previamente. <a href="/zonas/#visitas-desplazamiento">Ver cobertura y condiciones →</a></p>
     ${contact()}
     <div class="home-shortcuts">
       <a class="hero-link" href="/#trabajos-destacados">Trabajos reales <span aria-hidden="true">↓</span></a>
@@ -444,7 +474,7 @@ page('/','Instalación y reparación de porteros y videoporteros','Porteros auto
  + band('Antes de cambiarlo, comprobamos si se puede reparar',illustratedText(repairQuote+'<p>Para orientar el diagnóstico, dinos si el fallo afecta a una vivienda o a todo el portal: si no llega la llamada, si se pierde el audio, si la pantalla queda sin imagen o si no abre la puerta. Son síntomas distintos y no siempre requieren cambiar el equipo completo.</p><p>'+link('/servicios/reparacion/','Consultar reparación de porteros y videoporteros →')+'</p>','cableado-de-placa'))
  + band('Renovar el portero de una comunidad',illustratedText('<p>Partimos de la instalación existente: número de viviendas, accesos al edificio, modelo de placa, terminales interiores y estado del cableado. También medimos el hueco de la placa para valorar el montaje y los remates que necesita la entrada.</p><h3>Del audio convencional a un sistema de dos hilos</h3><p>La elección depende de la compatibilidad del conjunto y de las condiciones del cable. Revisamos si se puede aprovechar la línea existente o si hay que renovarla. El presupuesto debe concretar qué equipos se sustituyen y qué elementos se conservan.</p><p>La renovación de audio en Cabezón de la Sal forma parte de nuestros trabajos fotografiados. También puedes consultar valoraciones de renovación de comunidades, identificadas como propuestas cuando todavía no corresponden a una instalación terminada.</p><p>'+link('/trabajos/#casos','Ver trabajos y valoraciones de comunidades →')+'</p>','videoportero-tegui-comunidad'))
  + band('Cámara, móvil o llavero: elegir lo que necesitas','<div class="cards job-cards"><article><h3>Ver quién llama desde casa</h3><p>Un videoportero incorpora cámara exterior y monitor interior. Antes de sustituir solo el telefonillo, comprobamos qué tecnología utiliza el edificio: un monitor nuevo tiene que ser compatible con la instalación comunitaria.</p></article><article><h3>Atender desde el móvil</h3><p>Algunos sistemas permiten recibir la llamada en una aplicación. Revisamos el equipo compatible y la conexión a Internet necesaria para esa función, además de cómo se atenderá y abrirá desde la vivienda.</p></article><article><h3>Abrir con tarjeta o llavero</h3><p>Un lector permite autorizar accesos sin utilizar la llave convencional. Conviene definir quién dará de alta los llaveros y cómo se retirará el permiso de uno perdido, además de comprobar la compatibilidad con el abrepuertas.</p></article></div><p>'+link('/servicios/','Consultar las opciones de instalación →')+'</p>')
- + band('Cómo preparar una visita y un presupuesto','<ol><li><strong>Indica el municipio y el tipo de edificio.</strong> Una vivienda individual, una comunidad y un portal con varios accesos necesitan soluciones diferentes.</li><li><strong>Envía fotografías de la placa y del terminal interior.</strong> La marca y el modelo ayudan a identificar el sistema antes del desplazamiento.</li><li><strong>Explica el fallo o la mejora que buscas.</strong> Si es una avería, indica desde cuándo ocurre y a cuántas viviendas afecta. Si es una renovación, cuántos terminales hay que sustituir.</li><li><strong>Acordamos la visita y el desplazamiento.</strong> Confirmamos la disponibilidad y el importe del desplazamiento desde Bilbao antes de concertar la cita.</li></ol><p>La valoración de la instalación permite concretar el presupuesto del trabajo, los equipos y el cableado. Para un aviso urgente, consulta la disponibilidad al indicar tu localidad.</p>')
+ + band('Cómo preparar una visita y un presupuesto','<ol><li><strong>Indica el municipio y el tipo de edificio.</strong> Una vivienda individual, una comunidad y un portal con varios accesos necesitan soluciones diferentes.</li><li><strong>Envía fotografías de la placa y del terminal interior.</strong> La marca y el modelo ayudan a identificar el sistema antes del desplazamiento.</li><li><strong>Explica el fallo o la mejora que buscas.</strong> Si es una avería, indica desde cuándo ocurre y a cuántas viviendas afecta. Si es una renovación, cuántos terminales hay que sustituir.</li><li><strong>Acordamos la visita y el desplazamiento.</strong> Confirmamos la disponibilidad y el importe del desplazamiento desde Bilbao o San Sebastián de los Reyes, según la zona, antes de concertar la cita.</li></ol><p>La valoración de la instalación permite concretar el presupuesto del trabajo, los equipos y el cableado. Para un aviso urgente, consulta la disponibilidad al indicar tu localidad.</p>')
  + band('Porteros y videoporteros por municipio',areaCards(9)+'<p>'+link('/zonas/','Buscar mi municipio →')+' · '+link('/zonas/#desplazamientos','Consultar otros destinos →')+'</p>','municipios-portada')
  + '<section class="wrap section antenna-teaser"><div><p class="eyebrow">Televisión y señal</p><h2>Servicio de antenista</h2><p>Consulta los municipios con servicio de TDT, parabólica y distribución comunitaria.</p><p>'+link('/servicios/antenas/','Ver servicio de antenista ↗')+'</p></div>'+equipmentPhoto('tdt-y-parabolicas')+'</section>'
  + callout(),{service:'Instalación y reparación de porteros automáticos y videoporteros'});
@@ -473,8 +503,8 @@ for (const [id,name,copy,detail] of servicios) {
   +'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),
   {trail:[['/servicios/','Servicios'],['',name]],service:name});
 }
-page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
- hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'. Visitas concertadas desde Bilbao con el coste del desplazamiento acordado previamente.','','una antena')
+page('/servicios/antenas/','Instalación y reparación de antenas TDT y parabólicas','Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
+ hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'. Salida desde Bilbao para el norte y desde San Sebastián de los Reyes para Madrid. Desplazamiento acordado previamente.','','una antena')
  +'<nav class="wrap coverage-nav" aria-label="Servicio de antenista">'+link('#tdt-tomas','TDT y tomas')+link('#antena-comunitaria','Comunidades')+link('#parabolicas','Parabólicas')+link(requestPath('',false,'antena'),'Preparar consulta')+'</nav>'
  +antenasServicio.map(section=>band(section.title,section.body,section.id)).join('')
  +band('Equipos de televisión que revisamos',servicePhotos(imageSets.antenas))
@@ -482,9 +512,9 @@ page('/servicios/antenas/','Antenista en '+antennaCoverage,'Instalación y repar
  +band('Municipios con servicio de antenista','<p class="readable">Consulta los municipios principales y abre el listado de localidades cercanas de tu provincia. Confirmamos el desplazamiento al pedir cita.</p>'+antennaLinks)
  +callout('','antena'),{trail:[['/servicios/','Servicios'],['','Antenista']],service:'Instalación y reparación de antenas TDT, parabólicas y distribución comunitaria',serviceArea:antennaAreas.map(area=>area.name),contactService:'una antena',image:'assets/fotos-servicio/tdt-y-parabolicas.webp'});
 page('/contacto/','Contacto y presupuesto','Consulta sobre instalación o reparación de porteros, videoporteros y antenas. Tel. '+phone+'.',
- '<section class="wrap section"><p class="eyebrow">Contacto y presupuesto</p><h1>Cuéntanos qué necesita tu instalación</h1><p class="readable">Prepara la consulta de tu vivienda o comunidad. Nos desplazamos desde Bilbao a los municipios publicados en esta web. Antes de concertar la visita, confirmamos la disponibilidad y acordamos contigo el coste del desplazamiento para tu dirección.</p>'
- +solicitudFormulario(wa('','una instalación de portero, videoportero o antena'))
- +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p>'
+ '<section class="wrap section"><p class="eyebrow">Contacto y presupuesto</p><h1>Cuéntanos qué necesita tu instalación</h1><p class="readable">Prepara la consulta de tu vivienda o comunidad. Atendemos el norte desde Bilbao y Madrid desde San Sebastián de los Reyes. Antes de concertar la visita, confirmamos la disponibilidad y acordamos contigo el coste del desplazamiento para tu dirección.</p>'
+ +solicitudFormulario(wa('','una instalación de portero, videoportero o antena'),'',madridNames,municipalityData.filter(row=>!row[0].startsWith('28')).map(row=>row[1]))
+ +'<script defer src="/assets/contacto.js"></script><p>También puedes '+link(tel,'llamar al 641 49 05 36 para el norte')+' o '+link(contacts.madrid.tel,'al 614 78 99 45 para Madrid')+'. Consulta la '+link('/privacidad/','información de privacidad')+'.</p>'
  +'</section>',
  {trail:[['','Contacto']],contactService:'una instalación de portero, videoportero o antena',styles:['/assets/solicitud.css']});
 
@@ -496,16 +526,16 @@ page('/servicios/comunidades/',comunidades.title,comunidades.description,
  +comunidades.sections.map(section=>'<section id="'+section.id+'"><h2>'+esc(section.title)+'</h2>'+section.body+(section.id==='ejemplos-comunidades' ? jobCards(communityJobs,true) : '')+'</section>').join('')
  +'<section><h2>Consulta la atención en tu municipio</h2><p>'+link('/zonas/','Buscar mi municipio')+' · '+link(requestPath('',true),'Preparar presupuesto de comunidad')+'</p>'+contact()+'</section></article>',
  {trail:[['/servicios/','Servicios'],['','Comunidades de vecinos']],service:'Reparación e instalación de porteros y videoporteros para comunidades'});
-page('/zonas/','Cobertura de videoporteros y desplazamientos desde Bilbao','Visitas concertadas desde Bilbao. Consulta municipios, kilómetros, tiempos orientativos por carretera y el coste del desplazamiento para tu dirección.',
- hero('Cobertura y visitas','Nos desplazamos desde Bilbao','Atendemos viviendas y comunidades de los municipios publicados. El desplazamiento se cobra y su coste se acuerda antes de concertar la visita.')
+page('/zonas/','Porteros y antenas: cobertura en el norte y Madrid','Visitas desde Bilbao y San Sebastián de los Reyes. Consulta municipios, kilómetros, tiempos orientativos por carretera y el coste del desplazamiento para tu dirección.',
+ hero('Cobertura y visitas','Salidas desde Bilbao y San Sebastián de los Reyes','Atendemos viviendas y comunidades de los municipios publicados. El desplazamiento se cobra y su coste se acuerda antes de concertar la visita.')
  +'<nav class="wrap coverage-nav" aria-label="Información de cobertura">'+link('#municipios','Buscar mi municipio')+link('#rutas-desde-bilbao','Kilómetros y carreteras')+link('#visitas-desplazamiento','Cómo concertar la visita')+'</nav>'
  +municipalDirectory()
- +band('Visitas concertadas desde Bilbao','<p class="readable">Damos servicio en los municipios publicados de '+esc(coverage)+', además de los otros destinos indicados al final de esta página. La atención se realiza mediante desplazamiento desde Bilbao a la instalación del cliente.</p>'
+ +band('Visitas concertadas según tu zona','<p class="readable">Damos servicio en los municipios publicados de '+esc(coverage)+', además de los otros destinos indicados al final de esta página. Salimos desde San Sebastián de los Reyes para Madrid y desde Bilbao para el resto de las zonas publicadas.</p>'
   +'<div class="coverage-steps"><article><span>01</span><h3>Ubicamos la instalación</h3><p>Indica municipio, núcleo o barrio y código postal. Si hay varias entradas, señala qué placa debemos revisar y cuántas viviendas utilizan el sistema.</p></article>'
   +'<article><span>02</span><h3>Acordamos visita y coste</h3><p>Confirmamos la disponibilidad y el importe del desplazamiento para esa dirección antes de concertar la cita. El presupuesto de reparación o instalación se concreta según el equipo y el alcance del trabajo.</p></article>'
   +'<article><span>03</span><h3>Preparamos la revisión</h3><p>Una foto de la placa, otra del terminal y la referencia visible ayudan a preparar la visita. En comunidades, conviene coordinar el acceso al portal, los registros y las viviendas necesarias.</p></article></div>'
   +'<p>'+link(requestPath(),'Consultar disponibilidad y desplazamiento →')+'</p>','visitas-desplazamiento')
- +band('Kilómetros, conducción y accesos de referencia','<p class="readable">Estos trayectos orientan sobre el viaje desde Bilbao hasta el destino indicado, en un solo sentido. La dirección exacta, el itinerario, el tráfico y las obras pueden cambiar el recorrido y la duración. La fecha y la hora de atención se confirman al concertar la visita.</p>'
+ +band('Kilómetros, conducción y accesos de referencia','<p class="readable">Estos trayectos parten de San Sebastián de los Reyes para Madrid y de Bilbao para el resto de destinos, en un solo sentido. La dirección exacta, el itinerario, el tráfico y las obras pueden cambiar el recorrido y la duración. La fecha y la hora de atención se confirman al concertar la visita.</p>'
   +'<p class="readable">El coste del desplazamiento se consulta para cada aviso. Los accesos señalados pueden ser tramos finales o alternativas; puedes abrir Google Maps para revisar el recorrido hasta tu dirección.</p>'
   +'<p class="readable"><strong>Visitas dentro de Bilbao:</strong> el recorrido urbano se concreta según el barrio y la calle de la instalación. '+link(townsByCode.get('48020').path,'Consultar atención en Bilbao')+'.</p>'
   +routeExplorer,'rutas-desde-bilbao')
@@ -522,15 +552,16 @@ const provincialGuideIds = {
  segovia: ['videoportero-sin-imagen-oscura','reparar-o-cambiar-portero'],
  cantabria: ['cambiar-telefonillo-videoportero','videoportero-dos-hilos-ip-wifi'],
  zaragoza: ['portero-no-suena-no-se-oye','reparar-o-cambiar-portero'],
+ madrid: ['cambiar-telefonillo-videoportero','videoportero-dos-hilos-ip-wifi'],
 };
 for (const area of areaList) {
  const areaUrl = '/' + area.slug + '/';
  const areaJobs = jobs.filter(job => slug(job.municipio) === area.slug
   || area.towns.some(t => slug(t.name) === slug(job.municipio)));
  const [serviceHeading, serviceText, photo] = servicioProvincial[area.slug];
- const provinceTitle = 'Instalación y reparación de porteros y videoporteros en la provincia de '+area.name;
+ const provinceTitle = 'Instalación y reparación de porteros automáticos y videoporteros en la provincia de '+area.name;
  const provinceAntennas = antennaHubs.filter(town=>town.area===area);
- page(areaUrl,provinceTitle,provinceTitle+'. Visitas desde Bilbao con desplazamiento acordado. Tel. '+phone+'.',
+ page(areaUrl,provinceTitle,provinceTitle+'. Salida desde '+originFor(area.name)+'. Tel. '+contactFor(area.name).phone+'.',
   hero('Cobertura provincial',provinceTitle,area.intro,area.name,'un portero o videoportero','hero-local')
   +'<nav class="wrap province-nav" aria-label="Servicios y municipios de '+esc(area.name)+'">'+link('#municipios','Buscar municipio')+link('#servicio-provincial','Qué revisamos')+(areaJobs.length ? link('#trabajos','Trabajos de la zona') : '')+(provinceAntennas.length ? link('#antenas','Antenas y televisión') : '')+link('/zonas/?'+new URLSearchParams({provincia:area.name})+'#rutas-desde-bilbao','Consultar kilómetros')+'</nav>'
   +municipalDirectory(area)
@@ -551,10 +582,11 @@ for (const area of areaList) {
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  const title = 'Instalación y reparación de porteros y videoporteros en '+town.name;
-  const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+phone+'.';
+  const title = 'Instalación y reparación de porteros automáticos y videoporteros en '+town.name;
+  const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+contactFor(town.name).phone+'.';
   page(town.path,title,description,
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
+   +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#preparar-visita','Porteros y videoporteros')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
@@ -567,15 +599,14 @@ for (const area of areaList) {
     +'<p>'+link(requestPath(town.name,true),'Preparar presupuesto de comunidad en '+town.name+' →')+'</p>'
     +(areaJobs.length && !localJobs.length ? '<p>'+link(areaUrl+'#trabajos','Consultar trabajos documentados en '+area.name)+'</p>' : ''))
    +(antenas[town.code] ? band('Antenista en '+town.name,
-     illustratedText('<p class="readable">'+esc(antenas[town.code])+'</p><p>Atendemos antenas TDT, parabólicas y fallos de señal en viviendas y comunidades.</p><p>'+link(requestPath(town.name,false,'antena'),'Preparar consulta de antenas en '+town.name)+' · '+link('/servicios/antenas/','Cómo revisamos la instalación')+'</p>',
-      imageSets.antenas[Number(town.code) % imageSets.antenas.length])
+     '<h3>Instalación y reparación de antenas TDT y parabólicas</h3><p class="readable">'+esc(antenas[town.code])+'</p><ul><li>Revisión de recepción y medición en los puntos afectados.</li><li>Comprobación de cable, conexiones, tomas y amplificación según la avería.</li><li>Presupuesto de reparación o instalación con los materiales y las pruebas previstas.</li></ul><p>'+link(requestPath(town.name,false,'antena'),'Preparar consulta de antenas en '+town.name)+' · '+link('/servicios/antenas/','Cómo revisamos la instalación')+'</p>'
      +'<h3>Ayuda para preparar este aviso</h3>'+guideCards(antennaGuidesAt(town.code))
      +(localAntennaNearby.length ? '<h3>Antenas en pueblos cercanos</h3>'+list(localAntennaNearby.map(place =>
        '<li id="antena-municipio-'+place.code+'"><strong>'+esc(place.name)+'</strong><br>'+
        link(wa(place.name,'una antena'),'Consultar visita de antenista')+'</li>')) : ''),'antenas') : '')
    +(antennaNearby.has(town.code) ? band('Servicio de antenista en '+town.name,
      '<p>'+link(antennaNearby.get(town.code),'Consultar cobertura de TDT y parabólicas en '+town.name)+'</p>') : '')
-   +(nearby.length ? band('También atendemos localidades cercanas','<p class="readable">Nos desplazamos desde Bilbao a estas localidades, con visita concertada y coste del desplazamiento acordado previamente.</p>'+nearbyPlaces(nearby.map(t => {
+   +(nearby.length ? band('También atendemos localidades cercanas','<p class="readable">Nos desplazamos desde '+esc(originFor(town.name))+' a estas localidades, con visita concertada y coste del desplazamiento acordado previamente.</p>'+nearbyPlaces(nearby.map(t => {
     const visit = visitasUrgentes[t.code];
     return '<li id="municipio-'+t.code+'"><strong>'+esc(t.name)+'</strong><br>'+(t.center===town
      ? link(wa(t.name),'Consultar servicio en '+t.name)
@@ -583,6 +614,7 @@ for (const area of areaList) {
      +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }),nearby.length)) : '')
+   +band('Otras fichas próximas a '+town.name,list([...area.main].filter(t=>t!==town).sort((a,b)=>distance(town,a)-distance(town,b)).slice(0,5).map(t=>'<li>'+link(t.path,'Porteros, videoporteros'+(antenas[t.code] ? ' y antenas' : '')+' en '+t.name)+'</li>')))
    +travelNotice(town.name,town.code)
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:title,image:localJobs[0]?.path});
  }

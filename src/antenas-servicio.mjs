@@ -59,7 +59,7 @@ export const antenasServicio = [
   {
     id: 'preparar-antenista',
     title: 'Qué necesitamos para organizar el desplazamiento',
-    body: `<ol class="readable"><li><strong>Municipio, barrio o núcleo y código postal.</strong> Ayudan a situar la instalación y concretar el recorrido desde Bilbao.</li><li><strong>Tipo de edificio y alcance.</strong> Una casa, una sola toma y varias escaleras requieren preparar revisiones diferentes.</li><li><strong>Canales y síntomas.</strong> Indica desde cuándo ocurre y si afecta a TDT, satélite o ambos.</li><li><strong>Acceso a la instalación.</strong> Explica quién puede facilitar la entrada a las zonas comunes o a la vivienda.</li></ol>
+    body: `<ol class="readable"><li><strong>Municipio, barrio o núcleo y código postal.</strong> Ayudan a situar la instalación y concretar el recorrido desde Bilbao o, en Madrid, desde San Sebastián de los Reyes.</li><li><strong>Tipo de edificio y alcance.</strong> Una casa, una sola toma y varias escaleras requieren preparar revisiones diferentes.</li><li><strong>Canales y síntomas.</strong> Indica desde cuándo ocurre y si afecta a TDT, satélite o ambos.</li><li><strong>Acceso a la instalación.</strong> Explica quién puede facilitar la entrada a las zonas comunes o a la vivienda.</li></ol>
       <p class="readable">Confirmamos la disponibilidad y acordamos el coste del desplazamiento antes de concertar la visita. El presupuesto de reparación o instalación se concreta con el estado del equipo, los materiales y el alcance del trabajo.</p>
       <p><a href="/contacto/?servicio=antena">Preparar la consulta de antenas →</a> · <a href="/zonas/#visitas-desplazamiento">Consultar condiciones y referencias de carretera →</a></p>`
   }

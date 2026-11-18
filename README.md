@@ -16,3 +16,14 @@ Web de reparación e instalación de porteros automáticos, videoporteros y cont
 - El generador redirige las variantes `/index.html` a sus rutas limpias. Se conservan las URLs municipales existentes.
 
 La verificación técnica no confirma la indexación en Google. Para investigar una pérdida de visibilidad hay que comparar en Search Console el estado indexado y la canónica elegida de la URL afectada con sus impresiones y consultas.
+
+
+## Ampliación País Vasco y Madrid (18-11-2026)
+
+- `src/ampliacion-local.mjs`: 22 fichas nuevas del País Vasco y registro de las 22 fichas madrileñas de `src/ampliacion-madrid.mjs`. Textos de preparación del servicio; no representan obras terminadas.
+- `src/antenas-pais-vasco.mjs`: atención de antenas en las 45 fichas vascas anteriores. Con las ampliaciones, las 67 fichas vascas y las 22 de Madrid incluyen el servicio y sus guías.
+- Madrid utiliza el 614 78 99 45 y sale desde San Sebastián de los Reyes. El norte conserva el 641 49 05 36 y la salida desde Bilbao. Se aplican a botones, WhatsApp, formulario, pie y entidades Service.
+- Se añaden al directorio los 179 municipios madrileños del [directorio oficial del IGN](https://www.ign.es/resources/ane/Informacion_Geografica_Destacada/IGN_INFOGEO_MUNICIPIOS.json), consultado el 18-11-2026. Solo las 22 fichas desarrolladas tienen URL independiente. Los restantes enlazan a cobertura cercana.
+- `data/rutas-ampliacion.json`: distancias y duraciones de conducción calculadas con el servicio Table de OSRM sobre OpenStreetMap, consulta del 18-11-2026. Cada registro conserva origen, destino, coordenadas y URL del cálculo. No son tráfico en directo. Referencias desde el núcleo municipal; la dirección final se acuerda al concertar la visita. Las páginas no solicitan rutas a terceros al cargarse.
+- [OpenStreetMap](https://www.openstreetmap.org/copyright) aporta los datos viarios; las geometrías del mapa proceden de Natural Earth (dominio público). Madrid se incorpora al mapa con un segundo punto de salida.
+- `data/enlaces-municipales-anteriores.json` conserva los destinos con fragmento de las fichas anteriores para que los enlaces existentes sigan funcionando al añadir municipios.

@@ -1,0 +1,948 @@
+[
+  {
+    "code": "20018",
+    "destination": "Azpeitia",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 72.6,
+    "sourceDrivingMinutes": 61.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.26605,
+      43.18405
+    ]
+  },
+  {
+    "code": "20059",
+    "destination": "Oñati",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 65.8,
+    "sourceDrivingMinutes": 60.7,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.41316,
+      43.0326
+    ]
+  },
+  {
+    "code": "20063",
+    "destination": "Oiartzun",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 112.6,
+    "sourceDrivingMinutes": 84.1,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -1.86029,
+      43.29917
+    ]
+  },
+  {
+    "code": "20064",
+    "destination": "Pasaia",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 111.7,
+    "sourceDrivingMinutes": 85.8,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -1.91753,
+      43.32495
+    ]
+  },
+  {
+    "code": "20076",
+    "destination": "Ordizia",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 92.2,
+    "sourceDrivingMinutes": 73.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.17924,
+      43.05369
+    ]
+  },
+  {
+    "code": "20080",
+    "destination": "Zumarraga",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 77.5,
+    "sourceDrivingMinutes": 61.9,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.31462,
+      43.09048
+    ]
+  },
+  {
+    "code": "20081",
+    "destination": "Zumaia",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 78.4,
+    "sourceDrivingMinutes": 62.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.25839,
+      43.29689
+    ]
+  },
+  {
+    "code": "20902",
+    "destination": "Lasarte-Oria",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 98.6,
+    "sourceDrivingMinutes": 73.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.02036,
+      43.26838
+    ]
+  },
+  {
+    "code": "48001",
+    "destination": "Abadiño",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 38.7,
+    "sourceDrivingMinutes": 33.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.60819,
+      43.1525
+    ]
+  },
+  {
+    "code": "48002",
+    "destination": "Abanto y Ciérvana-Abanto Zierbena",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 18.9,
+    "sourceDrivingMinutes": 21.7,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.07387,
+      43.32073
+    ]
+  },
+  {
+    "code": "48003",
+    "destination": "Amorebieta-Etxano",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 24.6,
+    "sourceDrivingMinutes": 23.9,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.73212,
+      43.2203
+    ]
+  },
+  {
+    "code": "48016",
+    "destination": "Berango",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 16.4,
+    "sourceDrivingMinutes": 20.7,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.99692,
+      43.36359
+    ]
+  },
+  {
+    "code": "48017",
+    "destination": "Bermeo",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 35.4,
+    "sourceDrivingMinutes": 37.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.72307,
+      43.42024
+    ]
+  },
+  {
+    "code": "48071",
+    "destination": "Muskiz",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 22.5,
+    "sourceDrivingMinutes": 26.8,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.12496,
+      43.32329
+    ]
+  },
+  {
+    "code": "48073",
+    "destination": "Ondarroa",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 65.3,
+    "sourceDrivingMinutes": 57.9,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.42038,
+      43.32075
+    ]
+  },
+  {
+    "code": "48083",
+    "destination": "Ortuella",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 15.4,
+    "sourceDrivingMinutes": 21.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.05772,
+      43.31053
+    ]
+  },
+  {
+    "code": "48084",
+    "destination": "Sestao",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 13.0,
+    "sourceDrivingMinutes": 18.8,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.00763,
+      43.30971
+    ]
+  },
+  {
+    "code": "48902",
+    "destination": "Erandio",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 7.6,
+    "sourceDrivingMinutes": 16.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.97546,
+      43.30289
+    ]
+  },
+  {
+    "code": "01001",
+    "destination": "Alegría-Dulantzi",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 78.2,
+    "sourceDrivingMinutes": 64.5,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.51251,
+      42.84045
+    ]
+  },
+  {
+    "code": "01010",
+    "destination": "Ayala/Aiara",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 31.9,
+    "sourceDrivingMinutes": 32.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.04268,
+      43.07792
+    ]
+  },
+  {
+    "code": "01058",
+    "destination": "Legutio",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 61.0,
+    "sourceDrivingMinutes": 55.0,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -2.64273,
+      42.97784
+    ]
+  },
+  {
+    "code": "01004",
+    "destination": "Artziniega",
+    "origin": "Bilbao",
+    "originCode": "48020",
+    "sourceRoadKm": 29.3,
+    "sourceDrivingMinutes": 33.5,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-2.92346,43.26422;-2.26605,43.18405;-2.41316,43.0326;-1.86029,43.29917;-1.91753,43.32495;-2.17924,43.05369;-2.31462,43.09048;-2.25839,43.29689;-2.02036,43.26838;-2.60819,43.1525;-3.07387,43.32073;-2.73212,43.2203;-2.99692,43.36359;-2.72307,43.42024;-3.12496,43.32329;-2.42038,43.32075;-3.05772,43.31053;-3.00763,43.30971;-2.97546,43.30289;-2.51251,42.84045;-3.04268,43.07792;-2.64273,42.97784;-3.13052,43.12179?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -2.92346,
+      43.26422
+    ],
+    "destinationCoordinates": [
+      -3.13052,
+      43.12179
+    ]
+  },
+  {
+    "code": "28079",
+    "destination": "Madrid",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 18.6,
+    "sourceDrivingMinutes": 21.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.691978,
+      40.419026
+    ]
+  },
+  {
+    "code": "28006",
+    "destination": "Alcobendas",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 1.8,
+    "sourceDrivingMinutes": 3.6,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.641871,
+      40.547459
+    ]
+  },
+  {
+    "code": "28903",
+    "destination": "Tres Cantos",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 14.5,
+    "sourceDrivingMinutes": 18.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.712207,
+      40.599068
+    ]
+  },
+  {
+    "code": "28045",
+    "destination": "Colmenar Viejo",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 24.0,
+    "sourceDrivingMinutes": 26.1,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.76615,
+      40.658808
+    ]
+  },
+  {
+    "code": "28009",
+    "destination": "Algete",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 13.9,
+    "sourceDrivingMinutes": 16.6,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.497838,
+      40.596254
+    ]
+  },
+  {
+    "code": "28104",
+    "destination": "Paracuellos de Jarama",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 17.2,
+    "sourceDrivingMinutes": 18.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.531863,
+      40.505131
+    ]
+  },
+  {
+    "code": "28129",
+    "destination": "San Agustín del Guadalix",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 21.2,
+    "sourceDrivingMinutes": 17.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.615755,
+      40.678382
+    ]
+  },
+  {
+    "code": "28148",
+    "destination": "Torrejón de Ardoz",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 25.0,
+    "sourceDrivingMinutes": 24.4,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.479824,
+      40.459174
+    ]
+  },
+  {
+    "code": "28005",
+    "destination": "Alcalá de Henares",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 30.8,
+    "sourceDrivingMinutes": 33.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.364867,
+      40.481793
+    ]
+  },
+  {
+    "code": "28049",
+    "destination": "Coslada",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 20.1,
+    "sourceDrivingMinutes": 20.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.56556,
+      40.426279
+    ]
+  },
+  {
+    "code": "28130",
+    "destination": "San Fernando de Henares",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 21.3,
+    "sourceDrivingMinutes": 22.6,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.53516,
+      40.424993
+    ]
+  },
+  {
+    "code": "28123",
+    "destination": "Rivas-Vaciamadrid",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 35.1,
+    "sourceDrivingMinutes": 31.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.516098,
+      40.328013
+    ]
+  },
+  {
+    "code": "28065",
+    "destination": "Getafe",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 35.2,
+    "sourceDrivingMinutes": 34.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.732332,
+      40.305551
+    ]
+  },
+  {
+    "code": "28074",
+    "destination": "Leganés",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 33.3,
+    "sourceDrivingMinutes": 34.8,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.758378,
+      40.327055
+    ]
+  },
+  {
+    "code": "28092",
+    "destination": "Móstoles",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 45.7,
+    "sourceDrivingMinutes": 41.9,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.865399,
+      40.322714
+    ]
+  },
+  {
+    "code": "28058",
+    "destination": "Fuenlabrada",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 38.9,
+    "sourceDrivingMinutes": 41.8,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.799803,
+      40.284031
+    ]
+  },
+  {
+    "code": "28115",
+    "destination": "Pozuelo de Alarcón",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 25.5,
+    "sourceDrivingMinutes": 25.4,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.813933,
+      40.43438
+    ]
+  },
+  {
+    "code": "28127",
+    "destination": "Las Rozas de Madrid",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 28.2,
+    "sourceDrivingMinutes": 26.1,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.874369,
+      40.493131
+    ]
+  },
+  {
+    "code": "28080",
+    "destination": "Majadahonda",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 29.5,
+    "sourceDrivingMinutes": 29.7,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.872525,
+      40.472863
+    ]
+  },
+  {
+    "code": "28007",
+    "destination": "Alcorcón",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 38.1,
+    "sourceDrivingMinutes": 34.3,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.828794,
+      40.349499
+    ]
+  },
+  {
+    "code": "28014",
+    "destination": "Arganda del Rey",
+    "origin": "San Sebastián de los Reyes",
+    "originCode": "28134",
+    "sourceRoadKm": 42.4,
+    "sourceDrivingMinutes": 38.2,
+    "sourceUrl": "https://router.project-osrm.org/table/v1/driving/-3.626397,40.547563;-3.691978,40.419026;-3.641871,40.547459;-3.712207,40.599068;-3.76615,40.658808;-3.497838,40.596254;-3.531863,40.505131;-3.615755,40.678382;-3.479824,40.459174;-3.364867,40.481793;-3.56556,40.426279;-3.53516,40.424993;-3.516098,40.328013;-3.732332,40.305551;-3.758378,40.327055;-3.865399,40.322714;-3.799803,40.284031;-3.813933,40.43438;-3.874369,40.493131;-3.872525,40.472863;-3.828794,40.349499;-3.437457,40.300794?sources=0&annotations=distance,duration",
+    "sourceProvider": "OSRM / OpenStreetMap",
+    "sourceMode": "car",
+    "accessRoads": [],
+    "accessSources": [],
+    "checkedAt": "2026-11-18",
+    "originCoordinates": [
+      -3.626397,
+      40.547563
+    ],
+    "destinationCoordinates": [
+      -3.437457,
+      40.300794
+    ]
+  }
+]

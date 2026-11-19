@@ -1,6 +1,6 @@
 export const comunidades = {
   title: 'Porteros y videoporteros para comunidades de vecinos',
-  description: 'Reparación y renovación del portero comunitario. Prepara el presupuesto por viviendas y accesos, consulta trabajos reales y coordina la revisión del portal.',
+  description: '¿Queréis cambiar el portero por un videoportero? Consultad qué incluir en el presupuesto de la comunidad y cómo se hizo el cambio en un portal de Alcalá de Henares.',
   intro: 'Ayudamos a presidentes y administradores a preparar la reparación o renovación del portero de su comunidad. Partimos del equipo existente, las viviendas afectadas y los accesos del edificio. El presupuesto se concreta después de revisar la instalación; la disponibilidad y el desplazamiento se confirman según el municipio.',
   sections: [
     {
@@ -66,9 +66,10 @@ export const comunidades = {
     },
     {
       id: 'ejemplos-comunidades',
-      title: 'Cuatro situaciones documentadas en comunidades',
+      title: 'Trabajos de instalación y reparación en comunidades',
       body: `
         <ul>
+          <li><strong>Del telefonillo al vídeo en Alcalá de Henares.</strong> Sustituimos el portero convencional de la comunidad por un Tegui Serie 8 con cámara y pulsadores iluminados. <a href="/madrid/alcala-de-henares/#trabajos">Ver la placa instalada en el portal</a>.</li>
           <li><strong>Reparación realizada en <a href="/bizkaia/barakaldo/">Barakaldo</a>:</strong> la comunidad quería mantener su portero y se reparó el grupo fónico Tegui EGF1 porque los vecinos no oían la llamada. <a href="/trabajos/#trabajos-porteros-barakaldo">Ver el trabajo</a>.</li>
           <li><strong>Intervención prevista en <a href="/bizkaia/bilbao/">Bilbao</a>:</strong> ocho viviendas de la calle Ledesma tienen prevista la reparación del Golmar Stadio y valoran pasar a videoportero. La decisión sigue abierta. <a href="/trabajos/#trabajos-porteros-bilbao">Ver la placa y la valoración</a>.</li>
           <li><strong>Ampliación realizada en <a href="/bizkaia/sondika/">Sondika</a>:</strong> se añadió un lector Fermax junto a la placa Tegui existente para abrir con llavero. <a href="/trabajos/#trabajos-porteros-sondika">Ver el trabajo</a>.</li>

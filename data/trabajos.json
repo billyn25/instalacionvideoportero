@@ -294,5 +294,14 @@
     "alt": "Interior de la placa Fermax abierta con el grupo fónico y el cableado a la vista durante la reparación en Sondika",
     "tipo": "porteros",
     "estado": "Reparación realizada"
+  },
+  {
+    "municipio": "Alcalá de Henares",
+    "titulo": "Del portero convencional al videoportero Tegui Serie 8",
+    "descripcion": "En una comunidad de Alcalá de Henares sustituimos el portero convencional por un videoportero Tegui Serie 8. La nueva placa incorpora cámara y pulsadores iluminados para llamar a cada vivienda.",
+    "foto": "alcala-tegui-serie-8.webp",
+    "alt": "Placa Tegui Serie 8 con cámara y pulsadores iluminados en el portal de Alcalá de Henares",
+    "tipo": "porteros",
+    "estado": "Instalación realizada"
   }
 ]

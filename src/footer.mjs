@@ -82,6 +82,6 @@ export function renderFooter({logo, phone, tel, areas, map, dispatch = 'Bilbao'}
         <div class="footer-antennas"><h3>También, antenas y televisión</h3><p>Servicio de antenista en País Vasco, Cantabria y Madrid, además de los municipios publicados de Navarra, Asturias y Segovia.</p>${link('/servicios/antenas/', 'Ver cobertura de antenas →')}</div>
       </div>
     </div>
-    <div class="wrap footer-bottom"><span>Videoporteros Fuentes · Norte desde Bilbao · Madrid desde San Sebastián de los Reyes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div>
+    <div class="wrap footer-bottom"><span>Videoportero Conecta · Norte desde Bilbao · Madrid desde San Sebastián de los Reyes</span><nav aria-label="Información legal">${link('/aviso-legal/','Aviso legal')}${link('/privacidad/','Privacidad')}</nav></div>
   </footer>`;
 }

@@ -115,7 +115,7 @@
       if (!form.reportValidity()) return;
 
       const lines = [
-        'Hola, quiero consultar un trabajo con Videoporteros Fuentes.',
+        'Hola, quiero consultar un trabajo con Videoportero Conecta.',
         'Municipio: ' + value('municipio'),
         'Servicio: ' + services[value('servicio')]
       ];

@@ -27,8 +27,8 @@ nav a:hover { text-decoration: underline }
 header nav { font-weight: 650 }
 header nav a[aria-current] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px }
 .brand { display: inline-flex; align-items: center; gap: .65rem; font-size: .92rem; line-height: 1.06; white-space: nowrap }
-.brand strong { display: block; font-size: 1.12rem; margin-top: .12rem }
-.brand svg { width: 40px; height: 40px; flex: none }
+.brand strong { color: #1242cf; display: block; font-size: 1.12rem; margin-top: .12rem }
+.brand img { width: 40px; height: 40px; flex: none }
 h1, h2, h3 { line-height: 1.12; letter-spacing: -.035em; overflow-wrap: anywhere; margin: .25em 0 .5em }
 h1 { font-size: clamp(2.3rem, 5.2vw, 4.45rem); max-width: 23ch }
 h2 { font-size: clamp(1.65rem, 3.5vw, 2.8rem) }
@@ -102,7 +102,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
   header .top { position: relative; min-height: 68px; align-items: center; flex-direction: row; flex-wrap: nowrap; gap: .65rem; padding-block: .65rem }
   header .brand { font-size: .8rem }
   header .brand strong { font-size: 1rem }
-  header .brand svg { width: 34px; height: 34px }
+  header .brand img { width: 34px; height: 34px }
   header .desktop-nav { display: none }
   .mobile-menu { display: block; flex: none }
   .mobile-menu summary { display: flex; align-items: center; justify-content: center; gap: .45rem; min-height: 44px; padding: .55rem .7rem; border: 1px solid #cdd5f5; border-radius: .65rem; background: var(--pale); color: var(--accent); font-weight: 750; font-size: .9rem }

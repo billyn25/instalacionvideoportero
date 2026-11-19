@@ -76,7 +76,7 @@ const site = process.env.SITE_URL || 'https://instalacionvideoportero.com';
 const preview = ['deploy-preview','branch-deploy'].includes(process.env.CONTEXT);
 const origin = site ? new URL(site).origin : '';
 if (site && !/^https?:\/\//.test(origin)) throw new Error('SITE_URL debe ser una URL HTTP o HTTPS');
-const brand = 'Videoporteros Fuentes';
+const brand = 'Videoportero Conecta';
 const owner = 'David Corregidor Gonzalo';
 const legalAddress = 'Calle La Fragua s/n, Madrid';
 const phone = '+34 641 49 05 36';
@@ -171,7 +171,7 @@ const contact = (place, service = 'un portero o videoportero') => {
  const channel = item => '<div class="contact"><a class="button" href="'+item.tel+'">Llamar al '+item.phone.replace('+34 ','')+'</a><a class="button secondary" href="'+esc(wa(item.key==='madrid' ? (place || 'Madrid') : place,service))+'">WhatsApp</a></div>';
  return place ? channel(contactFor(place)) : '<div class="contact-regions"><div><p><strong>Norte · salida desde Bilbao</strong></p>'+channel(contacts.norte)+'</div><div><p><strong>Madrid · salida desde San Sebastián de los Reyes</strong></p>'+channel(contacts.madrid)+'</div></div>';
 };
-const logo = '<a href="/" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#2738c7"/><rect x="12" y="7" width="16" height="26" rx="3" fill="none" stroke="#fff" stroke-width="1.75"/><circle cx="20" cy="14.5" r="2.75" fill="#d9e2ff"/><path d="M17 23h6m-6 4h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg><span>Videoporteros<strong>Fuentes</strong></span></a>';
+const logo = '<a href="/" class="brand"><img src="/assets/favicon.svg" alt="Placa de videoportero" aria-hidden="true" width="40" height="40"><span>Videoportero<strong>Conecta</strong></span></a>';
 const list = (items, className = 'places') => '<ul class="' + className + '">' + items.join('') + '</ul>';
 const hero = (label,title,description,place='',service='un portero o videoportero',variant='') => '<section class="hero'+(variant ? ' '+esc(variant) : '')+'"><div class="wrap hero-inner"><p class="eyebrow">'
  + esc(label) + '</p><h1>' + esc(title) + '</h1><p class="lede">' + esc(description) + '</p>' + contact(place,service) + '</div></section>';
@@ -437,7 +437,7 @@ for (const guide of guias) {
   return town ? '<li>'+link(town.path,'Servicio en '+town.name)+'</li>' : '';
  }).join('');
  page('/guias/'+guide.id+'/',guide.title,guide.description,
-  '<article class="wrap guide-article"><div class="guide-heading"><p class="eyebrow">Guía de Videoporteros Fuentes</p><h1>'+esc(guide.title)+'</h1><p class="lede">'+esc(guide.description)+'</p></div>'
+  '<article class="wrap guide-article"><div class="guide-heading"><p class="eyebrow">Guía de Videoportero Conecta</p><h1>'+esc(guide.title)+'</h1><p class="lede">'+esc(guide.description)+'</p></div>'
   +'<nav class="guide-toc" aria-label="Contenido de la guía"><h2>En esta guía</h2><ul>'+guide.sections.map(section => '<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>'
   +guide.sections.map(section => '<section id="'+section.id+'"><h2>'+esc(section.title)+'</h2>'+section.body+'</section>').join('')
   +(examples.length ? '<section><h2>Trabajos relacionados con esta guía</h2>'+jobCards(examples,true)+'<ul class="guide-local-links">'+localLinks+'</ul></section>' : '')
@@ -642,7 +642,7 @@ const documentedWork = serviceTypes.map(tipo => {
    }).join('');
    return band(heading,'<div class="job-gallery">'+groups+'</div>','trabajos-con-foto-'+tipo);
 }).join('');
-page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoporteros Fuentes.',
+page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de placas, telefonillos, monitores e instalaciones de antenas de Videoportero Conecta.',
  hero('Galería','Trabajos de porteros, videoporteros y antenas','Consulta trabajos documentados, intervenciones previstas y valoraciones de comunidades.')
  + '<nav class="wrap gallery-nav" aria-label="Secciones de la galería">'
  + link('#trabajos-con-foto-porteros','Trabajos documentados')
@@ -665,7 +665,7 @@ page('/trabajos/','Trabajos de porteros, videoporteros y antenas','Galería de p
    const heading = tipo === 'antenas' ? 'Antenas y distribución de TV' : 'Porteros y videoporteros';
    return '<div class="gallery-subsection"><h3>'+esc(heading)+'</h3>'+servicePhotos(imageSets[tipo])+'</div>';
  }).join(''),'equipos')+'</div>');
-page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoporteros Fuentes.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoporteros Fuentes.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
+page('/aviso-legal/','Aviso legal','Identificación y contacto de Videoportero Conecta.','<section class="wrap section"><h1>Aviso legal</h1><h2>Titular del sitio</h2><p>'+esc(owner)+', titular de Videoportero Conecta.</p><p>Domicilio a efectos de este aviso legal: '+esc(legalAddress)+'.</p><p>Teléfono de contacto: '+link(tel,phone)+'.</p></section>',{index:false});
 page('/privacidad/','Privacidad','Información sobre los datos de contacto.','<section class="wrap section"><h1>Privacidad</h1><p>Responsable del tratamiento: '+esc(owner)+'. Los datos que facilites por teléfono o WhatsApp se usan para responder a tu consulta y gestionar el servicio solicitado. Puedes ejercer tus derechos de protección de datos a través del '+link('/aviso-legal/','contacto del titular')+'.</p><p>El formulario de presupuesto prepara un mensaje para que puedas revisarlo y enviarlo desde WhatsApp. WhatsApp es un servicio externo y se rige por su propia política de privacidad.</p></section>',{index:false});
 const sitemap = origin && !preview ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...published].map(p=>'<url><loc>'+esc(origin+p)+'</loc></url>').join('\n')+'\n</urlset>\n' : '';
 if (sitemap) writeFileSync(file('dist/sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n'+sitemap);

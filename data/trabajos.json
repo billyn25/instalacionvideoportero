@@ -303,5 +303,14 @@
     "alt": "Placa Tegui Serie 8 con cámara y pulsadores iluminados en el portal de Alcalá de Henares",
     "tipo": "porteros",
     "estado": "Instalación realizada"
+  },
+  {
+    "municipio": "Santoña",
+    "titulo": "Instalación de antena TDT con previo de mástil en Santoña",
+    "descripcion": "En Santoña instalamos una antena de TDT sobre un tejado de teja y colocamos el previo en el propio mástil. Así la señal se amplifica junto a la antena, antes de recorrer el cable de bajada.",
+    "foto": "santona-antena-previo-mastil.webp",
+    "alt": "Antena de TDT y caja blanca del previo fijadas al mástil sobre un tejado de teja en Santoña",
+    "tipo": "antenas",
+    "estado": "Instalación realizada"
   }
 ]

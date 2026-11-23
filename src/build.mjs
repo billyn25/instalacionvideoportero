@@ -506,14 +506,20 @@ for (const [id,name,copy,detail] of servicios) {
    + band('Presupuesto de reparación o sustitución',repairQuote)
   : '';
  const advice = asesoramientoServicios[id] || [];
- const serviceJobPhotos = id === 'wifi' ? ['tafalla-fermax-duox-wifi.webp']
+ const serviceJobPhotos = id === 'instalacion' ? ['alcala-tegui-serie-8.webp','portugalete-golmar-supra-dos-accesos.webp']
+  : id === 'reparacion' ? ['barakaldo-reparacion-grupo-fonico-tegui-egf1.webp','sondika-reparacion-grupo-fonico-fermax.webp']
+  : id === 'wifi' ? ['tafalla-fermax-duox-wifi.webp']
   : id === 'llaveros' ? ['sondika-tegui-lector-fermax.webp','portugalete-golmar-supra-dos-accesos.webp'] : [];
  const serviceJobs = serviceJobPhotos.map(photo=>jobs.find(job=>job.foto===photo));
  if (serviceJobs.some(job=>!job)) throw new Error('Falta un trabajo para el servicio '+id);
  page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)
   +band('Qué revisamos antes de intervenir','<p class="readable">'+esc(detail)+'</p>'+(advice.length ? '<nav class="guide-toc" aria-label="Temas de este servicio"><ul>'+advice.map(section=>'<li>'+link('#'+section.id,section.title)+'</li>').join('')+'</ul></nav>' : ''))
   +repairDetails+advice.map(section=>band(section.title,section.body,section.id)).join('')
-  +(serviceJobs.length ? band('Trabajos relacionados con este servicio',jobCards(serviceJobs,true)) : '')
+  +(serviceJobs.length ? band('Trabajos relacionados con este servicio',jobCards(serviceJobs,true)
+    + (['instalacion','reparacion'].includes(id) ? list(serviceJobs.map(job => {
+      const town = towns.find(t => t.entry && slug(t.name) === slug(job.municipio));
+      return '<li>'+link(town.path+(id === 'instalacion' ? '#instalacion-videoportero' : '#reparacion-portero'),(id === 'instalacion' ? 'Instalación de videoporteros en ' : 'Reparación de porteros en ')+town.name)+'</li>';
+    })) : '')) : '')
   +(serviceExamples[id] ? band('Fotos de equipos e instalaciones',servicePhotos(serviceExamples[id])) : '')
   +band('Guías sobre este servicio',guideCards(guias.filter(guide => guide.service === id || guide.id === 'videoportero-dos-hilos-ip-wifi' && id === 'wifi')))
   +'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),
@@ -623,8 +629,9 @@ for (const area of areaList) {
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
    +band('Instalar un videoportero o reparar el portero en '+town.name,
-     '<div class="cards"><article><h3>Cambiar del telefonillo al vídeo</h3><p>Para valorar el cambio, envíanos una foto de la placa del portal y otra del terminal interior. Si lo pide la comunidad, indica cuántas viviendas y entradas hay que conectar.</p><p>'+link(requestPath(town.name,false,'instalacion'),'Solicitar instalación en '+town.name)+'</p></article>'
-     +'<article><h3>Reparar una avería</h3><p>¿Falla la llamada, el audio, la imagen o la apertura? Dinos si ocurre en un solo piso o si también les pasa a los vecinos al llamar desde la misma entrada.</p><p>'+link(requestPath(town.name,false,'reparacion'),'Pedir reparación en '+town.name)+'</p></article></div>'
+     '<div class="cards"><article id="instalacion-videoportero"><h3>Instalación de videoportero</h3><p>Para valorar el cambio, envíanos una foto de la placa del portal y otra del terminal interior. Si lo pide la comunidad, indica cuántas viviendas y entradas hay que conectar.</p><p>'+link(requestPath(town.name,false,'instalacion'),'Solicitar instalación en '+town.name)+'</p></article>'
+     +'<article id="reparacion-portero"><h3>Reparación de portero automático</h3><p>Si el telefonillo no suena, se oye en un solo sentido o la puerta no abre, comprueba si otro vecino tiene el mismo problema. Ese detalle ayuda a localizar la avería en la vivienda o en el equipo común.</p><p>'+link(requestPath(town.name,false,'reparacion'),'Consultar avería del portero')+'</p></article>'
+     +'<article id="reparacion-videoportero"><h3>Reparación de videoportero</h3><p>Si el monitor suena pero la pantalla queda negra, indica si sigues oyendo a la visita. En portales con dos entradas, dinos desde qué placa falla la imagen.</p><p>'+link('/guias/videoportero-sin-imagen-oscura/','Qué comprobar si falla la imagen')+' · '+link(requestPath(town.name,false,'reparacion'),'Pedir revisión del videoportero')+'</p></article></div>'
      +(localJobs.some(job => job.tipo === 'porteros') ? '<p>'+link('#trabajos','Ver trabajos de porteros en '+town.name)+'</p>'
        : referenceJob ? '<p>Ejemplo en '+esc(reference.name)+' ('+esc(area.name)+'): '+link('/trabajos/#'+jobAnchor(referenceJob),referenceJob.titulo)+'</p>' : ''),'instalacion-reparacion')
    +brandSection

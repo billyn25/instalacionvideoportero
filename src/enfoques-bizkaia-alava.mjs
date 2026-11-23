@@ -84,7 +84,7 @@ export const enfoquesBizkaiaAlava = {
     guideIds: ['reparar-o-cambiar-portero', 'portero-no-suena-no-se-oye'],
   },
   '48046': {
-    intro: 'Al estudiar una entrada exterior en Gernika-Lumo, la cámara debe permitir reconocer a quien llama desde su posición habitual. Revisamos el encuadre, la luz y el recorrido hasta la vivienda antes de escoger la placa.',
+    intro: 'Instalamos videoporteros en Gernika para viviendas y comunidades. En un portal de Gernika-Lumo estudiamos cómo pasar de un portero Fermax a una placa Tegui Sfera New con cámara. Para preparar el presupuesto, revisamos qué tramos de cable se podían aprovechar.',
     heading: 'Ver al visitante con la luz que tiene la entrada',
     paragraphs: [
       'Una foto del acceso completo ayuda a entender dónde se situará la persona y qué queda detrás de ella. Si en determinados momentos recibe luz frontal o queda a contraluz, conviene indicarlo. La ubicación de la cámara y sus posibilidades de ajuste se valoran con el modelo propuesto.',

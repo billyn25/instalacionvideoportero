@@ -598,6 +598,10 @@ for (const area of areaList) {
   const [,heading,advice,seo={}]=town.entry;
   const nearby=ordered(area.towns.filter(t=>t.center===town || previousNearby[town.code]?.includes(t.code)));
   const localJobs=jobsAt(town.name);
+  const reference = area.main
+   .filter(other => other !== town && jobsAt(other.name).some(job => job.tipo === 'porteros' && job.path))
+   .sort((a,b) => distance(town,a)-distance(town,b))[0];
+  const referenceJob = reference && jobsAt(reference.name).find(job => job.tipo === 'porteros' && job.path);
   const focus=localFocus[town.code];
   const localCases=caseReferences(town.name);
   const urgentVisit=visitasUrgentes[town.code];
@@ -607,10 +611,15 @@ for (const area of areaList) {
   const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+contactFor(town.name).phone+'.';
   page(town.path,title,description,
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
-   +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#preparar-visita','Porteros y videoporteros')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
+   +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#instalacion-reparacion','Instalación y reparación')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
+   +band('Instalar un videoportero o reparar el portero en '+town.name,
+     '<div class="cards"><article><h3>Cambiar del telefonillo al vídeo</h3><p>Para valorar el cambio, envíanos una foto de la placa del portal y otra del terminal interior. Si lo pide la comunidad, indica cuántas viviendas y entradas hay que conectar.</p><p>'+link(requestPath(town.name,false,'instalacion'),'Solicitar instalación en '+town.name)+'</p></article>'
+     +'<article><h3>Reparar una avería</h3><p>¿Falla la llamada, el audio, la imagen o la apertura? Dinos si ocurre en un solo piso o si también les pasa a los vecinos al llamar desde la misma entrada.</p><p>'+link(requestPath(town.name,false,'reparacion'),'Pedir reparación en '+town.name)+'</p></article></div>'
+     +(localJobs.some(job => job.tipo === 'porteros') ? '<p>'+link('#trabajos','Ver trabajos de porteros en '+town.name)+'</p>'
+       : referenceJob ? '<p>Ejemplo en '+esc(reference.name)+' ('+esc(area.name)+'): '+link('/trabajos/#'+jobAnchor(referenceJob),referenceJob.titulo)+'</p>' : ''),'instalacion-reparacion')
    +brandSection
    +localLocation(town)
    +relatedGuides(focus?.heading || heading,localJobs,focus?.guideIds,focus?.service)

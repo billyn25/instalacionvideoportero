@@ -608,10 +608,17 @@ for (const area of areaList) {
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
   const title = 'Instalación y reparación de porteros automáticos y videoporteros en '+town.name;
-  const description = seo.description || title+'. '+(focus?.heading || heading)+'. Tel. '+contactFor(town.name).phone+'.';
+  const route = routesByTown.get(town.code);
+  const townPhoto = localJobs.find(job => job.tipo === 'porteros' && job.path) || localJobs.find(job => job.path);
+  const visitSummary = route && !['48020','28134'].includes(town.code)
+   ? 'Visitas desde '+originFor(town.name)+' (aprox. '+approximateKm(route)+' km).'
+   : 'Visita concertada desde '+originFor(town.name)+'.';
+  const description = seo.description || 'Porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading).replace(/[.!?]$/,'')+'. '+visitSummary;
+  const nearbyPages = area.main.filter(other => other !== town)
+   .sort((a,b) => distance(town,a)-distance(town,b)).slice(0,5);
   page(town.path,title,description,
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
-   +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#instalacion-reparacion','Instalación y reparación')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
+   +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#instalacion-reparacion','Instalación y reparación')+(localJobs.length ? link('#trabajos','Trabajos en '+town.name) : '')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
@@ -645,9 +652,9 @@ for (const area of areaList) {
      +(visit ? '<p><strong>Aviso urgente atendido.</strong> '+visitDispatch(visit)+esc(visit[0])+'. '+esc(visit[1])+'</p>' : '')
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }),nearby.length)) : '')
-   +band('Otras fichas próximas a '+town.name,list([...area.main].filter(t=>t!==town).sort((a,b)=>distance(town,a)-distance(town,b)).slice(0,5).map(t=>'<li>'+link(t.path,'Porteros, videoporteros'+(antenas[t.code] ? ' y antenas' : '')+' en '+t.name)+'</li>')))
+   +(nearbyPages.length ? band('Municipios cercanos a '+town.name,list(nearbyPages.map(t=>'<li>'+link(t.path,'Porteros, videoporteros'+(antenas[t.code] ? ' y antenas' : '')+' en '+t.name)+'</li>'))) : '')
    +travelNotice(town.name,town.code)
-   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:title,image:localJobs[0]?.path});
+   +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:title,image:townPhoto?.path});
  }
 }
 const documentedWork = serviceTypes.map(tipo => {

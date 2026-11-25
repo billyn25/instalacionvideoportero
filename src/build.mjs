@@ -451,14 +451,15 @@ const blogPhoto = article => jobs.find(job => job.foto === article.photo);
 const lecturas = Object.entries(read('data/blog-lecturas.json')).flatMap(([source,items]) => items.map(item => ({...item,source})))
  .sort((a,b) => b.date.localeCompare(a.date));
 const listaLecturas = items => list(items.map(item => '<li>'+link(item.url,item.title)+' · '+esc(item.source)+' · <time datetime="'+esc(item.date)+'">'+esc(item.date.split('-').reverse().join('/'))+'</time>'+(item.note ? '<p>'+esc(item.note)+'</p>' : '')+'</li>'));
-const blogCoverage = band('Reparación de porteros por provincia',
+const blogCoverage = band('Reparación de porteros en comunidades de vecinos por provincia',
+ '<p class="readable">Si falla el telefonillo o el videoportero de vuestra comunidad, elegid el municipio del portal para consultar la visita y pedir una reparación.</p>'+
  '<nav class="cards" aria-label="Provincias y municipios atendidos">'+areaList.map(area => {
   const examples = area.main.slice(0,4);
-  return '<article><h3>'+link('/'+area.slug+'/',area.name)+'</h3>'+list(examples.map(town=>'<li>'+link(town.path,town.name)+'</li>'))+'</article>';
+  return '<article><h3>'+link('/'+area.slug+'/',area.name)+'</h3>'+list(examples.map(town=>'<li>'+link(town.path+'#instalacion-reparacion',town.name)+'</li>'))+'</article>';
  }).join('')+'</nav><p>'+link('/zonas/','Buscar otro municipio')+'</p>','provincias-blog');
 page('/blog/','Blog de videoporteros','Instalaciones comentadas, fotos de portales y lecturas sobre videoporteros para viviendas y comunidades.',
- hero('Blog','Blog de videoporteros','Instalaciones explicadas con fotos del portal y lecturas para elegir, renovar o reparar tu equipo.')
- +band('Desde el portal','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')
+ hero('Blog','Blog de videoporteros para comunidades de vecinos','¿El telefonillo no suena en varios pisos? ¿Desde la calle os oyen, pero vosotros no oís a la visita? Consulta el caso que más se parece al de vuestro portal.')
+ +band('Averías y trabajos en comunidades de vecinos','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')
  +band('Últimas publicaciones del sector',listaLecturas(lecturas.slice(0,8))
  +(lecturas.length > 8 ? '<details class="directory-group"><summary>Ver las '+(lecturas.length-8)+' publicaciones anteriores</summary>'+listaLecturas(lecturas.slice(8))+'</details>' : ''))
  +band('Guías para elegir un videoportero','<p>Si buscas equipo para una vivienda, empieza por el número de entradas y dónde quieres atender las llamadas. Para una comunidad, comprueba además cuántos terminales se van a sustituir y qué cableado se puede aprovechar.</p>'

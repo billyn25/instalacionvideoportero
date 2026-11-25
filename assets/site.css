@@ -550,3 +550,7 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .brand-logos { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(130px,100%),1fr)); gap: .75rem; list-style: none; padding: 0 }
 .brand-logos li { display: grid; place-items: center; padding: .75rem; background: white; border: 1px solid var(--line); border-radius: .75rem }
 .brand-logos img { display: block; width: 100%; max-width: 150px; height: 56px; object-fit: contain }
+
+#provincias-blog .places { display: flex; flex-wrap: wrap; align-items: flex-start }
+#provincias-blog .places li { max-width: 100%; padding: 0; overflow-wrap: normal }
+#provincias-blog .places a { display: block; padding: .57rem .65rem }

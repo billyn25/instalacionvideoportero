@@ -271,7 +271,7 @@ function page(path, title, description, body, {place='',trail=[],index=true,serv
  const pageContact=contactFor(place);
  const footerMarkup=renderFooter({logo,phone:pageContact.phone,tel:pageContact.tel,areas:areaList,map:footerMap,dispatch:pageContact.origin});
  const canonical = origin ? origin + path : '';
- const documentTitle = title.length <= 42 ? title + ' | ' + brand : title;
+ const documentTitle = title.length <= 42 && !towns.some(town => town.entry && town.path === path) ? title + ' | ' + brand : title;
  const organizationId = origin + '/#organizacion';
  const structured = [{
   '@context':'https://schema.org','@type':'Organization','@id':organizationId,
@@ -650,13 +650,13 @@ for (const area of areaList) {
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  const title = 'Instalación y reparación de porteros automáticos y videoporteros en '+town.name;
+  const title = 'Porteros automáticos y videoporteros en '+town.name;
   const route = routesByTown.get(town.code);
   const townPhoto = localJobs.find(job => job.tipo === 'porteros' && job.path) || localJobs.find(job => job.path);
   const visitSummary = route && !['48020','28134'].includes(town.code)
    ? 'Visitas desde '+originFor(town.name)+' (aprox. '+approximateKm(route)+' km).'
    : 'Visita concertada desde '+originFor(town.name)+'.';
-  const description = seo.description || 'Porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading).replace(/[.!?]$/,'')+'. '+visitSummary;
+  const description = seo.description || 'Instalación y reparación de porteros y videoporteros en '+town.name+'. '+visitSummary;
   const nearbyPages = area.main.filter(other => other !== town)
    .sort((a,b) => distance(town,a)-distance(town,b)).slice(0,5);
   const nearbyJobPlaces = ['28','48'].includes(town.code.slice(0,2))

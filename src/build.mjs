@@ -554,7 +554,7 @@ for (const [id,name,copy,detail] of servicios) {
  const serviceJobPhotos = id === 'instalacion' ? ['alcala-tegui-serie-8.webp','portugalete-golmar-supra-dos-accesos.webp']
   : id === 'reparacion' ? ['barakaldo-reparacion-grupo-fonico-tegui-egf1.webp','sondika-reparacion-grupo-fonico-fermax.webp']
   : id === 'wifi' ? ['tafalla-fermax-duox-wifi.webp']
-  : id === 'llaveros' ? ['sondika-tegui-lector-fermax.webp','portugalete-golmar-supra-dos-accesos.webp'] : [];
+  : id === 'llaveros' ? ['bilbao-tegui-acceso-comunidad.webp','sondika-tegui-lector-fermax.webp','portugalete-golmar-supra-dos-accesos.webp'] : [];
  const serviceJobs = serviceJobPhotos.map(photo=>jobs.find(job=>job.foto===photo));
  if (serviceJobs.some(job=>!job)) throw new Error('Falta un trabajo para el servicio '+id);
  page('/servicios/'+id+'/',name,copy+' Tel. '+phone+'.',hero('Servicios',name,copy)
@@ -636,6 +636,8 @@ for (const area of areaList) {
   hero('Cobertura provincial',provinceTitle,area.intro,area.name,'un portero o videoportero','hero-local')
   +'<nav class="wrap province-nav" aria-label="Servicios y municipios de '+esc(area.name)+'">'+link('#municipios','Buscar municipio')+link('#servicio-provincial','Qué revisamos')+(areaJobs.length ? link('#trabajos','Trabajos de la zona') : '')+(provinceAntennas.length ? link('#antenas','Antenas y televisión') : '')+link('/zonas/?'+new URLSearchParams({provincia:area.name})+'#rutas-desde-bilbao','Consultar kilómetros')+'</nav>'
   +municipalDirectory(area)
+  +(area.slug === 'madrid' ? band('Control de acceso para comunidades de Madrid',
+    '<p class="readable">Si vuestra finca tiene portal, garaje y zonas comunes, preparad una lista de las puertas que debe abrir cada grupo de vecinos. Podemos valorar lectores de proximidad para esos accesos y comprobar si se puede conservar el videoportero del edificio.</p><p>'+link('/guias/llaveros-portal/','Preparar la instalación de llaveros en la comunidad')+'</p>','control-de-acceso') : '')
   +(area.slug==='cantabria' ? orientacionCantabria : '')
   +band(serviceHeading,illustratedText('<p class="readable">'+esc(serviceText)+'</p>'
    +'<p class="readable">Si el equipo se puede reparar, te damos un presupuesto de reparación. Si hace falta sustituirlo, te presupuestamos la instalación y te indicamos qué piezas o cableado se pueden aprovechar.</p>'
@@ -683,6 +685,10 @@ for (const area of areaList) {
      +'<article id="reparacion-videoportero"><h3>Reparación de videoportero</h3><p>Si el monitor suena pero la pantalla queda negra, indica si sigues oyendo a la visita. En portales con dos entradas, dinos desde qué placa falla la imagen.</p><p>'+link('/guias/videoportero-sin-imagen-oscura/','Qué comprobar si falla la imagen')+' · '+link(requestPath(town.name,false,'reparacion'),'Pedir revisión del videoportero')+'</p></article></div>'
      +(localJobs.some(job => job.tipo === 'porteros') ? '<p>'+link('#trabajos','Ver trabajos de porteros en '+town.name)+'</p>'
        : referenceJob && !nearbyJobPlaces.length ? '<p>Ejemplo en '+esc(reference.name)+' ('+esc(area.name)+'): '+link('/trabajos/#'+jobAnchor(referenceJob),referenceJob.titulo)+'</p>' : ''),'instalacion-reparacion')
+   +(area.slug === 'madrid' ? band('Apertura del portal con llavero en '+town.name,
+     '<p class="readable">¿Queréis abrir el portal con una llave de proximidad y seguir atendiendo las visitas desde casa? Enviad una foto del videoportero y de la puerta. Así podemos valorar si la comunidad puede añadir un lector a la instalación actual.</p>'
+     +'<p class="readable">Para preparar el presupuesto, indicad cuántas puertas queréis controlar, quién necesita acceso a cada una y cuántos llaveros hacen falta. Conviene acordar también quién podrá dar de baja un llavero perdido.</p>'
+     +'<p>'+link('/guias/llaveros-portal/','Cómo elegir los llaveros del portal')+' · '+link(requestPath(town.name,true,'llaveros'),'Consultar por mi comunidad en '+town.name)+'</p>', 'control-de-acceso') : '')
    +brandSection
    +localLocation(town)
    +relatedGuides(focus?.heading || heading,localJobs,focus?.guideIds,focus?.service)

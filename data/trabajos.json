@@ -1,5 +1,14 @@
 [
   {
+    "municipio": "Bilbao",
+    "titulo": "Videoportero Tegui con control de acceso por llavero en una comunidad de Bilbao",
+    "descripcion": "Instalamos un videoportero Tegui en el portal de una comunidad de vecinos de Bilbao. Las visitas llaman a su vivienda desde la placa con cámara. Para entrar, los vecinos acercan su llave de proximidad al lector situado justo debajo de la placa.",
+    "foto": "bilbao-tegui-acceso-comunidad.webp",
+    "alt": "Placa comunitaria Tegui con cámara, dos columnas de pulsadores y lector de llaveros debajo, en Bilbao",
+    "tipo": "porteros",
+    "estado": "Instalación realizada"
+  },
+  {
     "municipio": "Derio",
     "titulo": "Instalación de videoportero Tegui Serie 2000 en un chalet de Derio",
     "descripcion": "En este chalet unifamiliar de Derio instalamos la placa exterior del videoportero en superficie, sobre el muro de piedra junto a la puerta de entrada. La placa Tegui Serie 2000 reúne la cámara, el altavoz y un único pulsador de llamada para la vivienda.",

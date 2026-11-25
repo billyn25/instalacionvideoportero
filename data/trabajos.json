@@ -1,5 +1,14 @@
 [
   {
+    "municipio": "Derio",
+    "titulo": "Instalación de videoportero Tegui Serie 2000 en un chalet de Derio",
+    "descripcion": "En este chalet unifamiliar de Derio instalamos la placa exterior del videoportero en superficie, sobre el muro de piedra junto a la puerta de entrada. La placa Tegui Serie 2000 reúne la cámara, el altavoz y un único pulsador de llamada para la vivienda.",
+    "foto": "derio-videoportero-tegui-serie-2000.webp",
+    "alt": "Placa de superficie Tegui Serie 2000 con cámara y pulsador junto a la puerta de un chalet en Derio",
+    "tipo": "porteros",
+    "estado": "Instalación realizada"
+  },
+  {
     "municipio": "Barakaldo",
     "titulo": "Reparación urgente de un grupo fónico Tegui EGF1 en Barakaldo",
     "descripcion": "Acudimos de urgencia a una comunidad de Barakaldo porque los vecinos no oían la llamada del portal en sus viviendas. La comunidad quería conservar el portero automático que ya tenía, así que reparamos el grupo fónico Tegui EGF1 de la placa exterior.",

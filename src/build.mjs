@@ -317,11 +317,13 @@ ${indexable && canonical ? '<link rel="canonical" href="' + esc(canonical) + '">
 <header><div class="wrap top">${logo}<nav class="desktop-nav" aria-label="Principal">${primaryLinks}</nav>
 <details class="mobile-menu" name="mobile-tools" data-mobile-panel><summary><svg viewBox="0 0 24 24" aria-hidden="true"><path class="menu-bars" d="M4 6h16M4 12h16M4 18h16"/><path class="menu-close" d="m6 6 12 12M6 18 18 6"/></svg>Menú</summary><nav aria-label="Menú principal">${primaryLinks}</nav></details></div></header>
 <main id="contenido">${crumb}${body}</main>${footerMarkup}
-<details class="mobile" name="mobile-tools" data-mobile-panel>
-<summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>Contactar<svg class="contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></summary>
-<nav aria-label="Contacto rápido"><a class="contact-call" data-zone-call href="${pageContact.tel}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2z"/></svg>${place ? 'Llamar' : 'Llamar Norte'}</a>
-<a class="contact-whatsapp" data-zone-whatsapp href="${esc(wa(place,contactService))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.5a8.5 8.5 0 1 1 16.3-4z"/><path d="M9 8c0 3.9 3.1 7 7 7l.6-1.7-2.3-1-1 1a6 6 0 0 1-2.6-2.6l1-1-1-2.3z"/></svg>${place ? 'WhatsApp' : 'WhatsApp Norte'}</a>
-${!place && path!='/contacto/' ? '<a class="contact-call" href="'+contacts.madrid.tel+'">Llamar Madrid</a><a class="contact-whatsapp" href="'+esc(wa('Madrid',contactService))+'">WhatsApp Madrid</a>' : ''}</nav></details><script defer src="/assets/mobile-menu.js"></script></body></html>`;
+<button class="sheet-trigger" type="button" aria-haspopup="dialog" aria-controls="contact-sheet">Contactar</button>
+<dialog id="contact-sheet" aria-labelledby="sheet-title"><div class="sheet-heading"><strong id="sheet-title">Contactar con el técnico</strong><form method="dialog"><button aria-label="Cerrar">×</button></form></div>
+${Object.values(contacts).map(zone => {
+ const localPlace = place && contactFor(place) === zone ? place : zone.origin;
+ return '<section class="sheet-zone"><h3>'+(zone.key === 'madrid' ? 'Madrid' : 'Zona norte y Castilla y León')+'</h3><strong>'+esc(zone.phone.replace('+34 ',''))+'</strong><div><a class="button" href="'+zone.tel+'">Llamar</a><a class="button sheet-wa" href="'+esc(wa(localPlace,contactService))+'">WhatsApp</a></div></section>';
+}).join('')}
+<p class="sheet-note"><strong>Preferimos WhatsApp.</strong> Déjanos un mensaje y nos pondremos en contacto contigo lo antes posible.</p></dialog><script defer src="/assets/mobile-menu.js"></script></body></html>`;
  if (rendered.has(path)) throw new Error('Ruta duplicada: ' + path);
  rendered.add(path);
  if (indexable) published.add(path);

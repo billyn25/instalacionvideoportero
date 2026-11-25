@@ -559,3 +559,19 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 .averia-interior { padding: 0 1rem 1rem }
 .averia-interior form { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem }
 .averia-interior select { max-width: 100%; padding: .6rem; font: inherit }
+
+.sheet-trigger { display: none }
+#contact-sheet { box-sizing: border-box; position: fixed; inset: auto 0 0; margin: 0 auto; width: 100%; max-width: 650px; max-height: 90dvh; padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom)); border: 0; border-radius: 1.2rem 1.2rem 0 0; color: var(--ink); background: white; overflow-y: auto; overscroll-behavior: contain }
+#contact-sheet::backdrop { background: rgb(12 15 25 / 68%) }
+body:has(#contact-sheet[open]) { overflow: hidden }
+.sheet-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 1.25rem }
+.sheet-heading button { border: 0; border-radius: 50%; width: 44px; height: 44px; font-size: 1.55rem; cursor: pointer }
+.sheet-zone { border-top: 1px solid var(--line); margin-top: .85rem; padding-top: .85rem }
+.sheet-zone h3 { margin: 0 0 .35rem; font-size: 1rem }
+.sheet-zone > strong { font-size: 1.2rem }
+.sheet-zone div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .6rem; margin-top: .65rem }
+.sheet-zone .sheet-wa { background: #126346; color: white }
+.sheet-note { margin: 1rem 0 0; padding: .65rem .85rem; border-left: 4px solid #187843; border-radius: .4rem; background: #e9f5ed; color: #164830 }
+@media (max-width:650px) {
+  .sheet-trigger { display: block; position: fixed; right: .8rem; bottom: calc(.8rem + env(safe-area-inset-bottom)); z-index: 4; border: 0; border-radius: 2rem; padding: .85rem 1.25rem; background: var(--accent); color: white; font: inherit; font-weight: 750; cursor: pointer }
+}

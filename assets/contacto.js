@@ -69,6 +69,12 @@
         : 'Después puedes adjuntar en WhatsApp fotos de la placa y del telefonillo o monitor. No hace falta abrir ni desmontar el equipo.';
     };
 
+    const detalle = params.get('detalle');
+    if (detalle && params.get('tipo') === 'comunidad' && params.get('servicio') === 'reparacion') {
+      const alcance = params.get('alcance');
+      if (hasOption(scopes, alcance)) field('alcance').value = alcance;
+      field('detalle').value = detalle.slice(0,1200);
+    }
     const municipio = params.get('municipio');
     if (municipio && field('municipio')) {
       field('municipio').value = municipio.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 90);

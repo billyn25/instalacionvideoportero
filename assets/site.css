@@ -554,3 +554,8 @@ footer { border-top: 1px solid var(--line); background: #eff1f8 }
 #provincias-blog .places { display: flex; flex-wrap: wrap; align-items: flex-start }
 #provincias-blog .places li { max-width: 100%; padding: 0; overflow-wrap: normal }
 #provincias-blog .places a { display: block; padding: .57rem .65rem }
+
+.averias-comunidad { display: grid; gap: .75rem; max-width: 58rem }
+.averia-interior { padding: 0 1rem 1rem }
+.averia-interior form { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem }
+.averia-interior select { max-width: 100%; padding: .6rem; font: inherit }

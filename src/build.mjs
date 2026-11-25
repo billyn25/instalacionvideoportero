@@ -1,3 +1,4 @@
+import { consultaAverias } from './averias-comunidad.mjs';
 import { articulosBlog } from './blog.mjs';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasUrgentes, visitasValoracion } from './contenido.mjs';
@@ -459,6 +460,7 @@ const blogCoverage = band('Reparación de porteros en comunidades de vecinos por
  }).join('')+'</nav><p>'+link('/zonas/','Buscar otro municipio')+'</p>','provincias-blog');
 page('/blog/','Blog de videoporteros','Instalaciones comentadas, fotos de portales y lecturas sobre videoporteros para viviendas y comunidades.',
  hero('Blog','Blog de videoporteros para comunidades de vecinos','¿El telefonillo no suena en varios pisos? ¿Desde la calle os oyen, pero vosotros no oís a la visita? Consulta el caso que más se parece al de vuestro portal.')
+ +band('¿Qué falla en el portero de vuestra comunidad?',consultaAverias(esc,link),'averias-comunidad')
  +band('Averías y trabajos en comunidades de vecinos','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')
  +band('Últimas publicaciones del sector',listaLecturas(lecturas.slice(0,8))
  +(lecturas.length > 8 ? '<details class="directory-group"><summary>Ver las '+(lecturas.length-8)+' publicaciones anteriores</summary>'+listaLecturas(lecturas.slice(8))+'</details>' : ''))

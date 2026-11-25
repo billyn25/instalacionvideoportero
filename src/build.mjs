@@ -42,7 +42,18 @@ const referenceEntries = ['bizkaia-alava', 'gipuzkoa-navarra', 'asturias-burgos-
  .flatMap(group => Object.entries(read('data/referencias-'+group+'.json')));
 const localReferences = Object.fromEntries(referenceEntries);
 if (referenceEntries.length !== Object.keys(localReferences).length) throw new Error('Hay referencias locales duplicadas');
-const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json')).concat(read('data/rutas-ampliacion.json'),read('data/rutas-cantabria.json'));
+const extendedRoutes = read('data/rutas-madrid-bizkaia.json');
+const extendedCodes = new Set(extendedRoutes.map(route => route.code));
+for (const route of extendedRoutes) {
+ const {code,destination,capital,origin} = route;
+ if (fichas[code]) throw new Error('Ficha municipal duplicada: '+code);
+ const arrival = capital && capital !== destination ? ' La ruta toma como referencia '+capital+'.' : '';
+ fichas[code] = [destination,'Instalación y reparación en '+destination,
+  'Para revisar el portero o instalar un videoportero en '+destination+', salimos desde '+origin+'.'+arrival+' Indica la dirección del portal para concretar el desplazamiento y el acceso a las viviendas.'];
+ antenas[code] = 'Atendemos avisos de antena en '+destination+'. Al pedir visita, indica si los cortes afectan al mismo canal en varias viviendas o a una sola toma, para preparar la revisión de la instalación.';
+ guiasAntenasPorMunicipio[code] = ['tdt-pixelada-pierde-canales','averia-television-comunidad'];
+}
+const travelRoutes = ['norte','otros','revision-bizkaia-alava','revision-gipuzkoa-navarra','revision-asturias-burgos-segovia','bizkaia-cantabria'].flatMap(group => read('data/rutas-bilbao-'+group+'.json')).concat(read('data/rutas-ampliacion.json'),read('data/rutas-cantabria.json'),extendedRoutes);
 const routesByTown = new Map(travelRoutes.map(route => [route.code,route]));
 if (routesByTown.size !== travelRoutes.length) throw new Error('Hay rutas de desplazamiento duplicadas');
 for (const route of travelRoutes) {
@@ -64,7 +75,7 @@ for (const [code, focus] of focusEntries) {
   throw new Error('Enfoque local incompleto o incorrecto: '+code);
  }
 }
-for (const code of Object.keys(fichas)) if (!localFocus[code]) throw new Error('Falta el enfoque local de '+code);
+for (const code of Object.keys(fichas)) if (!localFocus[code] && !extendedCodes.has(code)) throw new Error('Falta el enfoque local de '+code);
 for (const [code, reference] of referenceEntries) {
  if (!fichas[code] || !reference.heading || !reference.text || !Array.isArray(reference.zones) || !reference.streets?.length
   || !reference.postalCodes?.length || reference.postalCodes.some(value => !/^\d{5}$/.test(value))
@@ -129,6 +140,11 @@ for (const [code, ids] of Object.entries(read('data/enlaces-municipales-anterior
 for (const area of areaList) {
  area.towns = towns.filter(t => t.area === area);
  area.main = area.towns.filter(t => t.entry).sort((a,b) => b.population-a.population);
+ const oldCenters = area.main.filter(t => !extendedCodes.has(t.code));
+ for (const town of area.main.filter(t => extendedCodes.has(t.code))) {
+  const oldCenter = oldCenters.reduce((a,b) => distance(town,a) < distance(town,b) ? a : b);
+  (previousNearby[oldCenter.code] ||= []).push(town.code);
+ }
  for (const town of area.towns.filter(t => !t.entry)) {
   town.center = area.main.reduce((a,b) => distance(town,a) < distance(town,b) ? a : b);
   town.path = town.center.path + '#municipio-' + town.code;
@@ -622,6 +638,10 @@ for (const area of areaList) {
   const description = seo.description || 'Porteros y videoporteros en '+town.name+'. '+(focus?.heading || heading).replace(/[.!?]$/,'')+'. '+visitSummary;
   const nearbyPages = area.main.filter(other => other !== town)
    .sort((a,b) => distance(town,a)-distance(town,b)).slice(0,5);
+  const nearbyJobPlaces = ['28','48'].includes(town.code.slice(0,2))
+   ? area.main.filter(other => other !== town && jobsAt(other.name).length)
+     .sort((a,b) => distance(town,a)-distance(town,b)).slice(0,2)
+   : [];
   page(town.path,title,description,
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
    +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#instalacion-reparacion','Instalación y reparación')+(localJobs.length ? link('#trabajos','Trabajos en '+town.name) : '')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
@@ -633,7 +653,7 @@ for (const area of areaList) {
      +'<article id="reparacion-portero"><h3>Reparación de portero automático</h3><p>Si el telefonillo no suena, se oye en un solo sentido o la puerta no abre, comprueba si otro vecino tiene el mismo problema. Ese detalle ayuda a localizar la avería en la vivienda o en el equipo común.</p><p>'+link(requestPath(town.name,false,'reparacion'),'Consultar avería del portero')+'</p></article>'
      +'<article id="reparacion-videoportero"><h3>Reparación de videoportero</h3><p>Si el monitor suena pero la pantalla queda negra, indica si sigues oyendo a la visita. En portales con dos entradas, dinos desde qué placa falla la imagen.</p><p>'+link('/guias/videoportero-sin-imagen-oscura/','Qué comprobar si falla la imagen')+' · '+link(requestPath(town.name,false,'reparacion'),'Pedir revisión del videoportero')+'</p></article></div>'
      +(localJobs.some(job => job.tipo === 'porteros') ? '<p>'+link('#trabajos','Ver trabajos de porteros en '+town.name)+'</p>'
-       : referenceJob ? '<p>Ejemplo en '+esc(reference.name)+' ('+esc(area.name)+'): '+link('/trabajos/#'+jobAnchor(referenceJob),referenceJob.titulo)+'</p>' : ''),'instalacion-reparacion')
+       : referenceJob && !nearbyJobPlaces.length ? '<p>Ejemplo en '+esc(reference.name)+' ('+esc(area.name)+'): '+link('/trabajos/#'+jobAnchor(referenceJob),referenceJob.titulo)+'</p>' : ''),'instalacion-reparacion')
    +brandSection
    +localLocation(town)
    +relatedGuides(focus?.heading || heading,localJobs,focus?.guideIds,focus?.service)
@@ -649,7 +669,7 @@ for (const area of areaList) {
      +(localAntennaNearby.length ? '<h3>Antenas en pueblos cercanos</h3>'+list(localAntennaNearby.map(place =>
        '<li id="antena-municipio-'+place.code+'"><strong>'+esc(place.name)+'</strong><br>'+
        link(wa(place.name,'una antena'),'Consultar visita de antenista')+'</li>')) : ''),'antenas') : '')
-   +(antennaNearby.has(town.code) ? band('Servicio de antenista en '+town.name,
+   +(!antenas[town.code] && antennaNearby.has(town.code) ? band('Servicio de antenista en '+town.name,
      '<p>'+link(antennaNearby.get(town.code),'Consultar cobertura de TDT y parabólicas en '+town.name)+'</p>') : '')
    +(nearby.length ? band('También atendemos localidades cercanas','<p class="readable">Nos desplazamos desde '+esc(originFor(town.name))+' a estas localidades, con visita concertada y coste del desplazamiento acordado previamente.</p>'+nearbyPlaces(nearby.map(t => {
     const visit = visitasUrgentes[t.code];
@@ -660,6 +680,11 @@ for (const area of areaList) {
      +(jobsAt(t.name).length ? '<br>'+link('/trabajos/#'+jobAnchor(jobsAt(t.name)[0]),'Ver trabajos en '+t.name) : '')+'</li>';
    }),nearby.length)) : '')
    +(nearbyPages.length ? band('Municipios cercanos a '+town.name,list(nearbyPages.map(t=>'<li>'+link(t.path,'Porteros, videoporteros'+(antenas[t.code] ? ' y antenas' : '')+' en '+t.name)+'</li>'))) : '')
+   +(nearbyJobPlaces.length ? band('Trabajos en otros municipios de '+area.name,
+     list(nearbyJobPlaces.map(other => {
+      const job = jobsAt(other.name).find(item => item.path) || jobsAt(other.name)[0];
+      return '<li><strong>'+esc(other.name)+'</strong> · '+link('/trabajos/#'+jobAnchor(job),job.titulo)+'</li>';
+     }))) : '')
    +travelNotice(town.name,town.code)
    +callout(town.name),{place:town.name,trail:[[areaUrl,area.name],['',town.name]],service:title,image:townPhoto?.path});
  }

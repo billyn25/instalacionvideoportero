@@ -43,7 +43,8 @@ for name, feed in sources.items():
             items[url] = {'title': title, 'url': url, 'date': date.astimezone(timezone.utc).date().isoformat()}
         if items:
             archive = {row['url']: row for row in saved.get(name, [])}
-            archive.update(items)
+            for url, item in items.items():
+                archive[url] = {**archive.get(url, {}), **item}
             saved[name] = sorted(archive.values(), key=lambda row: (row['date'],row['url']), reverse=True)[:30]
             success += 1
         print(name, len(items))

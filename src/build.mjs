@@ -450,7 +450,7 @@ const blogPath = article => '/blog/'+article.slug+'/';
 const blogPhoto = article => jobs.find(job => job.foto === article.photo);
 const lecturas = Object.entries(read('data/blog-lecturas.json')).flatMap(([source,items]) => items.map(item => ({...item,source})))
  .sort((a,b) => b.date.localeCompare(a.date));
-const listaLecturas = items => list(items.map(item => '<li>'+link(item.url,item.title)+' · '+esc(item.source)+' · <time datetime="'+esc(item.date)+'">'+esc(item.date.split('-').reverse().join('/'))+'</time></li>'));
+const listaLecturas = items => list(items.map(item => '<li>'+link(item.url,item.title)+' · '+esc(item.source)+' · <time datetime="'+esc(item.date)+'">'+esc(item.date.split('-').reverse().join('/'))+'</time>'+(item.note ? '<p>'+esc(item.note)+'</p>' : '')+'</li>'));
 page('/blog/','Blog de videoporteros','Instalaciones comentadas, fotos de portales y lecturas sobre videoporteros para viviendas y comunidades.',
  hero('Blog','Blog de videoporteros','Instalaciones explicadas con fotos del portal y lecturas para elegir, renovar o reparar tu equipo.')
  +band('Desde el portal','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')

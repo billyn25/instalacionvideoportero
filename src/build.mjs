@@ -1,3 +1,4 @@
+import { articulosBlog } from './blog.mjs';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { antenas, antenasCercanos, casos, fichas, servicioProvincial, servicios, visitasUrgentes, visitasValoracion } from './contenido.mjs';
 import { guias as guiasBase } from './guias.mjs';
@@ -301,7 +302,7 @@ function page(path, title, description, body, {place='',trail=[],index=true,serv
   })),
  });
  const crumb = trail.length ? '<nav class="wrap crumb" aria-label="Ruta">' + link('/','Inicio') + trail.map(([url,label]) => ' <span aria-hidden="true">›</span> ' + (url ? link(url,label) : '<span aria-current="page">'+esc(label)+'</span>')).join('') + '</nav>' : '';
- const navItems = [['/servicios/','Servicios'],['/servicios/comunidades/','Comunidades'],['/zonas/','Zonas'],['/trabajos/','Trabajos'],['/guias/','Guías'],['/contacto/','Contacto']];
+ const navItems = [['/servicios/','Servicios'],['/servicios/comunidades/','Comunidades'],['/zonas/','Zonas'],['/trabajos/','Trabajos'],['/guias/','Guías'],['/blog/','Blog'],['/contacto/','Contacto']];
  const activeNav = path.startsWith('/servicios/comunidades/') ? '/servicios/comunidades/'
   : areaList.some(area=>path.startsWith('/'+area.slug+'/')) ? '/zonas/'
   : navItems.find(([url])=>path.startsWith(url))?.[0];
@@ -445,6 +446,23 @@ function relatedGuides(topic, localJobs = [], preferredIds = [], service = '') {
   +'<p>'+link('/guias/','Ver todas las guías →')+'</p>','guias');
 }
 
+const blogPath = article => '/blog/'+article.slug+'/';
+const blogPhoto = article => jobs.find(job => job.foto === article.photo);
+const lecturas = Object.entries(read('data/blog-lecturas.json')).flatMap(([source,items]) => items.map(item => ({...item,source})))
+ .sort((a,b) => b.date.localeCompare(a.date));
+page('/blog/','Blog de videoporteros','Instalaciones comentadas, fotos de portales y lecturas sobre videoporteros para viviendas y comunidades.',
+ hero('Blog','Blog de videoporteros','Instalaciones explicadas con fotos del portal y lecturas para elegir, renovar o reparar tu equipo.')
+ +band('Desde el portal','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')
+ +band('Lecturas de otros medios',list(lecturas.map(item=>'<li>'+link(item.url,item.title)+' · '+esc(item.source)+' · <time datetime="'+esc(item.date)+'">'+esc(item.date.split('-').reverse().join('/'))+'</time></li>'))
+ +'<p>'+link('https://www.1control.eu/blog/es/videoportero-guia-eleccion','Cómo elegir un videoportero, por 1Control')+' · '+link('https://videoporteros.info/','Guías de Videoporteros.info')+'</p>'));
+for (const article of articulosBlog) {
+ const photo = blogPhoto(article);
+ page(blogPath(article),article.title,article.description,hero('Blog de videoporteros',article.title,article.description)
+  +'<article class="wrap guide-article"><figure><img loading="lazy" style="max-width:100%;height:auto;max-height:36rem" src="/'+esc(photo.path)+'" alt="'+esc(photo.alt)+'"></figure>'
+  +article.sections.map(([heading,copy])=>'<h2>'+esc(heading)+'</h2><p>'+esc(copy)+'</p>').join('')
+  +'<p>'+link(article.town,'Ver el trabajo en '+article.place)+'</p></article>',
+  {image:photo.path,trail:[['/blog/','Blog'],['',article.title]]});
+}
 page('/guias/','Guías de porteros, videoporteros y antenas',
  'Ayuda para averías de porteros, imagen y apertura, renovación del portal y fallos de TDT, parabólica o antena comunitaria.',
  hero('Guías','Ayuda para porteros, videoporteros y televisión','Comprobaciones para vecinos y criterios para preparar la visita o comparar un presupuesto de comunidad.')

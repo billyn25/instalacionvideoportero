@@ -1,0 +1,26 @@
+name: Actualizar lecturas de videoporteros
+on:
+  schedule:
+    - cron: '37 5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: blog-videoporteros
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 scripts/blog.py
+      - run: node src/build.mjs && node scripts/check-site.mjs
+      - run: |
+          if ! git diff --quiet -- data/blog-lecturas.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/blog-lecturas.json
+            git commit -m "Actualiza las lecturas del blog"
+            git push
+          fi

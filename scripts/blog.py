@@ -42,7 +42,9 @@ for name, feed in sources.items():
                 date = parsedate_to_datetime(raw)
             items[url] = {'title': title, 'url': url, 'date': date.astimezone(timezone.utc).date().isoformat()}
         if items:
-            saved[name] = sorted(items.values(), key=lambda row: (row['date'],row['url']), reverse=True)[:3]
+            archive = {row['url']: row for row in saved.get(name, [])}
+            archive.update(items)
+            saved[name] = sorted(archive.values(), key=lambda row: (row['date'],row['url']), reverse=True)[:30]
             success += 1
         print(name, len(items))
     except Exception as error:

@@ -451,19 +451,24 @@ const blogPhoto = article => jobs.find(job => job.foto === article.photo);
 const lecturas = Object.entries(read('data/blog-lecturas.json')).flatMap(([source,items]) => items.map(item => ({...item,source})))
  .sort((a,b) => b.date.localeCompare(a.date));
 const listaLecturas = items => list(items.map(item => '<li>'+link(item.url,item.title)+' · '+esc(item.source)+' · <time datetime="'+esc(item.date)+'">'+esc(item.date.split('-').reverse().join('/'))+'</time>'+(item.note ? '<p>'+esc(item.note)+'</p>' : '')+'</li>'));
+const blogCoverage = band('Reparación de porteros por provincia',
+ '<nav class="cards" aria-label="Provincias y municipios atendidos">'+areaList.map(area => {
+  const examples = area.main.slice(0,4);
+  return '<article><h3>'+link('/'+area.slug+'/',area.name)+'</h3>'+list(examples.map(town=>'<li>'+link(town.path,town.name)+'</li>'))+'</article>';
+ }).join('')+'</nav><p>'+link('/zonas/','Buscar otro municipio')+'</p>','provincias-blog');
 page('/blog/','Blog de videoporteros','Instalaciones comentadas, fotos de portales y lecturas sobre videoporteros para viviendas y comunidades.',
  hero('Blog','Blog de videoporteros','Instalaciones explicadas con fotos del portal y lecturas para elegir, renovar o reparar tu equipo.')
  +band('Desde el portal','<div class="cards job-cards">'+articulosBlog.map(article => '<article><img class="job-img" loading="lazy" src="/'+esc(blogPhoto(article).path)+'" alt="'+esc(blogPhoto(article).alt)+'"><h3>'+link(blogPath(article),article.title)+'</h3><p>'+esc(article.description)+'</p></article>').join('')+'</div>')
  +band('Últimas publicaciones del sector',listaLecturas(lecturas.slice(0,8))
  +(lecturas.length > 8 ? '<details class="directory-group"><summary>Ver las '+(lecturas.length-8)+' publicaciones anteriores</summary>'+listaLecturas(lecturas.slice(8))+'</details>' : ''))
  +band('Guías para elegir un videoportero','<p>Si buscas equipo para una vivienda, empieza por el número de entradas y dónde quieres atender las llamadas. Para una comunidad, comprueba además cuántos terminales se van a sustituir y qué cableado se puede aprovechar.</p>'
- +'<p>'+link('https://www.1control.eu/blog/es/videoportero-guia-eleccion','Cómo elegir un videoportero, por 1Control')+' · '+link('https://videoporteros.info/','Guías de Videoporteros.info')+'</p>'));
+ +'<p>'+link('https://www.1control.eu/blog/es/videoportero-guia-eleccion','Cómo elegir un videoportero, por 1Control')+' · '+link('https://videoporteros.info/','Guías de Videoporteros.info')+'</p>')+blogCoverage);
 for (const article of articulosBlog) {
  const photo = blogPhoto(article);
  page(blogPath(article),article.title,article.description,hero('Blog de videoporteros',article.title,article.description)
   +'<article class="wrap guide-article"><figure><img loading="lazy" style="max-width:100%;height:auto;max-height:36rem" src="/'+esc(photo.path)+'" alt="'+esc(photo.alt)+'"></figure>'
   +article.sections.map(([heading,copy])=>'<h2>'+esc(heading)+'</h2><p>'+esc(copy)+'</p>').join('')
-  +'<p>'+link(article.town,'Ver el trabajo en '+article.place)+'</p></article>',
+  +'<p>'+link(article.town,'Ver el trabajo en '+article.place)+' · '+link('/blog/#provincias-blog','Consultar el servicio en mi municipio')+'</p></article>',
   {image:photo.path,trail:[['/blog/','Blog'],['',article.title]]});
 }
 page('/guias/','Guías de porteros, videoporteros y antenas',

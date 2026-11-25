@@ -1,5 +1,35 @@
 export const articulosBlog = [
  {
+  slug:'no-se-oye-portero-comunidad', title:'No se oye el portero de la comunidad: ¿desde qué lado falla?',
+  description:'El telefonillo suena, pero la visita y el vecino no consiguen hablar. Cómo describir el fallo y qué se reparó en una placa Golmar de Donostia.',
+  photo:'donostia-navarra-20-golmar-nexa.webp',town:'/gipuzkoa/donostia-san-sebastian/#trabajos',place:'Donostia',
+  sections:[
+   ['«Yo oigo a la visita, pero ella no me oye»','Para el administrador, este aviso es mucho más preciso que «no hay audio». Una persona se queda en el portal y otra contesta como de costumbre. Que cada una diga quién oye a quién. Si el sonido llega muy bajo o se corta después de unos segundos, anotadlo también.'],
+   ['Una prueba que varios vecinos pueden comparar','Repetid la conversación desde la misma placa llamando a otra vivienda. Si en un piso se conversa bien y en otro solo en un sentido, indicad los dos resultados. Si ambos fallan igual, el técnico tendrá un motivo para revisar los elementos que comparten. Ninguna de esas pruebas, por sí sola, identifica la pieza averiada.'],
+   ['Qué hicimos en Navarra 20, Donostia','En ese portal reparamos el grupo fónico de una placa Golmar Nexa. Es el módulo exterior que interviene en la conversación entre la calle y las viviendas. Para pedir una revisión parecida, sirve una foto frontal de la placa acompañada de una frase concreta: «Desde el portal oímos a los pisos, pero en dos viviendas no oyen a la visita».'],
+  ],
+ },
+ {
+  slug:'telefonillo-no-suena-comunidad',title:'El telefonillo no suena en varios pisos de la comunidad',
+  description:'Qué anotar cuando llaman desde la calle y los vecinos no oyen el timbre. El caso de una comunidad de Barakaldo que quería conservar su portero Tegui.',
+  photo:'barakaldo-reparacion-grupo-fonico-tegui-egf1.webp',town:'/bizkaia/barakaldo/#trabajos',place:'Barakaldo',
+  sections:[
+   ['¿Falta la llamada o falla la conversación?','Si el vecino necesita que le avisen por móvil para acercarse al telefonillo, el dato importante es que no ha oído el timbre. Si lo ha oído y el silencio empieza al descolgar, explicadlo así. En un aviso de comunidad, las dos situaciones se suelen resumir como «no se oye» y requieren comprobaciones distintas.'],
+   ['Cómo recoger el aviso sin probar todos los pisos','Empezad por dos viviendas, con una persona en la entrada que pulse cada botón por separado. Comprobad si suena en el piso correcto. Si hay otra entrada, repetid desde allí. Anotad el portal, los pisos probados y la hora, sobre todo si el fallo aparece solo algunas veces.'],
+   ['Por qué en Barakaldo se reparó la placa existente','Los vecinos no oían la llamada y la comunidad quería mantener su instalación. Acudimos de urgencia y reparamos el grupo fónico Tegui EGF1. Si vuestro edificio tiene el mismo síntoma, indicad también si preferís conservar el equipo: así se puede valorar la reparación tras identificar el modelo y localizar el fallo.'],
+  ],
+ },
+ {
+  slug:'falla-videoportero-comunidad-pantalla-negra',title:'Falla el videoportero de la comunidad: llama, pero la pantalla queda negra',
+  description:'Qué puede comprobar una comunidad cuando llega la llamada y se oye la calle, pero desaparece la imagen del portal.',
+  photo:'valle-de-mena-fermax-alimentador.webp',town:'/burgos/valle-de-mena/#trabajos',place:'Valle de Mena',
+  sections:[
+   ['Primero, comparad la misma entrada','Si el edificio tiene placa en la calle y en un segundo portal, averiguad desde cuál llega la llamada sin imagen. Pedid a otro vecino que conteste desde su monitor mientras la visita sigue en la misma entrada. Si hay imagen desde una placa y desde la otra no, ese detalle merece figurar en el aviso.'],
+   ['Pantalla apagada, imagen oscura o fallo solo en el móvil','Una pantalla que se ilumina pero muestra una escena oscura da una pista diferente de otra que permanece apagada. Anotad si ocurre de día y de noche y si se oye a la persona que llama. Cuando el monitor de casa muestra bien la imagen y solo falla la aplicación, indicadlo antes de pedir que revisen la cámara comunitaria.'],
+   ['Qué información enviar al técnico','Un aviso útil sería: «Desde la entrada principal suena y se oye, pero dos monitores quedan negros. Desde el segundo portal ambos muestran imagen». Añadid una foto de la placa y del frontal del monitor. La fotografía de este artículo pertenece a una reparación Fermax en Valle de Mena y muestra el alimentador 4825; para averiguar por qué falta imagen en otro edificio hay que comprobar su propia instalación.'],
+  ],
+ },
+ {
   slug:'del-telefonillo-al-video-en-alcala', title:'Del telefonillo al vídeo en una comunidad de Alcalá de Henares',
   description:'Qué cambia en el portal al sustituir un portero convencional por un Tegui Serie 8 con cámara.',
   photo:'alcala-tegui-serie-8.webp', town:'/madrid/alcala-de-henares/#trabajos', place:'Alcalá de Henares',

@@ -572,9 +572,14 @@ for (const [id,name,copy,detail] of servicios) {
   +'<section class="wrap">'+communityLink('')+'</section>'+band('Dónde damos servicio',areaCards())+callout(),
   {trail:[['/servicios/','Servicios'],['',name]],service:name});
 }
+const artziniega = townsByCode.get('01004');
+const antennaNeighbours = towns.filter(t => t.entry && t !== artziniega && distance(artziniega,t) <= (15/111)**2)
+ .sort((a,b) => distance(artziniega,a)-distance(artziniega,b));
 page('/servicios/antenas/','Instalación y reparación de antenas TDT y parabólicas','Instalación y reparación de antenas TDT y parabólicas en '+antennaCoverage+'. Tel. '+phone+'.',
  hero('Televisión y señal','Antenista para TDT y parabólicas','Atendemos instalaciones y averías de televisión en viviendas y comunidades de '+antennaCoverage+'. Salida desde Bilbao para el norte y desde San Sebastián de los Reyes para Madrid. Desplazamiento acordado previamente.','','una antena')
  +'<nav class="wrap coverage-nav" aria-label="Servicio de antenista">'+link('#tdt-tomas','TDT y tomas')+link('#antena-comunitaria','Comunidades')+link('#parabolicas','Parabólicas')+link(requestPath('',false,'antena'),'Preparar consulta')+'</nav>'
+ +band('Cambio de torreta y antenas después de un temporal',
+   '<p>Si la imagen se corta al soplar el viento, indica si falla una sola toma o toda la vivienda. Si desde la calle se aprecia que el mástil está inclinado, menciona también ese detalle al pedir la visita.</p><p>'+link(artziniega.path+'#trabajos','Ver el cambio de torreta y antenas en Artziniega')+'</p>')
  +antenasServicio.map(section=>band(section.title,section.body,section.id)).join('')
  +band('Equipos de televisión que revisamos',servicePhotos(imageSets.antenas))
  +band('Guías para explicar la avería',guideCards(guiasAntenas))
@@ -662,13 +667,14 @@ for (const area of areaList) {
   const urgentVisit=visitasUrgentes[town.code];
   const localVisit=urgentVisit || visitasValoracion[town.code];
   const localAntennaNearby = ordered((antenasCercanos[town.code] || []).map(code => townsByCode.get(code)));
-  const title = 'Porteros automáticos y videoporteros en '+town.name;
+  const antennaArea = town === artziniega || antennaNeighbours.includes(town);
+  const title = (antennaArea ? 'Videoporteros, porteros automáticos y antenista en ' : 'Porteros automáticos y videoporteros en ')+town.name;
   const route = routesByTown.get(town.code);
   const townPhoto = localJobs.find(job => job.tipo === 'porteros' && job.path) || localJobs.find(job => job.path);
   const visitSummary = route && !['48020','28134'].includes(town.code)
    ? 'Visitas desde '+originFor(town.name)+' (aprox. '+approximateKm(route)+' km).'
    : 'Visita concertada desde '+originFor(town.name)+'.';
-  const description = seo.description || 'Instalación y reparación de porteros y videoporteros en '+town.name+'. '+visitSummary;
+  const description = town === artziniega ? 'Antenista en Artziniega. Cambio de torreta y antenas tras el viento, reparación de TDT e instalación de porteros y videoporteros. Consulta el trabajo realizado.' : seo.description || 'Instalación y reparación de porteros y videoporteros en '+town.name+'. '+visitSummary;
   const nearbyPages = area.main.filter(other => other !== town)
    .sort((a,b) => distance(town,a)-distance(town,b)).slice(0,5);
   const nearbyJobPlaces = ['28','48'].includes(town.code.slice(0,2))
@@ -679,6 +685,10 @@ for (const area of areaList) {
    hero(area.name,title,focus?.intro || advice,town.name,'un portero o videoportero','hero-local')
    +'<nav class="wrap province-nav" aria-label="Servicios en '+esc(town.name)+'">'+link('#instalacion-reparacion','Instalación y reparación')+(localJobs.length ? link('#trabajos','Trabajos en '+town.name) : '')+(antenas[town.code] ? link('#antenas','Antenista en '+town.name) : '')+link(requestPath(town.name),'Pedir presupuesto')+'</nav>'
    +(localJobs.length ? band('Trabajos documentados en '+town.name,jobCards(localJobs.filter(j=>j.tipo==='porteros'))+jobCards(localJobs.filter(j=>j.tipo==='antenas')),'trabajos') : '')
+   +(town === artziniega ? band('Servicio de antenista cerca de Artziniega',
+     '<p>Si buscas un antenista en los alrededores, selecciona tu municipio para consultar el desplazamiento y pedir una revisión.</p>'+list(antennaNeighbours.map(t => '<li>'+link(t.path+'#antena-cercana',t.name)+'</li>')))
+     : antennaArea ? band('¿Ha dejado de verse la TDT después del viento en '+town.name+'?',
+       '<p>Indica si han desaparecido todos los canales o solo algunos. En una comunidad, pregunta si les ocurre a otros vecinos. Con esos datos podemos preparar la revisión de la antena, el soporte y la distribución de señal.</p><p>'+link(artziniega.path+'#trabajos','Trabajo cercano: cambio de torreta y antenas en Artziniega')+' · '+link(requestPath(town.name,false,'antena'),'Pedir antenista en '+town.name)+'</p>','antena-cercana') : '')
    +(localCases ? band('Casos de comunidades en '+town.name,localCases) : '')
    +localPreparation(town,focus,heading)
    +band('Instalar un videoportero o reparar el portero en '+town.name,

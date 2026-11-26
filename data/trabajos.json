@@ -1,5 +1,12 @@
 [
   {
+    "municipio": "Artziniega",
+    "tipo": "antenas",
+    "estado": "Sustitución realizada",
+    "titulo": "Cambio de torreta y antenas en Artziniega",
+    "descripcion": "En Artziniega sustituimos la torreta y las antenas tras un episodio de viento. El trabajo incluyó tanto la estructura que sostiene las antenas como las propias antenas."
+  },
+  {
     "municipio": "Bilbao",
     "titulo": "Videoportero Tegui con control de acceso por llavero en una comunidad de Bilbao",
     "descripcion": "Instalamos un videoportero Tegui en el portal de una comunidad de vecinos de Bilbao. Las visitas llaman a su vivienda desde la placa con cámara. Para entrar, los vecinos acercan su llave de proximidad al lector situado justo debajo de la placa.",

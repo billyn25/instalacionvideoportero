@@ -173,7 +173,10 @@ for (const tipo of serviceTypes) {
  const selection = jobs.filter(job => job.tipo === tipo && job.path);
  if (!selection.length) continue;
  mkdirSync(file('dist/fotos-trabajos/' + tipo + '/'),{recursive:true});
- for (const {path} of selection) cpSync(file(path),file('dist/' + path));
+ for (const job of selection) {
+  const paths = new Set([job.path, ...(job.galeria || []).map(({foto}) => 'fotos-trabajos/'+tipo+'/'+foto)]);
+  for (const path of paths) cpSync(file(path),file('dist/' + path));
+ }
 }
 
 const link = (url,label) => '<a href="' + esc(url) + '">' + esc(label) + '</a>';
@@ -344,7 +347,11 @@ const areaCards = (limit = 3, includeAll = false) => '<div class="cards areas">'
   +townLinks(area.main.slice(0,limit))+more
   +(remaining.length ? '<p>'+link('/'+area.slug+'/#municipios','Ver todos los municipios de '+area.name+' →')+'</p>' : '')+'</article>';
 }).join('') + '</div>';
-const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article>' + (j.path ? '<img class="job-img" loading="lazy" decoding="async" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '">' : '') + '<p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p>' + (j.estado ? '<p class="work-state">'+esc(j.estado)+'</p>' : '') + '<h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
+const jobCards = (cards, showCaseLink = false) => cards.length ? '<div class="cards job-cards">' + cards.map(j => '<article>' + ((showCaseLink || !j.galeria) && j.path ? '<img class="job-img" loading="lazy" decoding="async" src="/' + esc(j.path) + '" alt="' + esc(j.alt) + '">' : '') + '<p class="eyebrow">' + esc(j.municipio) + ' · ' + (j.tipo === 'antenas' ? 'Antenas' : 'Porteros y videoporteros') + '</p>' + (j.estado ? '<p class="work-state">'+esc(j.estado)+'</p>' : '') + '<h3>' + esc(j.titulo) + '</h3><p>' + esc(j.descripcion) + '</p>'
+ + (!showCaseLink && j.galeria ? j.galeria.map(({foto,alt}) => {
+   const url = '/fotos-trabajos/'+j.tipo+'/'+esc(foto);
+   return '<figure><a href="'+url+'"><img class="job-img" loading="lazy" decoding="async" src="'+url+'" alt="'+esc(alt)+'"></a><figcaption>'+esc(alt)+'</figcaption></figure>';
+ }).join('') : '')
  + (showCaseLink ? '<p>'+link('/trabajos/#'+jobAnchor(j),'Ver trabajo en '+j.municipio+' →')+'</p>' : '')
  + '</article>').join('') + '</div>' : '';
 const featuredPlaces = [...new Set(jobs.map(job => job.municipio))].slice(0,8);

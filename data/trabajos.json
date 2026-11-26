@@ -4,7 +4,23 @@
     "tipo": "antenas",
     "estado": "Sustitución realizada",
     "titulo": "Cambio de torreta y antenas en Artziniega",
-    "descripcion": "En Artziniega sustituimos la torreta y las antenas tras un episodio de viento. El trabajo incluyó tanto la estructura que sostiene las antenas como las propias antenas."
+    "descripcion": "En Artziniega desmontamos la torreta y las antenas tras un episodio de viento. Instalamos dos antenas sobre un mástil fijado al lateral de la chimenea.",
+    "foto": "artziniega-antenas-resultado.webp",
+    "alt": "Dos antenas nuevas sobre un mástil sujeto a la chimenea.",
+    "galeria": [
+      {
+        "foto": "artziniega-antenas-antes.webp",
+        "alt": "Torreta y antenas antes de la sustitución."
+      },
+      {
+        "foto": "artziniega-antenas-desmontaje.webp",
+        "alt": "Tramos de torreta, tubos y antenas retirados."
+      },
+      {
+        "foto": "artziniega-antenas-resultado.webp",
+        "alt": "Dos antenas nuevas sobre un mástil sujeto a la chimenea."
+      }
+    ]
   },
   {
     "municipio": "Bilbao",
